@@ -2,23 +2,22 @@ import useGeoPosition from "../lib/useGeoPosition";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../lib/api";
 
-const Conditions = ({ conditions }) => {
-  if (!conditions) {
+const Conditions = ({ currentWeatherData }) => {
+  if (!currentWeatherData) {
     return null;
   }
-  const { Temperature, WeatherText } = conditions;
+  const { main, weather } = currentWeatherData;
 
   return (
-    <div>
-      It is currently {WeatherText} and {Temperature.Imperial.Value} degrees{" "}
-      {Temperature.Imperial.Unit}.
-    </div>
+    <h2 className="subtitle">
+      It is currently {weather.main} and {main.temp} degrees Fahrenheit.
+    </h2>
   );
 };
 
 const Home = () => {
   const state = useGeoPosition();
-  const [conditions, setConditions] = useState();
+  const [currentWeatherData, setCurrentWeatherData] = useState();
 
   const { error, latitude, longitude } = state;
 
@@ -31,8 +30,9 @@ const Home = () => {
       const res = await fetch(
         `${BASE_URL}/api/weather?latitude=${latitude}&longitude=${longitude}`
       );
-      const { conditions } = await res.json();
-      setConditions(conditions[0]);
+      const json = await res.json();
+
+      setCurrentWeatherData(json);
     };
 
     if (latitude && longitude) {
@@ -41,12 +41,17 @@ const Home = () => {
   }, [latitude, longitude]);
 
   return (
-    <>
-      <div>
-        Hello! You are located at {latitude}, {longitude}.
+    <section className="hero is-link is-fullheight">
+      <div className="hero-body has-text-centered">
+        <div className="container">
+          <h1 className="title">
+            Hello! You are located at {latitude}, {longitude}.
+          </h1>
+
+          <Conditions currentWeatherData={currentWeatherData} />
+        </div>
       </div>
-      <Conditions conditions={conditions} />
-    </>
+    </section>
   );
 };
 

@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+// Disable the widescreen breakpoint
+$widescreen-enabled: false;
+
+// Disable the fullhd breakpoint
+$fullhd-enabled: false;
+
+$body-font-size: 1.25em;
+
+@import "../node_modules/bulma/bulma.sass";

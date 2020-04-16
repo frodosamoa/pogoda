@@ -18,27 +18,20 @@ function runMiddleware(req, res, fn) {
   });
 }
 
-const LOCATION_KEY_BASE_URL =
-  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search.json";
+const CURRENT_WEATHER_DATA_URL =
+  "https://api.openweathermap.org/data/2.5/weather";
 
-const CONDITIONS_BASE_URL =
-  "http://dataservice.accuweather.com/currentconditions/v1";
+const getCurrentWeatherData = async (latitude, longitude) => {
+  const params = queryString.stringify({
+    lat: latitude,
+    lon: longitude,
+    appid: process.env.OPENWEATHER_API_KEY,
+  });
 
-const API_KEY = `&apikey=${process.env.ACCU_WEATHER_API_KEY}`;
+  const currentWeatherDataURL = `${CURRENT_WEATHER_DATA_URL}?${params}`;
+  const currentWeatherData = await fetch(currentWeatherDataURL);
 
-const getLocationKey = async (latitude, longitude) => {
-  const locationKeyURL = `${LOCATION_KEY_BASE_URL}?q=${latitude},${longitude}${API_KEY}`;
-  const locationKeyRes = await fetch(locationKeyURL);
-  return await locationKeyRes.json();
-};
-
-const getCurrentConditions = async (locationKey) => {
-  const currentConditionURL = new URL(
-    `${CONDITIONS_BASE_URL}/${locationKey}?${API_KEY}`
-  );
-
-  const currentConditionRes = await fetch(String(currentConditionURL.href));
-  return await currentConditionRes.json();
+  return await currentWeatherData.json();
 };
 
 module.exports = async (req, res) => {
@@ -51,11 +44,9 @@ module.exports = async (req, res) => {
       url.slice(url.indexOf("?"))
     );
 
-    const { Key: locationKey = "" } = await getLocationKey(latitude, longitude);
+    const response = await getCurrentWeatherData(latitude, longitude);
 
-    const currentConditions = await getCurrentConditions(locationKey);
-
-    res.status(200).json({ conditions: currentConditions });
+    res.status(200).json(response);
   } else {
     res.setHeader("Allow", ["GET"]);
     res.status(405).end(`Method ${method} Not Allowed`);

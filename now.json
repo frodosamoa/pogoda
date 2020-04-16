@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "ACCU_WEATHER_API_KEY": "@accu-weather-api-key"
+      "OPENWEATHER_API_KEY": "@openweather-api-key"
     }
   }
 }
