@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { cors, runMiddleware } from "../../lib/api";
 
 const CURRENT_WEATHER_DATA_URL =
-  "https://api.openweathermap.org/data/2.5/weather";
+  "https://api.openweathermap.org/data/2.5/onecall";
 
 const getCurrentWeatherData = async (latitude, longitude) => {
   const params = queryString.stringify({
