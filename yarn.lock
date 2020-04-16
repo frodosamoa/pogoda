@@ -5192,6 +5192,11 @@ watchpack@^1.6.0:
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
 
+weathericons@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/weathericons/-/weathericons-2.1.0.tgz#7453a1a35e200245e389fb5077d527eff30b73b4"
+  integrity sha1-dFOho14gAkXjiftQd9Un7/MLc7Q=
+
 webpack-sources@1.4.3, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"

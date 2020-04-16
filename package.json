@@ -16,6 +16,7 @@
     "query-string": "^6.12.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "sass": "^1.26.3"
+    "sass": "^1.26.3",
+    "weathericons": "^2.1.0"
   }
 }
