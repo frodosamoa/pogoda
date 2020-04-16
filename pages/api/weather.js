@@ -1,22 +1,6 @@
-import Cors from "cors";
 import queryString from "query-string";
 import fetch from "node-fetch";
-
-const cors = Cors({
-  methods: ["GET"],
-});
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-
-      return resolve(result);
-    });
-  });
-}
+import { cors, runMiddleware } from "../../lib/api";
 
 const CURRENT_WEATHER_DATA_URL =
   "https://api.openweathermap.org/data/2.5/weather";
