@@ -44,37 +44,45 @@ const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
   );
 };
 
-const DayWeather = ({
-  weather,
-  temp,
-  windSpeed,
-  windDegree,
-  humidity,
-  rain,
-}) => (
-  <div className="section">
-    <div className="columns is-centered is-v-centered">
-      <div className="column">
-        <LargeDailySummary weather={weather} temp={temp} />
-      </div>
-      <div
-        className="column"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <AdditionalDailyInfo
-          windSpeed={windSpeed}
-          windDegree={windDegree}
-          humidity={humidity}
-          rain={rain}
-        />
+const DayWeather = ({ current }) => {
+  const {
+    weather,
+    temp,
+    wind_speed: windSpeed,
+    wind_deg: windDegree,
+    humidity,
+    rain = 0,
+  } = current;
+
+  if (!weather) {
+    return null;
+  }
+
+  return (
+    <div className="section">
+      <div className="columns is-centered is-v-centered">
+        <div className="column">
+          <LargeDailySummary weather={weather && weather[0]} temp={temp} />
+        </div>
+        <div
+          className="column"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <AdditionalDailyInfo
+            windSpeed={windSpeed}
+            windDegree={windDegree}
+            humidity={humidity}
+            rain={rain}
+          />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default DayWeather;
