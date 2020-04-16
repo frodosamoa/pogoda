@@ -38,7 +38,7 @@ const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
       <p className="is-size-4">Precipitation: {rainStr}mm</p>
       <p className="is-size-4">Humidity: {humidity}%</p>
       <p className="is-size-4">
-        Wind: {windSpeed} mph {degreeToCompass(windDegree)}
+        Wind: {degreeToCompass(windDegree)} {windSpeed} mph
       </p>
     </div>
   );

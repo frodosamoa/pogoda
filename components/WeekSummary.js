@@ -8,18 +8,37 @@ import { format, addDays } from "date-fns";
 import styled from "styled-components";
 
 const DaySummaryContainer = styled.div`
-  // background-color: hsl(0, 0%, 29%);
-  // border-radius: 0.75rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+
+  ${({ isActive }) =>
+    isActive &&
+    `
+      background-color: hsl(0, 0%, 29%);
+      border-radius: 0.75rem;
+    `}
 `;
 
-const DaySummary = ({ index, weather, temp }) => {
+const DaySummary = ({
+  index,
+  weather,
+  temp,
+  setSelectedDayIndex,
+  selectedDayIndex,
+}) => {
   const iconClassName = classnames(weatherToIcon(weather.id), {
     "is-size-2": true,
   });
 
   return (
-    <div className={"column"}>
-      <DaySummaryContainer>
+    <div className={"column"} onClick={() => setSelectedDayIndex(index)}>
+      <DaySummaryContainer
+        isActive={
+          index === selectedDayIndex ||
+          (selectedDayIndex === null && index === 0)
+        }
+      >
         <p
           title={format(addDays(new Date(), index), "PP")}
           className="is-size-4"
@@ -41,7 +60,7 @@ const DaySummary = ({ index, weather, temp }) => {
   );
 };
 
-const WeekSummary = ({ daily }) => (
+const WeekSummary = ({ daily, setSelectedDayIndex, selectedDayIndex }) => (
   <div className="section">
     <div className="columns is-centered is-2 is-variable">
       {daily.map((d, index) => (
@@ -50,6 +69,8 @@ const WeekSummary = ({ daily }) => (
           index={index}
           weather={d.weather[0]}
           temp={d.temp}
+          setSelectedDayIndex={setSelectedDayIndex}
+          selectedDayIndex={selectedDayIndex}
         />
       ))}
     </div>

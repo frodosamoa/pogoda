@@ -6,17 +6,46 @@ import DayWeather from "../components/DayWeather";
 import Footer from "../components/Footer";
 
 import { BASE_URL } from "../lib/api";
+import { useSelectors, useActions } from "../lib/hooks";
 import useGeoPosition from "../lib/useGeoPosition";
-import weatherReducer, {
+import reducer, {
   initialState,
   SET_WEATHER,
+  SET_SELECTED_DAY_INDEX,
 } from "../lib/weatherReducer";
 
 const Home = () => {
   const geoState = useGeoPosition();
   const { error, latitude, longitude } = geoState;
 
-  const [weatherState, dispatch] = useReducer(weatherReducer, initialState);
+  const weatherReducer = useReducer(reducer, initialState);
+
+  const { setWeather, setSelectedDayIndex } = useActions(
+    weatherReducer,
+    (dispatch) => ({
+      setWeather: (json) => dispatch({ type: SET_WEATHER, payload: json }),
+      setSelectedDayIndex: (selectedDayIndex) =>
+        dispatch({
+          type: SET_SELECTED_DAY_INDEX,
+          payload: { selectedDayIndex },
+        }),
+    })
+  );
+
+  const { getSelectedDay, getDaily, getSelectedDayIndex } = useSelectors(
+    weatherReducer,
+    ({ daily, current, selectedDayIndex }) => ({
+      getSelectedDay: () => {
+        const day = selectedDayIndex ? daily[selectedDayIndex] : current;
+        return {
+          ...day,
+          temp: typeof day.temp === "object" ? day.temp.max : day.temp,
+        };
+      },
+      getDaily: () => daily,
+      getSelectedDayIndex: () => selectedDayIndex,
+    })
+  );
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -29,7 +58,7 @@ const Home = () => {
       );
       const json = await res.json();
 
-      dispatch({ type: SET_WEATHER, payload: json });
+      setWeather(json);
     };
 
     if (latitude && longitude) {
@@ -37,14 +66,16 @@ const Home = () => {
     }
   }, [latitude, longitude]);
 
-  const { current, daily } = weatherState;
-
   return (
     <>
       <div className="hero-body has-text-centered">
         <div className="container">
-          <DayWeather current={current} />
-          <WeekSummary daily={daily} />
+          <DayWeather current={getSelectedDay()} />
+          <WeekSummary
+            daily={getDaily()}
+            setSelectedDayIndex={setSelectedDayIndex}
+            selectedDayIndex={getSelectedDayIndex()}
+          />
         </div>
       </div>
       <Footer latitude={latitude} longitude={longitude} />
