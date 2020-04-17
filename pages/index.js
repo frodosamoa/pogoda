@@ -32,20 +32,23 @@ const Home = () => {
     })
   );
 
-  const { getSelectedDay, getDaily, getSelectedDayIndex } = useSelectors(
-    weatherReducer,
-    ({ daily, current, selectedDayIndex }) => ({
-      getSelectedDay: () => {
-        const day = selectedDayIndex ? daily[selectedDayIndex] : current;
-        return {
-          ...day,
-          temp: typeof day.temp === "object" ? day.temp.max : day.temp,
-        };
-      },
-      getDaily: () => daily,
-      getSelectedDayIndex: () => selectedDayIndex,
-    })
-  );
+  const {
+    getSelectedDay,
+    getDaily,
+    getSelectedDayIndex,
+    isCurrentDay,
+  } = useSelectors(weatherReducer, ({ daily, current, selectedDayIndex }) => ({
+    getSelectedDay: () => {
+      const day = selectedDayIndex ? daily[selectedDayIndex] : current;
+      return {
+        ...day,
+        temp: typeof day.temp === "object" ? day.temp.max : day.temp,
+      };
+    },
+    getDaily: () => daily,
+    getSelectedDayIndex: () => selectedDayIndex,
+    isCurrentDay: () => selectedDayIndex === 0 || selectedDayIndex === null,
+  }));
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -70,7 +73,10 @@ const Home = () => {
     <>
       <div className="hero-body has-text-centered">
         <div className="container">
-          <DayWeather current={getSelectedDay()} />
+          <DayWeather
+            current={getSelectedDay()}
+            isCurrentDay={isCurrentDay()}
+          />
           <WeekSummary
             daily={getDaily()}
             setSelectedDayIndex={setSelectedDayIndex}

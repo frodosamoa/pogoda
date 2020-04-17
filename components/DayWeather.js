@@ -6,7 +6,7 @@ import {
 } from "../lib/weather";
 import { format } from "date-fns";
 
-const LargeDailySummary = ({ weather, temp }) => {
+const LargeDailySummary = ({ date, weather, temp, isCurrentDay }) => {
   let weatherLabel = getWeatherCodeIconInfo(weather.id).label;
   weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
 
@@ -17,9 +17,29 @@ const LargeDailySummary = ({ weather, temp }) => {
         °F
       </p>
 
-      <p className="is-size-4">{format(new Date(), "EEEE p")}</p>
+      <p className="is-size-4">
+        {format(new Date(date * 1000), "EEEE" + (isCurrentDay ? " p" : ""))}
+      </p>
       <p className="is-size-4">{weatherLabel}</p>
     </>
+  );
+};
+
+const AdditionalDailyInfoOne = ({ sunrise, sunset, visibility }) => {
+  return (
+    <div>
+      <p className="is-size-4">
+        Sunrise: ↑{format(new Date(sunrise * 1000), "pp")}
+      </p>
+      <p className="is-size-4">
+        Sunset: ↓{format(new Date(sunset * 1000), "pp")}
+      </p>
+      {visibility && (
+        <p className="is-size-4">
+          Visibility: {Math.round(visibility / 1000)} km
+        </p>
+      )}
+    </div>
   );
 };
 
@@ -30,7 +50,7 @@ const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
   }
 
   if (typeof rain === "object") {
-    rainStr = rain["1h"] || rain["3h"];
+    rainStr = rain["1h"] || rain["3h"] || 0;
   }
 
   return (
@@ -44,14 +64,18 @@ const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
   );
 };
 
-const DayWeather = ({ current }) => {
+const DayWeather = ({ current, isCurrentDay }) => {
   const {
+    dt: date,
     weather,
     temp,
     wind_speed: windSpeed,
     wind_deg: windDegree,
     humidity,
     rain = 0,
+    sunrise,
+    sunset,
+    visibility,
   } = current;
 
   if (!weather) {
@@ -61,8 +85,28 @@ const DayWeather = ({ current }) => {
   return (
     <div className="section">
       <div className="columns is-centered is-v-centered">
+        <div
+          className="column"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <AdditionalDailyInfoOne
+            sunset={sunset}
+            sunrise={sunrise}
+            visibility={visibility}
+          />
+        </div>
         <div className="column">
-          <LargeDailySummary weather={weather && weather[0]} temp={temp} />
+          <LargeDailySummary
+            isCurrentDay={isCurrentDay}
+            weather={weather && weather[0]}
+            date={date}
+            temp={temp}
+          />
         </div>
         <div
           className="column"

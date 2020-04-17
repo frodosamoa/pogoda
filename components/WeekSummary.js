@@ -22,6 +22,7 @@ const DaySummaryContainer = styled.div`
 
 const DaySummary = ({
   index,
+  date,
   weather,
   temp,
   setSelectedDayIndex,
@@ -39,11 +40,8 @@ const DaySummary = ({
           (selectedDayIndex === null && index === 0)
         }
       >
-        <p
-          title={format(addDays(new Date(), index), "PP")}
-          className="is-size-4"
-        >
-          {format(addDays(new Date(), index), "ccc")}
+        <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
+          {format(new Date(date * 1000), "ccc")}
         </p>
         <br></br>
         <p>
@@ -69,6 +67,7 @@ const WeekSummary = ({ daily, setSelectedDayIndex, selectedDayIndex }) => (
           index={index}
           weather={d.weather[0]}
           temp={d.temp}
+          date={d.dt}
           setSelectedDayIndex={setSelectedDayIndex}
           selectedDayIndex={selectedDayIndex}
         />
