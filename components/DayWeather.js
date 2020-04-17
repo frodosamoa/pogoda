@@ -86,7 +86,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
     <div className="section">
       <div className="columns is-centered is-v-centered">
         <div
-          className="column"
+          className="column up-fade stagger-up-2"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -100,7 +100,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
             visibility={visibility}
           />
         </div>
-        <div className="column">
+        <div className="column up-fade">
           <LargeDailySummary
             isCurrentDay={isCurrentDay}
             weather={weather && weather[0]}
@@ -109,7 +109,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
           />
         </div>
         <div
-          className="column"
+          className="column up-fade stagger-up-2"
           style={{
             display: "flex",
             flexDirection: "column",

@@ -33,7 +33,10 @@ const DaySummary = ({
   });
 
   return (
-    <div className={"column"} onClick={() => setSelectedDayIndex(index)}>
+    <div
+      className={`column quick-fade stagger-quick-${index + 1}`}
+      onClick={() => setSelectedDayIndex(index)}
+    >
       <DaySummaryContainer
         isActive={
           index === selectedDayIndex ||

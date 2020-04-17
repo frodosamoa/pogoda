@@ -11,3 +11,53 @@ $body-font-size: 1.25em;
 @import "../node_modules/bulma/bulma.sass";
 
 @import "../node_modules/weathericons/sass/weather-icons.scss";
+
+@keyframes simpleFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.quick-fade {
+  opacity: 0;
+  animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+    simpleFade;
+}
+
+@keyframes upFade {
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, 30px, 0px);
+  }
+  10% {
+    opacity: 0;
+    transform: translate3d(0px, 30px, 0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+.up-fade {
+  opacity: 0;
+  animation: 1.2s cubic-bezier(0, 0, 0.16, 1) 300ms 1 normal forwards running
+    upFade;
+}
+
+$staggeramounts: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12);
+
+@each $amount in $staggeramounts {
+  .stagger-quick-#{$amount} {
+    animation-delay: #{500 + ($amount * 100)}ms;
+  }
+}
+
+@each $amount in $staggeramounts {
+  .stagger-up-#{$amount} {
+    animation-delay: #{300 + ($amount * 200)}ms;
+  }
+}
