@@ -25,25 +25,17 @@ const LargeDailySummary = ({ date, weather, temp, isCurrentDay, isDay }) => {
   );
 };
 
-const AdditionalDailyInfoOne = ({ sunrise, sunset, visibility }) => {
-  return (
-    <div>
-      <p className="is-size-4">
-        Sunrise: ↑{format(new Date(sunrise * 1000), "pp")}
+const AdditionalInfo = ({ info }) => (
+  <div>
+    {info.map((i, index) => (
+      <p key={index} className="is-size-4">
+        {i}
       </p>
-      <p className="is-size-4">
-        Sunset: ↓{format(new Date(sunset * 1000), "pp")}
-      </p>
-      {visibility && (
-        <p className="is-size-4">
-          Visibility: {Math.round(visibility / 1000)} km
-        </p>
-      )}
-    </div>
-  );
-};
+    ))}
+  </div>
+);
 
-const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
+const getRainString = (rain) => {
   let rainStr;
   if (typeof rain === "number") {
     rainStr = rain;
@@ -53,15 +45,7 @@ const AdditionalDailyInfo = ({ rain, humidity, windSpeed, windDegree }) => {
     rainStr = rain["1h"] || rain["3h"] || 0;
   }
 
-  return (
-    <div>
-      <p className="is-size-4">Precipitation: {rainStr}mm</p>
-      <p className="is-size-4">Humidity: {humidity}%</p>
-      <p className="is-size-4">
-        Wind: {degreeToCompass(windDegree)} {windSpeed} mph
-      </p>
-    </div>
-  );
+  return rainStr;
 };
 
 const DayWeather = ({ current, isCurrentDay }) => {
@@ -82,6 +66,20 @@ const DayWeather = ({ current, isCurrentDay }) => {
     return null;
   }
 
+  const additionalInfo = [
+    `Sunrise: ↑${format(new Date(sunrise * 1000), "pp")}`,
+    `Sunset: ↓${format(new Date(sunset * 1000), "pp")}`,
+  ];
+  if (visibility) {
+    additionalInfo.push(`Visibility: ${Math.round(visibility / 1000)} km`);
+  }
+
+  const additionalInfoTwo = [
+    `Precipitation: ${getRainString(rain)}mm`,
+    `Humidity: ${humidity}%`,
+    `Wind: ${degreeToCompass(windDegree)} ${windSpeed} mph`,
+  ];
+
   return (
     <div className="section">
       <div className="columns is-centered is-v-centered">
@@ -94,11 +92,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
             justifyContent: "center",
           }}
         >
-          <AdditionalDailyInfoOne
-            sunset={sunset}
-            sunrise={sunrise}
-            visibility={visibility}
-          />
+          <AdditionalInfo info={additionalInfo} />
         </div>
         <div className="column up-fade">
           <LargeDailySummary
@@ -118,12 +112,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
             justifyContent: "center",
           }}
         >
-          <AdditionalDailyInfo
-            windSpeed={windSpeed}
-            windDegree={windDegree}
-            humidity={humidity}
-            rain={rain}
-          />
+          <AdditionalInfo info={additionalInfoTwo} />
         </div>
       </div>
     </div>
