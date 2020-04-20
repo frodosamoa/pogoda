@@ -1,7 +1,7 @@
 const ErrorMessage = ({ error }) => (
   <div className="hero-body">
     <div className="container has-text-centered">
-      <h1 class="title">{error.message}</h1>
+      <h1 className="title">{error.message}</h1>
     </div>
   </div>
 );

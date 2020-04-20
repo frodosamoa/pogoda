@@ -3,18 +3,18 @@ import {
   kelvinToFahrenheit,
   weatherToIcon,
   getWeatherCodeIconInfo,
-} from "../lib/weather";
+} from "../lib/weatherUtils";
 import { format } from "date-fns";
 
-const LargeDailySummary = ({ date, weather, temp, isCurrentDay }) => {
+const LargeDailySummary = ({ date, weather, temp, isCurrentDay, isDay }) => {
   let weatherLabel = getWeatherCodeIconInfo(weather.id).label;
   weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
 
   return (
     <>
       <p className="is-size-1">
-        <i className={weatherToIcon(weather.id)}></i> {kelvinToFahrenheit(temp)}{" "}
-        °F
+        <i className={weatherToIcon(weather.id, isDay)}></i>{" "}
+        {kelvinToFahrenheit(temp)} °F
       </p>
 
       <p className="is-size-4">
@@ -86,7 +86,7 @@ const DayWeather = ({ current, isCurrentDay }) => {
     <div className="section">
       <div className="columns is-centered is-v-centered">
         <div
-          className="column up-fade stagger-up-2"
+          className="column up-fade stagger-up-2 has-text-grey-light"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -106,10 +106,11 @@ const DayWeather = ({ current, isCurrentDay }) => {
             weather={weather && weather[0]}
             date={date}
             temp={temp}
+            isDay={date > sunrise && date < sunset}
           />
         </div>
         <div
-          className="column up-fade stagger-up-2"
+          className="column up-fade stagger-up-2 has-text-grey-light"
           style={{
             display: "flex",
             flexDirection: "column",

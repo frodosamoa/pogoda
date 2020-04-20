@@ -1,6 +1,6 @@
 import queryString from "query-string";
 import fetch from "node-fetch";
-import { cors, runMiddleware } from "../../lib/api";
+import { cors, runMiddleware } from "../../lib/apiUtils";
 
 const CURRENT_WEATHER_DATA_URL =
   "https://api.openweathermap.org/data/2.5/onecall";

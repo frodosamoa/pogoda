@@ -2,47 +2,60 @@ import {
   kelvinToFahrenheit,
   weatherToIcon,
   getWeatherCodeIconInfo,
-} from "../lib/weather";
+} from "../lib/weatherUtils";
 import classnames from "classnames";
-import { format, addDays } from "date-fns";
-import styled from "styled-components";
+import { format } from "date-fns";
 
-const DaySummaryContainer = styled.div`
-  padding-top: 12px;
-  padding-bottom: 12px;
-  cursor: pointer;
+const DaySummaryContainer = ({ children, isActive }) => (
+  <div>
+    {children}
+    <style jsx>{`
+       {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        cursor: pointer;
+      }
 
-  ${({ isActive }) =>
-    isActive &&
-    `
-      background-color: hsl(0, 0%, 29%);
-      border-radius: 0.75rem;
-    `}
-`;
+      ${isActive &&
+      `
+          background-color: hsl(0, 0%, 29%);
+          border-radius: 0.75rem;
+        `}
+    `}</style>
+  </div>
+);
 
 const DaySummary = ({
   index,
-  date,
-  weather,
-  temp,
+  day,
+  count,
   setSelectedDayIndex,
   selectedDayIndex,
 }) => {
-  const iconClassName = classnames(weatherToIcon(weather.id), {
+  const { weather: weatherArray, temp, dt: date } = day;
+  const weather = weatherArray[0];
+  const isFirstDay = index === 0;
+  const isActive =
+    index === selectedDayIndex || (selectedDayIndex === null && isFirstDay);
+  const currentDate = new Date().getTime() / 1000;
+
+  const isDay =
+    (isFirstDay && (day.sunrise > currentDate || currentDate < day.sunset)) ||
+    !isFirstDay;
+
+  const iconClassName = classnames(weatherToIcon(weather.id, isDay), {
     "is-size-2": true,
   });
+  const indexOffset = index + 1;
+  const staggerNumber =
+    indexOffset > count / 2 ? count - indexOffset + 1 : indexOffset;
 
   return (
     <div
-      className={`column quick-fade stagger-quick-${index + 1}`}
+      className={`column quick-fade stagger-quick-${staggerNumber}`}
       onClick={() => setSelectedDayIndex(index)}
     >
-      <DaySummaryContainer
-        isActive={
-          index === selectedDayIndex ||
-          (selectedDayIndex === null && index === 0)
-        }
-      >
+      <DaySummaryContainer isActive={isActive}>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
           {format(new Date(date * 1000), "ccc")}
         </p>
@@ -61,13 +74,15 @@ const DaySummary = ({
   );
 };
 
-const WeekSummary = ({ daily, setSelectedDayIndex, selectedDayIndex }) => (
+const WeekSummary = ({ daily = [], setSelectedDayIndex, selectedDayIndex }) => (
   <div className="section">
     <div className="columns is-centered is-2 is-variable">
       {daily.map((d, index) => (
         <DaySummary
           key={index}
+          count={daily.length}
           index={index}
+          day={d}
           weather={d.weather[0]}
           temp={d.temp}
           date={d.dt}
