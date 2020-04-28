@@ -12,46 +12,17 @@ import useActions from "../lib/hooks/useActions";
 import useGeoPosition from "../lib/hooks/useGeoPosition";
 
 import reducer, {
+  weatherActions,
+  weatherSelectors,
   initialState,
-  SET_WEATHER,
-  SET_SELECTED_DAY_INDEX,
 } from "../lib/weatherReducer";
-
-const weatherActions = (dispatch) => ({
-  setWeather: (json) => dispatch({ type: SET_WEATHER, payload: json }),
-  setSelectedDayIndex: (selectedDayIndex) =>
-    dispatch({
-      type: SET_SELECTED_DAY_INDEX,
-      payload: { selectedDayIndex },
-    }),
-  toggleUnits: () => dispatch({ type: TOGGLE_UNITS }),
-});
-
-const weatherSelectors = ({ daily, current, selectedDayIndex }) => ({
-  getSelectedDay: () => {
-    const day = selectedDayIndex ? daily[selectedDayIndex] : current;
-    const temp = day
-      ? typeof day.temp === "object"
-        ? day.temp.max
-        : day.temp
-      : 0;
-
-    return {
-      ...day,
-      temp,
-    };
-  },
-  getDaily: () => daily,
-  getSelectedDayIndex: () => selectedDayIndex,
-  isCurrentDay: () => selectedDayIndex === 0 || selectedDayIndex === null,
-});
 
 const Home = () => {
   const geoState = useGeoPosition();
   const weatherReducer = useReducer(reducer, initialState);
   const [isFetching, setIsFetching] = useState(false);
 
-  const { setWeather, setSelectedDayIndex, toggleUnits } = useActions(
+  const { setWeather, setSelectedDayIndex } = useActions(
     weatherReducer,
     weatherActions
   );
