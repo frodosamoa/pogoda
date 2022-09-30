@@ -1,12 +1,11 @@
 {
-  "name": "palmetto-take-home-challenge",
+  "name": "pogoda",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "test": "jest"
+    "start": "next start"
   },
   "dependencies": {
     "bulma": "^0.8.2",
@@ -14,17 +13,14 @@
     "cors": "^2.8.5",
     "date-fns": "^2.12.0",
     "feather-icons": "^4.28.0",
-    "next": "9.3.5",
+    "next": "^12.3.1",
     "node-fetch": "^2.6.0",
     "openweather-apis": "^4.2.0",
     "query-string": "^6.12.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sass": "^1.26.3",
     "weathericons": "^2.1.0"
   },
-  "devDependencies": {
-    "babel-jest": "^25.1.0",
-    "jest": "^25.1.0"
-  }
+  "devDependencies": {}
 }
