@@ -1,9 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import feather from "feather-icons";
 
-import ADMIN_CODES from "../constants/adminCodes";
-import COUNTRIES from "../constants/countries";
-
 import WeekSummary from "../components/WeekSummary";
 import DayWeather from "../components/DayWeather";
 // import Footer from "../components/Footer";
@@ -124,17 +121,11 @@ const Home = () => {
                           value={city.cityId}
                           key={city.cityId}
                           onClick={() => {
-                            setLatLon(city.loc.coordinates);
+                            setLatLon(city.coordinates);
                             setValue("");
                           }}
                         >
-                          {city.name},{" "}
-                          {city.adminCode
-                            ? `${
-                                ADMIN_CODES[`${city.country}.${city.adminCode}`]
-                              }, `
-                            : " "}
-                          {COUNTRIES[city.country]}
+                          {city.label}
                         </option>
                       ))}
                     </select>
