@@ -6,9 +6,8 @@ import COUNTRIES from "../constants/countries";
 
 import WeekSummary from "../components/WeekSummary";
 import DayWeather from "../components/DayWeather";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 
-import { BASE_URL } from "../lib/apiUtils";
 import useSelectors from "../lib/hooks/useSelectors";
 import useActions from "../lib/hooks/useActions";
 import useGeoPosition from "../lib/hooks/useGeoPosition";
@@ -35,7 +34,9 @@ const Home = () => {
 
   useEffect(() => {
     const getCities = async () => {
-      const res = await fetch(`${BASE_URL}/api/cities?query=${value}`);
+      const res = await fetch(
+        `${window.location.href}/api/cities?query=${value}`
+      );
       const json = await res.json();
 
       setCities(json);
@@ -54,7 +55,7 @@ const Home = () => {
   useEffect(() => {
     const getWeather = async (latitude, longitude) => {
       const res = await fetch(
-        `${BASE_URL}/api/weather?latitude=${latitude}&longitude=${longitude}`
+        `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}`
       );
       const json = await res.json();
 
