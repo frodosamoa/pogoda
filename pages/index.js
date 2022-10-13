@@ -1,7 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
 import feather from "feather-icons";
 
-import ErrorMessage from "../components/ErrorMessage";
+import ADMIN_CODES from "../constants/adminCodes";
+import COUNTRIES from "../constants/countries";
+
 import WeekSummary from "../components/WeekSummary";
 import DayWeather from "../components/DayWeather";
 import Footer from "../components/Footer";
@@ -18,23 +20,36 @@ import reducer, {
 } from "../lib/weatherReducer";
 
 const Home = () => {
-  const geoState = useGeoPosition();
+  const [fetchGeo, setFetchGeo] = useState(false);
+  const [latLon, setLatLon] = useState([]);
+  const geoState = useGeoPosition(fetchGeo);
   const weatherReducer = useReducer(reducer, initialState);
+  const [value, setValue] = useState("");
   const [isFetching, setIsFetching] = useState(false);
+  const [cities, setCities] = useState([]);
 
   const { setWeather, setSelectedDayIndex } = useActions(
     weatherReducer,
     weatherActions
   );
 
-  const {
-    getSelectedDay,
-    getDaily,
-    getSelectedDayIndex,
-    isCurrentDay,
-  } = useSelectors(weatherReducer, weatherSelectors);
+  useEffect(() => {
+    const getCities = async () => {
+      const res = await fetch(`${BASE_URL}/api/cities?query=${value}`);
+      const json = await res.json();
 
-  const { error, latitude, longitude } = geoState;
+      setCities(json);
+    };
+
+    if (value !== "") {
+      getCities(value);
+    } else {
+      setCities([]);
+    }
+  }, [value]);
+
+  const { getSelectedDay, getDaily, getSelectedDayIndex, isCurrentDay } =
+    useSelectors(weatherReducer, weatherSelectors);
 
   useEffect(() => {
     const getWeather = async (latitude, longitude) => {
@@ -47,20 +62,101 @@ const Home = () => {
       setIsFetching(false);
     };
 
-    if (latitude && longitude) {
+    if (geoState.latitude && geoState.longitude) {
       setIsFetching(true);
-      getWeather(latitude, longitude);
+      getWeather(geoState.latitude, geoState.longitude);
     }
-  }, [latitude, longitude]);
 
-  if (error) {
-    return <ErrorMessage error={error} />;
-  }
+    if (latLon.length > 0) {
+      setIsFetching(true);
+      getWeather(latLon[1], latLon[0]);
+    }
+  }, [geoState, latLon]);
+
+  const hasLatLon =
+    (geoState.latitude && geoState.longitude) || latLon.length > 0;
 
   return (
     <>
       <div className="hero-body has-text-centered">
         <div className="container">
+          {!isFetching && !hasLatLon && (
+            <>
+              <h1 className="title is-1">pogoda</h1>
+              <h3 className="subtitle is-3">
+                <span className="is-italic">your</span>&nbsp;&nbsp;weather
+                dashboard
+              </h3>
+              <br />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ width: 300 }}>
+                  <input
+                    placeholder="Enter a city name..."
+                    className="input is-small"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
+                {cities.length > 0 && (
+                  <div
+                    className="select is-multiple is-small"
+                    style={{
+                      width: 300,
+                      marginTop: 50,
+                      position: "absolute",
+                      zIndex: 100,
+                    }}
+                  >
+                    <select
+                      multiple
+                      size={cities.length > 5 ? 5 : cities.length}
+                      style={{ width: 300 }}
+                    >
+                      {cities.map((city) => (
+                        <option
+                          value={city.cityId}
+                          key={city.cityId}
+                          onClick={() => {
+                            setLatLon(city.loc.coordinates);
+                            setValue("");
+                          }}
+                        >
+                          {city.name},{" "}
+                          {city.adminCode
+                            ? `${
+                                ADMIN_CODES[`${city.country}.${city.adminCode}`]
+                              }, `
+                            : " "}
+                          {COUNTRIES[city.country]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+              <br />
+              <h5>or</h5>
+              <br />
+              <button
+                className="button is-black"
+                onClick={() => setFetchGeo(true)}
+              >
+                use your location
+              </button>
+              <div
+                className="is-size-7 has-text-grey-light is-italic"
+                style={{ marginTop: 8 }}
+              >
+                your location isn't stored
+              </div>
+            </>
+          )}
           {isFetching ? (
             <div
               className="quick-fade spin"
@@ -86,7 +182,7 @@ const Home = () => {
           )}
         </div>
       </div>
-      <Footer latitude={latitude} longitude={longitude} />
+      {/* <Footer latitude={latitude} longitude={longitude} /> */}
     </>
   );
 };

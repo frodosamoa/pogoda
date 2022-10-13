@@ -5,6 +5,7 @@ import {
 } from "../lib/weatherUtils";
 import classnames from "classnames";
 import { format } from "date-fns";
+import { useState } from "react";
 
 const DaySummaryContainer = ({ children, isActive }) => (
   <div>
@@ -32,6 +33,7 @@ const DaySummary = ({
   setSelectedDayIndex,
   selectedDayIndex,
 }) => {
+  const [hoveredDay, setHoveredDay] = useState(null);
   const { weather: weatherArray, temp, dt: date } = day;
   const weather = weatherArray[0];
   const isFirstDay = index === 0;
@@ -54,6 +56,8 @@ const DaySummary = ({
     <div
       className={`column quick-fade stagger-quick-${staggerNumber}`}
       onClick={() => setSelectedDayIndex(index)}
+      onMouseEnter={() => setHoveredDay(index)}
+      onMouseLeave={() => setHoveredDay(null)}
     >
       <DaySummaryContainer isActive={isActive}>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
