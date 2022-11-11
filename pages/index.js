@@ -4,7 +4,7 @@ import { Loader } from "react-feather";
 import WeekSummary from "../components/WeekSummary";
 import DayWeather from "../components/DayWeather";
 import CitySearch from "../components/CitySearch";
-import Settings from "../components/settings";
+// import Settings from "../components/Settings";
 import UseUserLocation from "../components/UseUserLocation";
 
 import useSelectors from "../lib/hooks/useSelectors";
