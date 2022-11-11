@@ -19,9 +19,9 @@ const DaySummaryContainer = ({ children, isActive }) => (
 
       ${isActive &&
       `
-          background-color: hsl(0, 0%, 29%);
-          border-radius: 0.75rem;
-        `}
+        background-color: hsl(0, 0%, 29%);
+        border-radius: 0.75rem;
+      `}
     `}</style>
   </div>
 );

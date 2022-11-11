@@ -1,13 +1,14 @@
 import { useEffect, useReducer, useState } from "react";
-import feather from "feather-icons";
+import { Loader } from "react-feather";
 
 import WeekSummary from "../components/WeekSummary";
 import DayWeather from "../components/DayWeather";
-// import Footer from "../components/Footer";
+import CitySearch from "../components/CitySearch";
+import Settings from "../components/settings";
+import UseUserLocation from "../components/UseUserLocation";
 
 import useSelectors from "../lib/hooks/useSelectors";
 import useActions from "../lib/hooks/useActions";
-import useGeoPosition from "../lib/hooks/useGeoPosition";
 
 import reducer, {
   weatherActions,
@@ -16,36 +17,14 @@ import reducer, {
 } from "../lib/weatherReducer";
 
 const Home = () => {
-  const [fetchGeo, setFetchGeo] = useState(false);
   const [latLon, setLatLon] = useState([]);
-  const geoState = useGeoPosition(fetchGeo);
-  const weatherReducer = useReducer(reducer, initialState);
-  const [value, setValue] = useState("");
   const [isFetching, setIsFetching] = useState(false);
-  const [cities, setCities] = useState([]);
 
+  const weatherReducer = useReducer(reducer, initialState);
   const { setWeather, setSelectedDayIndex } = useActions(
     weatherReducer,
     weatherActions
   );
-
-  useEffect(() => {
-    const getCities = async () => {
-      const res = await fetch(
-        `${window.location.href}/api/cities?query=${value}`
-      );
-      const json = await res.json();
-
-      setCities(json);
-    };
-
-    if (value !== "") {
-      getCities(value);
-    } else {
-      setCities([]);
-    }
-  }, [value]);
-
   const { getSelectedDay, getDaily, getSelectedDayIndex, isCurrentDay } =
     useSelectors(weatherReducer, weatherSelectors);
 
@@ -60,121 +39,58 @@ const Home = () => {
       setIsFetching(false);
     };
 
-    if (geoState.latitude && geoState.longitude) {
-      setIsFetching(true);
-      getWeather(geoState.latitude, geoState.longitude);
-    }
-
     if (latLon.length > 0) {
       setIsFetching(true);
       getWeather(latLon[1], latLon[0]);
     }
-  }, [geoState, latLon]);
-
-  const hasLatLon =
-    (geoState.latitude && geoState.longitude) || latLon.length > 0;
+  }, [latLon]);
 
   return (
     <>
-      <div className="hero-body has-text-centered">
-        <div className="container">
-          {!isFetching && !hasLatLon && (
-            <>
-              <h1 className="title is-1">pogoda</h1>
-              <h3 className="subtitle is-3">
-                <span className="is-italic">your</span>&nbsp;&nbsp;weather
-                dashboard
-              </h3>
-              <br />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ width: 300 }}>
-                  <input
-                    placeholder="Enter a city name..."
-                    className="input is-small"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                  />
+      <section className="hero is-dark is-fullheight">
+        <div className="hero-body has-text-centered">
+          <div className="container">
+            {!isFetching && !(latLon.length > 0) && (
+              <>
+                <h1 className="title is-1">pogoda</h1>
+                <h4 className="subtitle is-4">weather dashboard</h4>
+                <br />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <CitySearch setLatLon={setLatLon} />
                 </div>
-                {cities.length > 0 && (
-                  <div
-                    className="select is-multiple is-small"
-                    style={{
-                      width: 300,
-                      marginTop: 50,
-                      position: "absolute",
-                      zIndex: 100,
-                    }}
-                  >
-                    <select
-                      multiple
-                      size={cities.length > 5 ? 5 : cities.length}
-                      style={{ width: 300 }}
-                    >
-                      {cities.map((city) => (
-                        <option
-                          value={city.cityId}
-                          key={city.cityId}
-                          onClick={() => {
-                            setLatLon(city.coordinates);
-                            setValue("");
-                          }}
-                        >
-                          {city.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+                <br />
+                <h5>or</h5>
+                <br />
+                <UseUserLocation setLatLon={setLatLon} />
+              </>
+            )}
+            {isFetching ? (
+              <div className="quick-fade spin">
+                <Loader size={36} />
               </div>
-              <br />
-              <h5>or</h5>
-              <br />
-              <button
-                className="button is-black"
-                onClick={() => setFetchGeo(true)}
-              >
-                use your location
-              </button>
-              <div
-                className="is-size-7 has-text-grey-light is-italic"
-                style={{ marginTop: 8 }}
-              >
-                your location isn't stored
-              </div>
-            </>
-          )}
-          {isFetching ? (
-            <div
-              className="quick-fade spin"
-              dangerouslySetInnerHTML={{
-                __html: feather.icons.loader.toSvg({
-                  width: 36,
-                  height: 36,
-                }),
-              }}
-            ></div>
-          ) : (
-            <>
-              <DayWeather
-                current={getSelectedDay()}
-                isCurrentDay={isCurrentDay()}
-              />
-              <WeekSummary
-                daily={getDaily()}
-                setSelectedDayIndex={setSelectedDayIndex}
-                selectedDayIndex={getSelectedDayIndex()}
-              />
-            </>
-          )}
+            ) : (
+              <>
+                <DayWeather
+                  current={getSelectedDay()}
+                  isCurrentDay={isCurrentDay()}
+                />
+                <WeekSummary
+                  daily={getDaily()}
+                  setSelectedDayIndex={setSelectedDayIndex}
+                  selectedDayIndex={getSelectedDayIndex()}
+                />
+              </>
+            )}
+          </div>
         </div>
-      </div>
-      {/* <Footer latitude={latitude} longitude={longitude} /> */}
+      </section>
+      {/* <Settings /> */}
     </>
   );
 };
