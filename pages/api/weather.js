@@ -5,7 +5,7 @@ import { cors, runMiddleware } from "../../lib/apiUtils";
 const CURRENT_WEATHER_DATA_URL =
   "https://api.openweathermap.org/data/2.5/onecall";
 
-const getCurrentWeatherData = async (latitude, longitude) => {
+const getCurrentWeatherData = async ({ latitude, longitude }) => {
   const params = queryString.stringify({
     lat: latitude,
     lon: longitude,
@@ -28,7 +28,10 @@ module.exports = async (req, res) => {
       url.slice(url.indexOf("?"))
     );
 
-    const response = await getCurrentWeatherData(latitude, longitude);
+    const response = await getCurrentWeatherData({
+      latitude,
+      longitude,
+    });
 
     res.status(200).json(response);
   } else {

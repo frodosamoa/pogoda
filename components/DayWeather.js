@@ -1,12 +1,13 @@
 import {
   degreeToCompass,
   kelvinToFahrenheit,
+  kelvinToCelcius,
   weatherToIcon,
   getWeatherCodeIconInfo,
 } from "../lib/weatherUtils";
 import { format } from "date-fns";
 
-const LargeDailySummary = ({ date, weather, temp, isCurrentDay, isDay }) => {
+const LargeDailySummary = ({ date, weather, temp, isDay, isMetric }) => {
   let weatherLabel = getWeatherCodeIconInfo(weather.id).label;
   weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
 
@@ -14,12 +15,13 @@ const LargeDailySummary = ({ date, weather, temp, isCurrentDay, isDay }) => {
     <>
       <p className="is-size-1">
         <i className={weatherToIcon(weather.id, isDay)}></i>{" "}
-        {kelvinToFahrenheit(temp)} °F
+        {isMetric
+          ? `${kelvinToCelcius(temp)} °C`
+          : `${kelvinToFahrenheit(temp)} °F`}
       </p>
 
-      <p className="is-size-4">
-        {format(new Date(date * 1000), "EEEE" + (isCurrentDay ? " p" : ""))}
-      </p>
+      <p className="is-size-4">{format(new Date(date * 1000), `EEEE p`)}</p>
+      <p className="is-size-4">{format(new Date(date * 1000), `MMM d`)}</p>
       <p className="is-size-4">{weatherLabel}</p>
     </>
   );
@@ -48,7 +50,7 @@ const getRainString = (rain) => {
   return rainStr;
 };
 
-const DayWeather = ({ current, isCurrentDay }) => {
+const DayWeather = ({ current, isMetric }) => {
   const {
     dt: date,
     weather,
@@ -71,22 +73,40 @@ const DayWeather = ({ current, isCurrentDay }) => {
     `Sunset: ↓${format(new Date(sunset * 1000), "pp")}`,
   ];
   if (visibility) {
-    additionalInfo.push(`Visibility: ${Math.round(visibility / 1000)} km`);
+    if (isMetric) {
+      additionalInfo.push(`Visibility: ${Math.round(visibility / 1000)} km`);
+    } else {
+      additionalInfo.push(
+        `Visibility: ${Math.round(visibility * 0.000621371192)} miles`
+      );
+    }
   }
 
   const additionalInfoTwo = [
     `Precipitation: ${getRainString(rain)}mm`,
     `Humidity: ${humidity}%`,
-    `Wind: ${degreeToCompass(windDegree)} ${windSpeed} mph`,
   ];
+
+  if (isMetric) {
+    additionalInfoTwo.push(
+      `Wind: ${degreeToCompass(windDegree)} ${windSpeed.toFixed(1)} m/s`
+    );
+  } else {
+    additionalInfoTwo.push(
+      `Wind: ${degreeToCompass(windDegree)} ${(windSpeed * 2.236936).toFixed(
+        1
+      )} mph`
+    );
+  }
 
   return (
     <div className="section">
-      <div className="columns is-centered is-v-centered">
+      <div style={{ display: "flex" }}>
         <div
-          className="column up-fade stagger-up-2 has-text-grey-light"
+          className="up-fade stagger-up-2 has-text-grey-light"
           style={{
             display: "flex",
+            flex: 1,
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
@@ -94,18 +114,19 @@ const DayWeather = ({ current, isCurrentDay }) => {
         >
           <AdditionalInfo info={additionalInfo} />
         </div>
-        <div className="column up-fade">
+        <div className="up-fade" style={{ flex: 1 }}>
           <LargeDailySummary
-            isCurrentDay={isCurrentDay}
             weather={weather && weather[0]}
             date={date}
             temp={temp}
             isDay={date > sunrise && date < sunset}
+            isMetric={isMetric}
           />
         </div>
         <div
-          className="column up-fade stagger-up-2 has-text-grey-light"
+          className="up-fade stagger-up-2 has-text-grey-light"
           style={{
+            flex: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

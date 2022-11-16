@@ -16,8 +16,6 @@ module.exports = async (req, res) => {
   if (method === "GET") {
     const { query } = queryString.parse(url.slice(url.indexOf("?")));
 
-    console.log(CITIES.length);
-
     res
       .status(200)
       .json(

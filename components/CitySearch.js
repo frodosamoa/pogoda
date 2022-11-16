@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const CitySearch = ({ setLatLon }) => {
+const CitySearch = ({ setLatLon, setCityName }) => {
   const [value, setValue] = useState("");
   const [cities, setCities] = useState([]);
 
@@ -52,6 +52,7 @@ const CitySearch = ({ setLatLon }) => {
                 key={city.cityId}
                 onClick={() => {
                   setLatLon(city.coordinates);
+                  setCityName(city.label);
                   setValue("");
                 }}
               >
