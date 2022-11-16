@@ -19,18 +19,27 @@ const COMPASS_LOOKUP = [
   "NNW",
 ];
 
-export const degreeToCompass = (num) => {
+export const degreeToCompass = (num: number) => {
   const degreeLookup = Math.floor(num / 22.5 + 0.5);
   return COMPASS_LOOKUP[degreeLookup % 16];
 };
 
-export const kelvinToFahrenheit = (temp) => Math.round(1.8 * (temp - 273) + 32);
+export const kelvinToFahrenheit = (temp: number) =>
+  Math.round(1.8 * (temp - 273) + 32);
 
-export const kelvinToCelcius = (temp) => Math.round(temp - 273.15);
+export const kelvinToCelcius = (temp: number) => Math.round(temp - 273.15);
 
-export const getWeatherCodeIconInfo = (code) => weatherIcons[code];
+interface weatherIcon {
+  [id: string]: {
+    icon: string;
+    label: string;
+  };
+}
 
-export const weatherToIcon = (code, isDay) => {
+export const getWeatherCodeIconInfo = (code: number) =>
+  (weatherIcons as weatherIcon)[String(code)];
+
+export const weatherToIcon = (code: number, isDay: boolean) => {
   const prefix = "wi wi-";
   let icon = getWeatherCodeIconInfo(code).icon;
 
