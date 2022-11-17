@@ -50,7 +50,7 @@ const getRainString = (rain) => {
   return rainStr;
 };
 
-const DayWeather = ({ current, isMetric }) => {
+const CurrentWeather = ({ current, isMetric }) => {
   const {
     dt: date,
     weather,
@@ -103,7 +103,7 @@ const DayWeather = ({ current, isMetric }) => {
     <div className="section">
       <div style={{ display: "flex" }}>
         <div
-          className="up-fade stagger-up-2 has-text-grey-light"
+          className="up-fade stagger-up-2"
           style={{
             display: "flex",
             flex: 1,
@@ -124,7 +124,7 @@ const DayWeather = ({ current, isMetric }) => {
           />
         </div>
         <div
-          className="up-fade stagger-up-2 has-text-grey-light"
+          className="up-fade stagger-up-2"
           style={{
             flex: 1,
             display: "flex",
@@ -140,4 +140,4 @@ const DayWeather = ({ current, isMetric }) => {
   );
 };
 
-export default DayWeather;
+export default CurrentWeather;

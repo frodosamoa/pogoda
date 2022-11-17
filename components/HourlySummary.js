@@ -7,7 +7,7 @@ import {
 import classnames from "classnames";
 import { format } from "date-fns";
 
-const DaySummaryContainer = ({ children }) => (
+const HourSummaryContainer = ({ children }) => (
   <div>
     {children}
     <style jsx>{`
@@ -20,14 +20,14 @@ const DaySummaryContainer = ({ children }) => (
   </div>
 );
 
-const DaySummary = ({ index, day, count, isMetric }) => {
-  const { weather: weatherArray, temp, dt: date } = day;
+const HourSummary = ({ index, hour, count, isMetric }) => {
+  const { weather: weatherArray, temp, dt: date } = hour;
   const weather = weatherArray[0];
   const isFirstDay = index === 0;
   const currentDate = new Date().getTime() / 1000;
 
   const isDay =
-    (isFirstDay && (day.sunrise > currentDate || currentDate < day.sunset)) ||
+    (isFirstDay && (hour.sunrise > currentDate || currentDate < hour.sunset)) ||
     !isFirstDay;
 
   const iconClassName = classnames(weatherToIcon(weather.id, isDay), {
@@ -39,7 +39,7 @@ const DaySummary = ({ index, day, count, isMetric }) => {
 
   return (
     <div className={`column quick-fade stagger-quick-${staggerNumber}`}>
-      <DaySummaryContainer>
+      <HourSummaryContainer>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
           {format(new Date(date * 1000), "ccc")}
         </p>
@@ -52,33 +52,31 @@ const DaySummary = ({ index, day, count, isMetric }) => {
           ></i>
         </p>
         <br></br>
-        <p className="is-size-4">
-          {isMetric
-            ? `${kelvinToCelcius(temp.max)}  °C`
-            : `${kelvinToFahrenheit(temp.max)} °F`}
-        </p>
         <p className="is-size-6">
           {isMetric
-            ? `${kelvinToCelcius(temp.min)}  °C`
-            : `${kelvinToFahrenheit(temp.min)} °F`}
+            ? `${kelvinToCelcius(temp)}  °C`
+            : `${kelvinToFahrenheit(temp)} °F`}
         </p>
-      </DaySummaryContainer>
+      </HourSummaryContainer>
     </div>
   );
 };
 
-const WeekSummary = ({ daily = [], isMetric }) => (
+const HourlySummary = ({ hourly = [], isMetric }) => (
   <div className="section">
-    <div className="columns is-centered is-2 is-variable">
-      {daily.map((d, index) => (
-        <DaySummary
+    <div
+      className="columns is-centered is-2 is-variable"
+      style={{ flexWrap: "wrap" }}
+    >
+      {hourly.map((h, index) => (
+        <HourSummary
           key={index}
-          count={daily.length}
+          count={hourly.length}
           index={index}
-          day={d}
-          weather={d.weather[0]}
-          temp={d.temp}
-          date={d.dt}
+          hour={h}
+          weather={h.weather[0]}
+          temp={h.temp}
+          date={h.dt}
           isMetric={isMetric}
         />
       ))}
@@ -86,4 +84,4 @@ const WeekSummary = ({ daily = [], isMetric }) => (
   </div>
 );
 
-export default WeekSummary;
+export default HourlySummary;

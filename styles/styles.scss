@@ -74,3 +74,25 @@ $staggeramounts: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12);
     animation-delay: #{200 + ($amount * 200)}ms;
   }
 }
+
+$spaceamounts: (
+  2,
+  4,
+  8,
+  16,
+  32,
+  64
+); // Adjust this to include the pixel amounts you need.
+$sides: (top, bottom, left, right); // Leave this variable alone
+
+@each $space in $spaceamounts {
+  @each $side in $sides {
+    .m-#{str-slice($side, 0, 1)}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
+    }
+
+    .p-#{str-slice($side, 0, 1)}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
+    }
+  }
+}

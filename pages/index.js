@@ -1,62 +1,17 @@
-import { useEffect, useReducer, useState } from "react";
-import { Loader } from "react-feather";
+import { useEffect, useState } from "react";
+import classNames from "classnames";
 
-import WeekSummary from "../components/WeekSummary";
-import DayWeather from "../components/DayWeather";
-import CitySearch from "../components/CitySearch";
+import Weather from "../components/Weather";
+import Landing from "../components/Landing";
 import Settings from "../components/Settings";
-import UseUserLocation from "../components/UseUserLocation";
-
-const Landing = ({ setLatLon, setCityName }) => {
-  return (
-    <>
-      <h1 className="title is-1">pogoda</h1>
-      <h4 className="subtitle is-4">weather dashboard</h4>
-      <br />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <CitySearch setLatLon={setLatLon} setCityName={setCityName} />
-      </div>
-      <br />
-      <h5>or</h5>
-      <br />
-      <UseUserLocation setLatLon={setLatLon} />
-    </>
-  );
-};
-
-const Weather = ({ weather, cityName, isMetric, setIsMetric }) => {
-  if (!weather) {
-    return (
-      <div className="quick-fade spin">
-        <Loader size={36} />
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <p className="up-fade is-size-2">{cityName}</p>
-      <DayWeather current={weather.current} isMetric={isMetric} />
-      <WeekSummary daily={weather.daily} isMetric={isMetric} />
-      <Settings
-        handleClick={() => setIsMetric(!isMetric)}
-        isMetric={isMetric}
-      />
-    </>
-  );
-};
 
 const Home = () => {
   const [latLon, setLatLon] = useState([]);
   const [cityName, setCityName] = useState(null);
   const [isMetric, setIsMetric] = useState(true);
   const [weather, setWeather] = useState(null);
+  const [theme, setTheme] = useState("dark");
+  const [text, setText] = useState("has-text-light");
 
   useEffect(() => {
     const getWeather = async (latitude, longitude) => {
@@ -65,17 +20,7 @@ const Home = () => {
       );
       const json = await res.json();
 
-      setWeather({
-        ...json,
-        daily: json.daily.slice(1).map((day) => ({
-          ...day,
-          temp: {
-            ...day.temp,
-            min: Math.round(day.temp.min),
-            max: Math.round(day.temp.max),
-          },
-        })),
-      });
+      setWeather(json);
     };
 
     if (latLon.length > 0) {
@@ -83,13 +28,25 @@ const Home = () => {
     }
   }, [latLon]);
 
+  console.log(weather);
+
   return (
     <>
-      <section className="hero is-dark is-fullheight">
+      <section
+        className={classNames(
+          "hero is-fullheight",
+          `has-background-${theme}`,
+          text
+        )}
+      >
         <div className="hero-body has-text-centered">
           <div className="container">
             {!(latLon.length > 0) ? (
-              <Landing setLatLon={setLatLon} setCityName={setCityName} />
+              <Landing
+                setLatLon={setLatLon}
+                setCityName={setCityName}
+                theme={theme}
+              />
             ) : (
               <Weather
                 cityName={cityName}
@@ -99,6 +56,12 @@ const Home = () => {
               />
             )}
           </div>
+          <Settings
+            handleClick={() => setIsMetric(!isMetric)}
+            isMetric={isMetric}
+            setTheme={setTheme}
+            setText={setText}
+          />
         </div>
       </section>
     </>
