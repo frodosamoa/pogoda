@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import useGeoPosition from "../lib/hooks/useGeoPosition";
+import useGeoPosition from "../../lib/hooks/useGeoPosition";
 
 const UserResponse = ({
   latitude,

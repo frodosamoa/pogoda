@@ -7,49 +7,25 @@ import {
   Wind as WindIcon,
   CloudRain as CloudRainIcon,
 } from "react-feather";
+
+import Themes from "./Themes";
 import UseUserLocation from "./UseUserLocation";
+import MadeBy from "./MadeBy";
 
 const WIDTH = 250;
 
-const THEMES = [
-  "primary",
-  "link",
-  "info",
-  "success",
-  "warning",
-  "danger",
-  "dark",
-  "light",
-];
-
-const Theme = ({ theme, globalTheme, setTheme }) => {
-  return (
-    <div
-      className={`has-background-${theme}`}
-      style={{
-        height: 20,
-        borderRadius: 4,
-        marginBottom: 8,
-        cursor: "pointer",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      onClick={() => setTheme(theme)}
-    >
-      {globalTheme === theme && (
-        <CheckIcon
-          size={16}
-          className={
-            theme === "warning" || theme === "light"
-              ? "has-text-dark"
-              : "has-text-light"
-          }
-        />
-      )}
-    </div>
-  );
-};
+const SettingsItem = ({ children }) => (
+  <div
+    style={{
+      flex: 1,
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+    }}
+  >
+    {children}
+  </div>
+);
 
 const Settings = ({
   isSettingsOpen,
@@ -86,33 +62,11 @@ const Settings = ({
             height: "100%",
           }}
         >
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <p className="is-size-6 m-b-16">theme</p>
-            {THEMES.map((theme) => (
-              <Theme
-                key={theme}
-                theme={theme}
-                globalTheme={globalTheme}
-                setTheme={setTheme}
-              />
-            ))}
-          </div>
+          <SettingsItem>
+            <Themes globalTheme={globalTheme} setTheme={setTheme} />
+          </SettingsItem>
 
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
+          <SettingsItem>
             <p className="is-size-6 m-b-16">settings</p>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div className={"buttons has-addons"}>
@@ -130,16 +84,9 @@ const Settings = ({
                 </button>
               </div>
             </div>
-          </div>
+          </SettingsItem>
 
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
+          <SettingsItem>
             <p className="is-size-6 m-b-16">daily forecast</p>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div className={"buttons has-addons"}>
@@ -175,31 +122,16 @@ const Settings = ({
                 </button>
               </div>
             </div>
-          </div>
+          </SettingsItem>
+
           <UseUserLocation
             latLon={latLon}
             setLatLon={setLatLon}
             setCityName={setCityName}
             setIsSettingsOpen={setIsSettingsOpen}
           />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              flexDirection: "column",
-            }}
-          >
-            <p className="is-size-6">made by </p>
-            <p className="is-size-6 is-underlined">
-              <a
-                className="has-text-light"
-                target="_blank"
-                href={"https://www.andrewkowalczyk.com"}
-              >
-                Andrew Kowalczyk
-              </a>
-            </p>
-          </div>
+
+          <MadeBy />
         </div>
       </div>
 

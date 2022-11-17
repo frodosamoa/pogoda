@@ -2,7 +2,9 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 
-import colors from "../constants/colors";
+import CitiesList from "./CitiesList";
+
+import colors from "../../constants/colors";
 
 const CitySearch = ({ setLatLon, setCityName, theme }) => {
   const [cities, setCities] = useState([]);
@@ -81,43 +83,14 @@ const CitySearch = ({ setLatLon, setCityName, theme }) => {
           onKeyUp={handleKeyUp}
         />
       </div>
-      <div
-        style={{
-          width: 450,
-          marginTop: 100,
-          position: "absolute",
-          zIndex: 100,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        {cities.map((city, index) => (
-          <div
-            style={{
-              cursor: "pointer",
-              backgroundColor:
-                index === cityIndex
-                  ? chroma(colors[theme]).darken(0.3)
-                  : "inherit",
-              padding: 4,
-              borderRadius: 6,
-            }}
-            key={city.cityId}
-            onClick={() => {
-              setLatLon(city.coordinates);
-              setCityName(city.label);
-            }}
-          >
-            {city.label}
-          </div>
-        ))}
-        {cities.length === 0 &&
-          inputRef.current &&
-          inputRef.current?.value !== "" && (
-            <p className="is-size-4">no results</p>
-          )}
-      </div>
+      <CitiesList
+        cities={cities}
+        theme={theme}
+        inputValue={inputRef.current}
+        cityIndex={cityIndex}
+        setLatLon={setLatLon}
+        setCityName={setCityName}
+      />
       <style jsx>{`
         .citySearch::placeholder {
           color: ${isLightTheme ? "hsl(0, 0%, 21%)" : "hsl(0, 0%, 96%)"};

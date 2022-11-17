@@ -64,7 +64,9 @@ const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
           )}
           {dailyForecastView === "precipitation" && (
             <p className="is-size-6">
-              {isMetric ? rain ?? 0 : (rain ?? 0) * 0.03937008}
+              {isMetric
+                ? (rain ?? 0).toFixed(1)
+                : ((rain ?? 0) * 0.03937008).toFixed(1)}
               {isMetric ? "mm" : " inches"}
             </p>
           )}
