@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Search as SearchIcon } from "react-feather";
 import classNames from "classnames";
 
 import Weather from "../components/Weather";
@@ -9,9 +10,10 @@ const Home = () => {
   const [latLon, setLatLon] = useState([]);
   const [cityName, setCityName] = useState(null);
   const [isMetric, setIsMetric] = useState(true);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [weather, setWeather] = useState(null);
   const [theme, setTheme] = useState("dark");
-  const [text, setText] = useState("has-text-light");
+  const [dailyForecastView, setDailyForecastView] = useState("temperature");
 
   useEffect(() => {
     const getWeather = async (latitude, longitude) => {
@@ -36,10 +38,15 @@ const Home = () => {
         className={classNames(
           "hero is-fullheight",
           `has-background-${theme}`,
-          text
+          theme === "warning" || theme === "light"
+            ? "has-text-dark"
+            : "has-text-light"
         )}
       >
-        <div className="hero-body has-text-centered">
+        <div
+          className="hero-body has-text-centered"
+          onClick={() => setIsSettingsOpen(false)}
+        >
           <div className="container">
             {!(latLon.length > 0) ? (
               <Landing
@@ -52,17 +59,44 @@ const Home = () => {
                 cityName={cityName}
                 weather={weather}
                 isMetric={isMetric}
-                setIsMetric={setIsMetric}
+                dailyForecastView={dailyForecastView}
               />
             )}
           </div>
-          <Settings
-            handleClick={() => setIsMetric(!isMetric)}
-            isMetric={isMetric}
-            setTheme={setTheme}
-            setText={setText}
-          />
         </div>
+        <div
+          style={{ position: "fixed", top: 24, left: 24, textAlign: "start" }}
+        >
+          <p className="is-size-4">pogoda</p>
+          <p className="is-size-6">your weather dashboard</p>
+        </div>
+        <Settings
+          isSettingsOpen={isSettingsOpen}
+          setIsSettingsOpen={setIsSettingsOpen}
+          isMetric={isMetric}
+          setIsMetric={setIsMetric}
+          setTheme={setTheme}
+          theme={theme}
+          setLatLon={setLatLon}
+          dailyForecastView={dailyForecastView}
+          setDailyForecastView={setDailyForecastView}
+          setCityName={setCityName}
+        />
+        <SearchIcon
+          className={latLon.length > 0 ? "quick-fade-in" : "quick-fade-out"}
+          size={42}
+          onClick={() => {
+            setLatLon([]);
+            setWeather(null);
+          }}
+          style={{
+            position: "fixed",
+            bottom: 24,
+            left: 24,
+            cursor: "pointer",
+            transition: "right 200ms ease-in-out",
+          }}
+        />
       </section>
     </>
   );

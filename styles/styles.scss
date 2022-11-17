@@ -12,7 +12,7 @@ $body-font-size: 1.25em;
 
 @import "../node_modules/weathericons/sass/weather-icons.scss";
 
-@keyframes simpleFade {
+@keyframes simpleFadeIn {
   0% {
     opacity: 0;
   }
@@ -21,10 +21,25 @@ $body-font-size: 1.25em;
   }
 }
 
-.quick-fade {
+.quick-fade-in {
   opacity: 0;
   animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
-    simpleFade;
+    simpleFadeIn;
+}
+
+@keyframes simpleFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.quick-fade-out {
+  opacity: 1;
+  animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+    simpleFadeOut;
 }
 
 @keyframes upFade {

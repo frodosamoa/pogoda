@@ -37,7 +37,7 @@ const AdditionalInfo = ({ info }) => (
   </div>
 );
 
-const getRainString = (rain) => {
+const getRainString = (rain, isMetric) => {
   let rainStr;
   if (typeof rain === "number") {
     rainStr = rain;
@@ -46,6 +46,8 @@ const getRainString = (rain) => {
   if (typeof rain === "object") {
     rainStr = rain["1h"] || rain["3h"] || 0;
   }
+
+  rainStr = isMetric ? rainStr : rainStr * 0.03937008;
 
   return rainStr;
 };
@@ -83,25 +85,27 @@ const CurrentWeather = ({ current, isMetric }) => {
   }
 
   const additionalInfoTwo = [
-    `Precipitation: ${getRainString(rain)}mm`,
+    `Precipitation: ${getRainString(rain, isMetric)}${
+      isMetric ? "mm" : " inches"
+    }`,
     `Humidity: ${humidity}%`,
   ];
 
   if (isMetric) {
     additionalInfoTwo.push(
-      `Wind: ${degreeToCompass(windDegree)} ${windSpeed.toFixed(1)} m/s`
+      `Wind: ${windSpeed.toFixed(1)}m/s ${degreeToCompass(windDegree)}`
     );
   } else {
     additionalInfoTwo.push(
-      `Wind: ${degreeToCompass(windDegree)} ${(windSpeed * 2.236936).toFixed(
-        1
-      )} mph`
+      `Wind: ${(windSpeed * 2.236936).toFixed(1)}mph ${degreeToCompass(
+        windDegree
+      )}`
     );
   }
 
   return (
     <div className="section">
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
         <div
           className="up-fade stagger-up-2"
           style={{

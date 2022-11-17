@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const CitySearch = ({ setLatLon, setCityName }) => {
+const CitySearch = ({ setLatLon, setCityName, theme }) => {
   const [value, setValue] = useState("");
   const [cities, setCities] = useState([]);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const getCities = async () => {
@@ -21,12 +22,22 @@ const CitySearch = ({ setLatLon, setCityName }) => {
     }
   }, [value]);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <>
       <div style={{ width: 300 }}>
         <input
-          placeholder="Enter a city name..."
-          className="input is-small"
+          ref={inputRef}
+          placeholder="Search for a city..."
+          className={`input citySearch is-large is-${theme} has-background-${theme} ${
+            theme === "warning" || theme === "light"
+              ? "has-text-dark"
+              : "has-text-light"
+          }`}
+          style={{ boxShadow: "inherit" }}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
@@ -62,6 +73,14 @@ const CitySearch = ({ setLatLon, setCityName }) => {
           </select>
         </div>
       )}
+
+      <style jsx>{`
+        .citySearch::placeholder {
+          color: ${theme === "warning" || theme === "light"
+            ? "hsl(0, 0%, 21%)"
+            : "hsl(0, 0%, 96%)"};
+        }
+      `}</style>
     </>
   );
 };

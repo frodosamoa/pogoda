@@ -7,19 +7,6 @@ import {
 import classnames from "classnames";
 import { format } from "date-fns";
 
-const HourSummaryContainer = ({ children }) => (
-  <div>
-    {children}
-    <style jsx>{`
-       {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        cursor: pointer;
-      }
-    `}</style>
-  </div>
-);
-
 const HourSummary = ({ index, hour, count, isMetric }) => {
   const { weather: weatherArray, temp, dt: date } = hour;
   const weather = weatherArray[0];
@@ -38,8 +25,8 @@ const HourSummary = ({ index, hour, count, isMetric }) => {
     indexOffset > count / 2 ? count - indexOffset + 1 : indexOffset;
 
   return (
-    <div className={`column quick-fade stagger-quick-${staggerNumber}`}>
-      <HourSummaryContainer>
+    <div className={`column quick-fade-in stagger-quick-${staggerNumber}`}>
+      <div>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
           {format(new Date(date * 1000), "ccc")}
         </p>
@@ -57,7 +44,7 @@ const HourSummary = ({ index, hour, count, isMetric }) => {
             ? `${kelvinToCelcius(temp)}  °C`
             : `${kelvinToFahrenheit(temp)} °F`}
         </p>
-      </HourSummaryContainer>
+      </div>
     </div>
   );
 };

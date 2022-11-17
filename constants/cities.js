@@ -13,7 +13,9 @@ export default citiesSortedByPopulation.map(
     name,
     coordinates: loc.coordinates,
     label: `${name}, ${
-      adminCode ? `${ADMIN_CODES[`${country}.${adminCode}`]}, ` : " "
+      adminCode && ADMIN_CODES[`${country}.${adminCode}`]
+        ? `${ADMIN_CODES[`${country}.${adminCode}`]}, `
+        : " "
     } ${COUNTRIES[country]}`,
   })
 );

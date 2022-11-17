@@ -1,5 +1,4 @@
 import CitySearch from "./CitySearch";
-import UseUserLocation from "./UseUserLocation";
 
 const Landing = ({ setLatLon, setCityName, theme }) => {
   return (
@@ -11,12 +10,12 @@ const Landing = ({ setLatLon, setCityName, theme }) => {
           alignItems: "center",
         }}
       >
-        <CitySearch setLatLon={setLatLon} setCityName={setCityName} />
+        <CitySearch
+          setLatLon={setLatLon}
+          setCityName={setCityName}
+          theme={theme}
+        />
       </div>
-      <br />
-      <h5>or</h5>
-      <br />
-      <UseUserLocation setLatLon={setLatLon} theme={theme} />
     </>
   );
 };
