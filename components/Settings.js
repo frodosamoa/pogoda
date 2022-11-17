@@ -22,8 +22,6 @@ const THEMES = [
   "light",
 ];
 
-const THEMES2 = ["warning", "dark", "light"];
-
 const Theme = ({ theme, globalTheme, setTheme }) => {
   return (
     <div

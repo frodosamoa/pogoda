@@ -25,7 +25,16 @@ const Application = ({
           : "has-text-light"
       }
     >
-      <div style={{ position: "fixed", top: 24, left: 24, textAlign: "start" }}>
+      <div
+        style={{
+          position: "fixed",
+          top: 24,
+          left: 24,
+          textAlign: "start",
+          opacity: weather ? 0 : 1,
+          transition: "opacity 150ms ease-in-out",
+        }}
+      >
         <p className="is-size-4">pogoda</p>
         <p className="is-size-6">your weather dashboard</p>
       </div>
@@ -43,9 +52,6 @@ const Application = ({
         setCityName={setCityName}
       />
       <SearchIcon
-        className={
-          latLon.length > 0 && weather ? "quick-fade-in" : "quick-fade-out"
-        }
         size={42}
         onClick={() => {
           setLatLon([]);
@@ -57,6 +63,8 @@ const Application = ({
           bottom: 24,
           left: 24,
           cursor: "pointer",
+          opacity: weather ? 1 : 0,
+          transition: "opacity 150ms ease-in-out",
         }}
       />
     </div>
