@@ -184,14 +184,13 @@ const Settings = ({
           />
           <div
             style={{
-              // flex: 1,
               display: "flex",
               justifyContent: "end",
               flexDirection: "column",
             }}
           >
             <p className="is-size-6">made by </p>
-            <p className="is-size-6  is-underlined">
+            <p className="is-size-6 is-underlined">
               <a
                 className="has-text-light"
                 target="_blank"

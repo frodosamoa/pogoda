@@ -25,7 +25,7 @@ const UserResponse = ({
         >
           use your location
         </button>
-        <div className="is-size-7 is-italic" style={{ marginTop: 8 }}>
+        <div className="is-size-7 is-italic m-t-8">
           your location isn't stored
         </div>
       </>

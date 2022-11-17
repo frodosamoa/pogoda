@@ -2,7 +2,6 @@ import { Loader as LoaderIcon } from "react-feather";
 
 import CurrentWeather from "./CurrentWeather";
 import DailySummary from "./DailySummary";
-import HourlySummary from "./HourlySummary";
 
 const Weather = ({ weather, cityName, isMetric, dailyForecastView }) => {
   if (!weather) {
@@ -22,7 +21,6 @@ const Weather = ({ weather, cityName, isMetric, dailyForecastView }) => {
         isMetric={isMetric}
         dailyForecastView={dailyForecastView}
       />
-      {/* <HourlySummary hourly={weather.hourly} isMetric={isMetric} /> */}
     </>
   );
 };
