@@ -38,7 +38,7 @@ $body-font-size: 1.25em;
 
 .quick-fade-out {
   opacity: 1;
-  animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+  animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 150ms 1 normal forwards running
     simpleFadeOut;
 }
 

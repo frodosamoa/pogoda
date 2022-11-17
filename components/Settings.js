@@ -59,6 +59,7 @@ const Settings = ({
   isMetric,
   setIsMetric,
   setTheme,
+  latLon,
   setLatLon,
   theme: globalTheme,
   dailyForecastView,
@@ -178,6 +179,7 @@ const Settings = ({
             </div>
           </div>
           <UseUserLocation
+            latLon={latLon}
             setLatLon={setLatLon}
             setCityName={setCityName}
             setIsSettingsOpen={setIsSettingsOpen}

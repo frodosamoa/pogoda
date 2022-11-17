@@ -7,7 +7,7 @@ const citiesSortedByPopulation = cities.sort(
   (a, b) => b.population - a.population
 );
 
-export default citiesSortedByPopulation.map(
+const mappedCitiesSortedByPopulation = citiesSortedByPopulation.map(
   ({ cityId, name, adminCode, country, loc }) => ({
     cityId,
     name,
@@ -16,6 +16,8 @@ export default citiesSortedByPopulation.map(
       adminCode && ADMIN_CODES[`${country}.${adminCode}`]
         ? `${ADMIN_CODES[`${country}.${adminCode}`]}, `
         : " "
-    } ${COUNTRIES[country]}`,
+    } ${country}`,
   })
 );
+
+export default mappedCitiesSortedByPopulation;

@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
       .json(
         CITIES.filter((city) =>
           normalizeString(city.name).match(normalizeString(query))
-        ).slice(0, 10)
+        ).slice(0, 7)
       );
   } else {
     res.setHeader("Allow", ["GET"]);
