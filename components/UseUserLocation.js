@@ -50,6 +50,7 @@ const UserResponse = ({
     </>
   );
 };
+
 const UseUserLocation = ({
   setLatLon,
   setCityName,
@@ -75,7 +76,7 @@ const UseUserLocation = ({
         transition: "all 300ms ease-in-out",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "end",
+        justifyContent: "center",
       }}
     >
       <UserResponse

@@ -36,7 +36,7 @@ const Application = ({
         }}
       >
         <p className="is-size-4">pogoda</p>
-        <p className="is-size-6">your weather dashboard</p>
+        <p className="is-size-6">weather dashboard</p>
       </div>
       <Settings
         isSettingsOpen={isSettingsOpen}
