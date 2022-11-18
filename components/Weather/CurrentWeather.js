@@ -1,11 +1,12 @@
+import { format } from "date-fns";
+
 import {
   degreeToCompass,
   kelvinToFahrenheit,
   kelvinToCelcius,
   weatherToIcon,
   getWeatherCodeIconInfo,
-} from "../lib/weatherUtils";
-import { format } from "date-fns";
+} from "../../lib/weatherUtils";
 
 const LargeDailySummary = ({ date, weather, temp, isDay, isMetric }) => {
   let weatherLabel = getWeatherCodeIconInfo(weather.id).label;

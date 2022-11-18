@@ -5,6 +5,50 @@ import Weather from "../components/Weather";
 import Landing from "../components/Landing";
 import Application from "../components/Application";
 
+const Hero = ({
+  theme,
+  latLon,
+  setLatLon,
+  setCityName,
+  setIsSettingsOpen,
+  cityName,
+  weather,
+  isMetric,
+  dailyForecastView,
+}) => (
+  <section
+    className={classNames(
+      "hero is-fullheight",
+      `has-background-${theme}`,
+      theme === "warning" || theme === "light"
+        ? "has-text-dark"
+        : "has-text-light"
+    )}
+  >
+    <div
+      className="hero-body has-text-centered"
+      onClick={() => setIsSettingsOpen(false)}
+    >
+      <div className="container">
+        {!(latLon.length > 0) ? (
+          <Landing
+            setLatLon={setLatLon}
+            setCityName={setCityName}
+            theme={theme}
+          />
+        ) : (
+          <Weather
+            cityName={cityName}
+            weather={weather}
+            isMetric={isMetric}
+            dailyForecastView={dailyForecastView}
+          />
+        )}
+      </div>
+    </div>
+  </section>
+);
+
 const Home = () => {
   const [latLon, setLatLon] = useState([]);
   const [cityName, setCityName] = useState(null);
@@ -31,37 +75,17 @@ const Home = () => {
 
   return (
     <>
-      <section
-        className={classNames(
-          "hero is-fullheight",
-          `has-background-${theme}`,
-          theme === "warning" || theme === "light"
-            ? "has-text-dark"
-            : "has-text-light"
-        )}
-      >
-        <div
-          className="hero-body has-text-centered"
-          onClick={() => setIsSettingsOpen(false)}
-        >
-          <div className="container">
-            {!(latLon.length > 0) ? (
-              <Landing
-                setLatLon={setLatLon}
-                setCityName={setCityName}
-                theme={theme}
-              />
-            ) : (
-              <Weather
-                cityName={cityName}
-                weather={weather}
-                isMetric={isMetric}
-                dailyForecastView={dailyForecastView}
-              />
-            )}
-          </div>
-        </div>
-      </section>
+      <Hero
+        theme={theme}
+        latLon={latLon}
+        setLatLon={setLatLon}
+        setCityName={setCityName}
+        setIsSettingsOpen={setIsSettingsOpen}
+        cityName={cityName}
+        weather={weather}
+        isMetric={isMetric}
+        dailyForecastView={dailyForecastView}
+      />
       <Application
         isSettingsOpen={isSettingsOpen}
         setIsSettingsOpen={setIsSettingsOpen}

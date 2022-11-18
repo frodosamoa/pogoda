@@ -1,12 +1,13 @@
+import classnames from "classnames";
+import { format } from "date-fns";
+
 import {
   kelvinToFahrenheit,
   kelvinToCelcius,
   weatherToIcon,
   getWeatherCodeIconInfo,
   degreeToCompass,
-} from "../lib/weatherUtils";
-import classnames from "classnames";
-import { format } from "date-fns";
+} from "../../lib/weatherUtils";
 
 const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
   const {
