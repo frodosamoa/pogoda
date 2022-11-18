@@ -1,4 +1,4 @@
-import weatherIcons from "../weatherIcons.json";
+import weatherIcons from "../constants/weatherIcons";
 
 const COMPASS_LOOKUP = [
   "N",
