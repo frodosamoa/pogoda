@@ -1,6 +1,11 @@
 import { format } from "date-fns";
 
 import {
+  METERS_TO_MILES,
+  MM_TO_INCHES,
+  MPS_TO_MPH,
+} from "../../constants/conversion";
+import {
   degreeToCompass,
   kelvinToFahrenheit,
   kelvinToCelcius,
@@ -48,7 +53,7 @@ const getRainString = (rain, isMetric) => {
     rainStr = rain["1h"] || rain["3h"] || 0;
   }
 
-  rainStr = isMetric ? rainStr : rainStr * 0.03937008;
+  rainStr = isMetric ? rainStr : rainStr * MM_TO_INCHES;
 
   return rainStr;
 };
@@ -80,7 +85,7 @@ const CurrentWeather = ({ current, isMetric }) => {
       additionalInfo.push(`Visibility: ${Math.round(visibility / 1000)} km`);
     } else {
       additionalInfo.push(
-        `Visibility: ${Math.round(visibility * 0.000621371192)} miles`
+        `Visibility: ${Math.round(visibility * METERS_TO_MILES)} miles`
       );
     }
   }
@@ -98,7 +103,7 @@ const CurrentWeather = ({ current, isMetric }) => {
     );
   } else {
     additionalInfoTwo.push(
-      `Wind: ${(windSpeed * 2.236936).toFixed(1)}mph ${degreeToCompass(
+      `Wind: ${(windSpeed * MPS_TO_MPH).toFixed(1)}mph ${degreeToCompass(
         windDegree
       )}`
     );
