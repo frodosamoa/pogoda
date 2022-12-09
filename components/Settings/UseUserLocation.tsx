@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import useGeoPosition from "../../lib/hooks/useGeoPosition";
+
+type UserResponseProps = {
+  latitude: number;
+  longitude: number;
+  fetchGeo: boolean;
+  setFetchGeo: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  latLon: [number, number];
+};
 
 const UserResponse = ({
   latitude,
@@ -9,7 +18,7 @@ const UserResponse = ({
   fetchGeo,
   setFetchGeo,
   setLatLon,
-}) => {
+}: UserResponseProps) => {
   if (!latitude && !longitude) {
     return (
       <>
@@ -51,12 +60,19 @@ const UserResponse = ({
   );
 };
 
+type UseUserLocationProps = {
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCityName: Dispatch<SetStateAction<string>>;
+  latLon: [number, number];
+};
+
 const UseUserLocation = ({
   setLatLon,
   setCityName,
   setIsSettingsOpen,
   latLon,
-}) => {
+}: UseUserLocationProps) => {
   const [fetchGeo, setFetchGeo] = useState(false);
   const { latitude, longitude, error } = useGeoPosition(fetchGeo);
 

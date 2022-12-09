@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
-const useGeoPosition = (fetch = false, options: PositionOptions) => {
-  const [state, setState] = useState({
+const useGeoPosition = (fetch = false, options?: PositionOptions) => {
+  const [state, setState] = useState<{
+    latitude: number | null;
+    longitude: number | null;
+    timestamp: number;
+    error?: GeolocationPositionError;
+  }>({
     latitude: null,
     longitude: null,
     timestamp: Date.now(),

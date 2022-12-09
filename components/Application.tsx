@@ -4,7 +4,7 @@ import { Search as SearchIcon } from "react-feather";
 import Settings from "./Settings";
 
 type TitleProps = {
-  weather?: object;
+  weather?: Weather;
 };
 
 const Title = ({ weather }: TitleProps) => (
@@ -29,14 +29,14 @@ type ApplicationProps = {
   isMetric: boolean;
   isSettingsOpen: boolean;
   dailyForecastView: string;
-  weather: { daily: []; current: object };
+  weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
   setDailyForecastView: Dispatch<SetStateAction<string>>;
   setTheme: Dispatch<SetStateAction<Theme>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
-  setWeather: Dispatch<SetStateAction<{ daily: []; current: object }>>;
+  setWeather: Dispatch<SetStateAction<Weather>>;
 };
 
 const Application = ({

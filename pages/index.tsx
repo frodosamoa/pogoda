@@ -11,7 +11,7 @@ type HeroProps = {
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
-  weather: { daily: []; current: object };
+  weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
@@ -66,7 +66,7 @@ const Home = () => {
   const [cityName, setCityName] = useState<string | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [weather, setWeather] = useState<{ daily: []; current: object }>(null);
+  const [weather, setWeather] = useState<Weather>(null);
   const [theme, setTheme] = useState<Theme>("dark");
   const [dailyForecastView, setDailyForecastView] = useState("temperature");
 
@@ -76,6 +76,8 @@ const Home = () => {
         `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}`
       );
       const json = await res.json();
+
+      console.log(json);
 
       setWeather(json);
     };

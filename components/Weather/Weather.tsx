@@ -7,7 +7,7 @@ type WeatherProps = {
   cityName: string;
   isMetric: boolean;
   dailyForecastView: string;
-  weather: { daily: []; current: object };
+  weather: Weather;
 };
 
 const Weather = ({

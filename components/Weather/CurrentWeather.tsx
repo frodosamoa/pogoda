@@ -13,27 +13,36 @@ import {
   getWeatherCodeIconInfo,
 } from "../../lib/weatherUtils";
 
-const LargeDailySummary = ({ date, weather, temp, isDay, isMetric }) => {
-  let weatherLabel = getWeatherCodeIconInfo(weather.id).label;
+type LargeDailySummaryProps = {
+  current: CurrentWeather;
+  isMetric: boolean;
+};
+
+const LargeDailySummary = ({ current, isMetric }: LargeDailySummaryProps) => {
+  const { dt, sunrise, sunset, weather, temp } = current;
+  const weatherIconInfo = weather && weather[0];
+  let weatherLabel = getWeatherCodeIconInfo(weatherIconInfo.id).label;
   weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
+
+  const isDay = dt > sunrise && dt < sunset;
 
   return (
     <>
       <p className="is-size-1">
-        <i className={weatherToIcon(weather.id, isDay)}></i>{" "}
+        <i className={weatherToIcon(weatherIconInfo.id, isDay)}></i>{" "}
         {isMetric
           ? `${kelvinToCelcius(temp)} °C`
           : `${kelvinToFahrenheit(temp)} °F`}
       </p>
 
-      <p className="is-size-4">{format(new Date(date * 1000), `EEEE p`)}</p>
-      <p className="is-size-4">{format(new Date(date * 1000), `MMM d`)}</p>
+      <p className="is-size-4">{format(new Date(dt * 1000), `EEEE p`)}</p>
+      <p className="is-size-4">{format(new Date(dt * 1000), `MMM d`)}</p>
       <p className="is-size-4">{weatherLabel}</p>
     </>
   );
 };
 
-const AdditionalInfo = ({ info }) => (
+const AdditionalInfo = ({ info }: { info: string[] }) => (
   <div>
     {info.map((i, index) => (
       <p key={index} className="is-size-4">
@@ -43,14 +52,14 @@ const AdditionalInfo = ({ info }) => (
   </div>
 );
 
-const getRainString = (rain, isMetric) => {
+const getRainString = (rain: number | { "1h": number }, isMetric: boolean) => {
   let rainStr;
   if (typeof rain === "number") {
     rainStr = rain;
   }
 
   if (typeof rain === "object") {
-    rainStr = rain["1h"] || rain["3h"] || 0;
+    rainStr = rain["1h"] || 0;
   }
 
   rainStr = isMetric ? rainStr : rainStr * MM_TO_INCHES;
@@ -58,11 +67,14 @@ const getRainString = (rain, isMetric) => {
   return rainStr;
 };
 
-const CurrentWeather = ({ current, isMetric }) => {
+type CurrentWeatherProps = {
+  current: CurrentWeather;
+  isMetric: boolean;
+};
+
+const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
   const {
-    dt: date,
     weather,
-    temp,
     wind_speed: windSpeed,
     wind_deg: windDegree,
     humidity,
@@ -125,13 +137,7 @@ const CurrentWeather = ({ current, isMetric }) => {
           <AdditionalInfo info={additionalInfo} />
         </div>
         <div className="up-fade" style={{ flex: 1 }}>
-          <LargeDailySummary
-            weather={weather && weather[0]}
-            date={date}
-            temp={temp}
-            isDay={date > sunrise && date < sunset}
-            isMetric={isMetric}
-          />
+          <LargeDailySummary current={current} isMetric={isMetric} />
         </div>
         <div
           className="up-fade stagger-up-2"

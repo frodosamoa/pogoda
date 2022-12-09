@@ -1,6 +1,8 @@
 import classnames from "classnames";
 import { format } from "date-fns";
 
+import { MM_TO_INCHES, MPS_TO_MPH } from "../../constants/conversion";
+
 import {
   kelvinToFahrenheit,
   kelvinToCelcius,
@@ -9,7 +11,21 @@ import {
   degreeToCompass,
 } from "../../lib/weatherUtils";
 
-const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
+type DaySummaryProps = {
+  index: number;
+  day: DailyWeather;
+  count: number;
+  isMetric: boolean;
+  dailyForecastView: string;
+};
+
+const DaySummary = ({
+  index,
+  day,
+  count,
+  isMetric,
+  dailyForecastView,
+}: DaySummaryProps) => {
   const {
     weather: weatherArray,
     temp,
@@ -67,7 +83,7 @@ const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
             <p className="is-size-6">
               {isMetric
                 ? (rain ?? 0).toFixed(1)
-                : ((rain ?? 0) * 0.03937008).toFixed(1)}
+                : ((rain ?? 0) * MM_TO_INCHES).toFixed(1)}
               {isMetric ? "mm" : " inches"}
             </p>
           )}
@@ -76,7 +92,7 @@ const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
               <p className="is-size-6">
                 {isMetric
                   ? `${windSpeed.toFixed(1)}m/s`
-                  : `${(windSpeed * 2.236936).toFixed(1)}mph`}
+                  : `${(windSpeed * MPS_TO_MPH).toFixed(1)}mph`}
               </p>
               <p className="is-size-6">{degreeToCompass(windDegree)}</p>
             </>
@@ -87,18 +103,25 @@ const DaySummary = ({ index, day, count, isMetric, dailyForecastView }) => {
   );
 };
 
-const DailySummary = ({ daily = [], isMetric, dailyForecastView }) => (
+type DailySummaryProps = {
+  daily: DailyWeather[];
+  isMetric: boolean;
+  dailyForecastView: string;
+};
+
+const DailySummary = ({
+  daily = [],
+  isMetric,
+  dailyForecastView,
+}: DailySummaryProps) => (
   <div className="section">
     <div className="columns is-centered is-2 is-variable">
-      {daily.map((d, index) => (
+      {daily.map((day, index) => (
         <DaySummary
           key={index}
           count={daily.length}
           index={index}
-          day={d}
-          weather={d.weather[0]}
-          temp={d.temp}
-          date={d.dt}
+          day={day}
           isMetric={isMetric}
           dailyForecastView={dailyForecastView}
         />
