@@ -22,22 +22,22 @@
     "next": "^12.3.1",
     "node-fetch": "^2.6.7",
     "openweather-apis": "^4.2.0",
-    "query-string": "^7.1.1",
+    "query-string": "^7.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
-    "sass": "^1.26.3",
+    "sass": "^1.56.2",
     "weathericons": "^2.1.0"
   },
   "devDependencies": {
-    "@types/all-the-cities": "^3.1.0",
-    "@types/chroma-js": "^2.1.4",
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/node": "18.11.9",
-    "@types/node-fetch": "^2.6.2",
-    "@types/react": "18.0.25",
+    "@types/all-the-cities": "3.1.0",
+    "@types/chroma-js": "2.1.4",
+    "@types/lodash.debounce": "4.0.7",
+    "@types/node": "18.11.12",
+    "@types/node-fetch": "2.6.2",
+    "@types/react": "18.0.26",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
-    "typescript": "4.9.3"
+    "typescript": "4.9.4"
   }
 }
