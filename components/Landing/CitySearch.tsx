@@ -14,6 +14,7 @@ import chroma from "chroma-js";
 import CitiesList from "./CitiesList";
 
 import colors from "../../constants/colors";
+import { getCityLabel } from "../../lib/weatherUtils";
 
 type CitySearchProps = {
   theme: Theme;
@@ -60,7 +61,7 @@ const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
     if (e.key === "Enter" && inputRef.current?.value !== "") {
       const city = cities[cityIndex];
       setLatLon(city.coordinates);
-      setCityName(city.name);
+      setCityName(getCityLabel(city));
       setCityIndex(0);
     }
   };

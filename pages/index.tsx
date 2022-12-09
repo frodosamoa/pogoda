@@ -77,8 +77,6 @@ const Home = () => {
       );
       const json = await res.json();
 
-      console.log(json);
-
       setWeather(json);
     };
 

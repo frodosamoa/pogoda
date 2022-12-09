@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import chroma from "chroma-js";
 
 import colors from "../../constants/colors";
-import ADMIN_CODES from "../../constants/adminCodes";
+import { getCityLabel } from "../../lib/weatherUtils";
 
 type CityProps = {
   city: City;
@@ -19,33 +19,25 @@ const City = ({
   theme,
   setLatLon,
   setCityName,
-}: CityProps) => {
-  const label = `${city.name}, ${
-    city.adminCode && ADMIN_CODES[`${city.country}.${city.adminCode}`]
-      ? `${ADMIN_CODES[`${city.country}.${city.adminCode}`]}, `
-      : " "
-  } ${city.country}`;
-
-  return (
-    <div
-      style={{
-        cursor: "pointer",
-        backgroundColor: isSelected
-          ? chroma(colors[theme]).darken(0.3).css()
-          : "inherit",
-        padding: 4,
-        borderRadius: 6,
-      }}
-      key={city.cityId}
-      onClick={() => {
-        setLatLon(city.coordinates);
-        setCityName(label);
-      }}
-    >
-      {label}
-    </div>
-  );
-};
+}: CityProps) => (
+  <div
+    style={{
+      cursor: "pointer",
+      backgroundColor: isSelected
+        ? chroma(colors[theme]).darken(0.3).css()
+        : "inherit",
+      padding: 4,
+      borderRadius: 6,
+    }}
+    key={city.cityId}
+    onClick={() => {
+      setLatLon(city.coordinates);
+      setCityName(getCityLabel(city));
+    }}
+  >
+    {getCityLabel(city)}
+  </div>
+);
 
 type CitiesListProps = {
   theme: Theme;

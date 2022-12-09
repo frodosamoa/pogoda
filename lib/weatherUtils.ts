@@ -1,3 +1,4 @@
+import ADMIN_CODES from "../constants/adminCodes";
 import weatherIcons from "../constants/weatherIcons";
 
 const COMPASS_LOOKUP = [
@@ -57,3 +58,10 @@ export const weatherToIcon = (code: number, isDay: boolean) => {
 
   return prefix + icon;
 };
+
+export const getCityLabel = (city: City) =>
+  `${city.name}, ${
+    city.adminCode && ADMIN_CODES[`${city.country}.${city.adminCode}`]
+      ? `${ADMIN_CODES[`${city.country}.${city.adminCode}`]}, `
+      : " "
+  } ${city.country}`;
