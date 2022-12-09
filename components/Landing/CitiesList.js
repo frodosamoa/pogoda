@@ -1,6 +1,35 @@
 import chroma from "chroma-js";
 
 import colors from "../../constants/colors";
+import ADMIN_CODES from "../../constants/adminCodes";
+
+const City = ({ city, isSelected, theme, setLatLon, setCityName }) => {
+  const label = `${city.name}, ${
+    city.adminCode && ADMIN_CODES[`${city.country}.${city.adminCode}`]
+      ? `${ADMIN_CODES[`${city.country}.${city.adminCode}`]}, `
+      : " "
+  } ${city.country}`;
+
+  return (
+    <div
+      style={{
+        cursor: "pointer",
+        backgroundColor: isSelected
+          ? chroma(colors[theme]).darken(0.3)
+          : "inherit",
+        padding: 4,
+        borderRadius: 6,
+      }}
+      key={city.cityId}
+      onClick={() => {
+        setLatLon(city.coordinates);
+        setCityName(label);
+      }}
+    >
+      {label}
+    </div>
+  );
+};
 
 const CitiesList = ({
   theme,
@@ -23,24 +52,14 @@ const CitiesList = ({
       }}
     >
       {cities.map((city, index) => (
-        <div
-          style={{
-            cursor: "pointer",
-            backgroundColor:
-              index === cityIndex
-                ? chroma(colors[theme]).darken(0.3)
-                : "inherit",
-            padding: 4,
-            borderRadius: 6,
-          }}
-          key={city.cityId}
-          onClick={() => {
-            setLatLon(city.coordinates);
-            setCityName(city.label);
-          }}
-        >
-          {city.label}
-        </div>
+        <City
+          key={index}
+          city={city}
+          theme={theme}
+          isSelected={index === cityIndex}
+          setLatLon={setLatLon}
+          setCityName={setCityName}
+        />
       ))}
       {cities.length === 0 && inputValue && inputValue?.value !== "" && (
         <p className="is-size-4">no results</p>

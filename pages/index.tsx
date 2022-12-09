@@ -1,21 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, SetStateAction, Dispatch } from "react";
 import classNames from "classnames";
 
 import Weather from "../components/Weather";
 import Landing from "../components/Landing";
 import Application from "../components/Application";
 
+type HeroProps = {
+  theme: string;
+  cityName: string;
+  latLon: [number, number];
+  isMetric: boolean;
+  dailyForecastView: string;
+  weather: { daily: object; current: object };
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCityName: Dispatch<SetStateAction<string>>;
+};
+
 const Hero = ({
   theme,
   latLon,
-  setLatLon,
-  setCityName,
-  setIsSettingsOpen,
   cityName,
   weather,
   isMetric,
   dailyForecastView,
-}) => (
+  setLatLon,
+  setCityName,
+  setIsSettingsOpen,
+}: HeroProps) => (
   <section
     className={classNames(
       "hero is-fullheight",
@@ -30,7 +42,7 @@ const Hero = ({
       onClick={() => setIsSettingsOpen(false)}
     >
       <div className="container">
-        {!(latLon.length > 0) ? (
+        {!(latLon?.length > 0) ? (
           <Landing
             setLatLon={setLatLon}
             setCityName={setCityName}
@@ -50,16 +62,18 @@ const Hero = ({
 );
 
 const Home = () => {
-  const [latLon, setLatLon] = useState([]);
-  const [cityName, setCityName] = useState(null);
+  const [latLon, setLatLon] = useState<[number, number] | null>(null);
+  const [cityName, setCityName] = useState<string | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<{ daily: object; current: object }>(
+    null
+  );
   const [theme, setTheme] = useState("dark");
   const [dailyForecastView, setDailyForecastView] = useState("temperature");
 
   useEffect(() => {
-    const getWeather = async (latitude, longitude) => {
+    const getWeather = async (latitude: number, longitude: number) => {
       const res = await fetch(
         `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}`
       );
@@ -68,7 +82,7 @@ const Home = () => {
       setWeather(json);
     };
 
-    if (latLon.length > 0) {
+    if (latLon?.length > 0) {
       getWeather(latLon[1], latLon[0]);
     }
   }, [latLon]);
