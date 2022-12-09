@@ -12,10 +12,10 @@ import {
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 
-import CitiesList from "./CitiesList";
-
 import colors from "../../constants/colors";
 import { getCityLabel } from "../../lib/weatherUtils";
+
+import CitiesList from "./CitiesList";
 
 type CitySearchProps = {
   theme: Theme;
