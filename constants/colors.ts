@@ -1,6 +1,4 @@
-import { THEME } from "./themes";
-
-const COLORS: { [K in THEME]: string } = {
+const COLORS: { [K in Theme]: string } = {
   light: "hsl(0, 0%, 96%)",
   dark: "hsl(0, 0%, 21%)",
   primary: "hsl(171, 100%, 41%)",

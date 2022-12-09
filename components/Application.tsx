@@ -3,8 +3,6 @@ import { Search as SearchIcon } from "react-feather";
 
 import Settings from "./Settings";
 
-import { THEME } from "../constants/themes";
-
 type TitleProps = {
   weather?: object;
 };
@@ -26,7 +24,7 @@ const Title = ({ weather }: TitleProps) => (
 );
 
 type ApplicationProps = {
-  theme: THEME;
+  theme: Theme;
   latLon: [number, number];
   isMetric: boolean;
   isSettingsOpen: boolean;
@@ -36,7 +34,7 @@ type ApplicationProps = {
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
   setDailyForecastView: Dispatch<SetStateAction<string>>;
-  setTheme: Dispatch<SetStateAction<THEME>>;
+  setTheme: Dispatch<SetStateAction<Theme>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   setWeather: Dispatch<SetStateAction<{ daily: []; current: object }>>;
 };

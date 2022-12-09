@@ -11,8 +11,6 @@ import Themes from "./Themes";
 import UseUserLocation from "./UseUserLocation";
 import MadeBy from "./MadeBy";
 
-import { THEME } from "../../constants/themes";
-
 const WIDTH = 250;
 
 type SettingsItemProps = {
@@ -33,7 +31,7 @@ const SettingsItem = ({ children }: SettingsItemProps) => (
 );
 
 type SettingProps = {
-  theme: THEME;
+  theme: Theme;
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
@@ -41,7 +39,7 @@ type SettingProps = {
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
-  setTheme: Dispatch<SetStateAction<THEME>>;
+  setTheme: Dispatch<SetStateAction<Theme>>;
   setDailyForecastView: Dispatch<SetStateAction<string>>;
   isSettingsOpen: boolean;
 };

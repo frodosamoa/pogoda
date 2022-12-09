@@ -1,14 +1,4 @@
-export type THEME =
-  | "primary"
-  | "link"
-  | "info"
-  | "success"
-  | "warning"
-  | "danger"
-  | "dark"
-  | "light";
-
-export default [
+const THEMES: Theme[] = [
   "primary",
   "link",
   "info",
@@ -18,3 +8,5 @@ export default [
   "dark",
   "light",
 ];
+
+export default THEMES;

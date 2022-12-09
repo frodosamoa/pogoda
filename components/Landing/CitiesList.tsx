@@ -1,24 +1,14 @@
-import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import chroma from "chroma-js";
 
 import colors from "../../constants/colors";
 import ADMIN_CODES from "../../constants/adminCodes";
 
-import { THEME } from "../../constants/themes";
-
-type City = {
-  cityId: string;
-  name: string;
-  adminCode: string;
-  country: string;
-  coordinates: [number, number];
-};
-
 type CityProps = {
   city: City;
   isSelected: boolean;
-  theme: THEME;
+  theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
 };
@@ -58,7 +48,7 @@ const City = ({
 };
 
 type CitiesListProps = {
-  theme: THEME;
+  theme: Theme;
   cityIndex: number;
   cities: City[];
   inputValue: string;

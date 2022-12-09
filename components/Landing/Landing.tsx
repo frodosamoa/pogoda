@@ -2,10 +2,8 @@ import { SetStateAction, Dispatch } from "react";
 
 import CitySearch from "./CitySearch";
 
-import { THEME } from "../../constants/themes";
-
 type LandingProps = {
-  theme: THEME;
+  theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
 };

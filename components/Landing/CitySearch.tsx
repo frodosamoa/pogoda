@@ -14,18 +14,9 @@ import chroma from "chroma-js";
 import CitiesList from "./CitiesList";
 
 import colors from "../../constants/colors";
-import { THEME } from "../../constants/themes";
-
-type City = {
-  cityId: string;
-  name: string;
-  adminCode: string;
-  country: string;
-  coordinates: [number, number];
-};
 
 type CitySearchProps = {
-  theme: THEME;
+  theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
 };

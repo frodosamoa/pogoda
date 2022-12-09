@@ -1,11 +1,11 @@
 import { SetStateAction, Dispatch } from "react";
 import { Check as CheckIcon } from "react-feather";
 
-import THEMES, { THEME } from "../../constants/themes";
+import THEMES from "../../constants/themes";
 
 type ThemeProps = {
-  theme: THEME;
-  globalTheme: THEME;
+  theme: Theme;
+  globalTheme: Theme;
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
@@ -37,7 +37,7 @@ const Theme = ({ theme, globalTheme, setTheme }: ThemeProps) => (
 );
 
 type ThemesProps = {
-  globalTheme: THEME;
+  globalTheme: Theme;
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
