@@ -1,26 +1,28 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import queryString from "query-string";
-import CITIES from "../../constants/cities";
-import { cors, runMiddleware } from "../../lib/apiUtils";
 
-const normalizeString = (s) =>
+import CITIES from "../../constants/cities";
+
+const normalizeString = (s: string) =>
   s
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 
-module.exports = async (req, res) => {
+module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, url } = req;
 
-  await runMiddleware(req, res, cors);
-
   if (method === "GET") {
-    const { query } = queryString.parse(url.slice(url.indexOf("?")));
+    const { query: queryParam } = queryString.parse(
+      url.slice(url.indexOf("?"))
+    );
+    const qury = Array.isArray(queryParam) ? queryParam[0] : queryParam;
 
     res
       .status(200)
       .json(
         CITIES.filter((city) =>
-          normalizeString(city.name).match(normalizeString(query))
+          normalizeString(city.name).match(normalizeString(qury))
         ).slice(0, 7)
       );
   } else {
