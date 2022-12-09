@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useGeolocation = (fetch = false, options) => {
+const useGeoPosition = (fetch = false, options: PositionOptions) => {
   const [state, setState] = useState({
     latitude: null,
     longitude: null,
@@ -9,7 +9,7 @@ const useGeolocation = (fetch = false, options) => {
 
   let mounted = true;
 
-  const onEvent = (event) => {
+  const onEvent: PositionCallback = (event) => {
     if (mounted) {
       setState({
         latitude: event.coords.latitude,
@@ -19,7 +19,7 @@ const useGeolocation = (fetch = false, options) => {
     }
   };
 
-  const onEventError = (error) =>
+  const onEventError: PositionErrorCallback = (error) =>
     mounted && setState((oldState) => ({ ...oldState, error }));
 
   useEffect(() => {
@@ -35,4 +35,4 @@ const useGeolocation = (fetch = false, options) => {
   return state;
 };
 
-export default useGeolocation;
+export default useGeoPosition;

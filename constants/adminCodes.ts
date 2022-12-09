@@ -1,4 +1,4 @@
-export default {
+const ADMIN_CODES: { [adminCode: string]: string } = {
   "AD.06": "Sant Julià de Loria",
   "AD.05": "Ordino",
   "AD.04": "La Massana",
@@ -3872,3 +3872,5 @@ export default {
   "ZW.09": "Bulawayo",
   "ZW.10": "Harare",
 };
+
+export default ADMIN_CODES;

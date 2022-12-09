@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { Dispatch, SetStateAction, ReactNode } from "react";
 import {
   Settings as SettingsIcon,
-  Check as CheckIcon,
   Thermometer as ThermometerIcon,
   Wind as WindIcon,
   CloudRain as CloudRainIcon,
@@ -12,9 +11,15 @@ import Themes from "./Themes";
 import UseUserLocation from "./UseUserLocation";
 import MadeBy from "./MadeBy";
 
+import { THEME } from "../../constants/themes";
+
 const WIDTH = 250;
 
-const SettingsItem = ({ children }) => (
+type SettingsItemProps = {
+  children: ReactNode;
+};
+
+const SettingsItem = ({ children }: SettingsItemProps) => (
   <div
     style={{
       flex: 1,
@@ -26,6 +31,20 @@ const SettingsItem = ({ children }) => (
     {children}
   </div>
 );
+
+type SettingProps = {
+  theme: THEME;
+  latLon: [number, number];
+  isMetric: boolean;
+  dailyForecastView: string;
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCityName: Dispatch<SetStateAction<string>>;
+  setIsMetric: Dispatch<SetStateAction<boolean>>;
+  setTheme: Dispatch<SetStateAction<THEME>>;
+  setDailyForecastView: Dispatch<SetStateAction<string>>;
+  isSettingsOpen: boolean;
+};
 
 const Settings = ({
   isSettingsOpen,
@@ -39,7 +58,7 @@ const Settings = ({
   dailyForecastView,
   setDailyForecastView,
   setCityName,
-}) => {
+}: SettingProps) => {
   return (
     <>
       <div

@@ -1,19 +1,43 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  KeyboardEventHandler,
+  ChangeEventHandler,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 
 import CitiesList from "./CitiesList";
 
 import colors from "../../constants/colors";
+import { THEME } from "../../constants/themes";
 
-const CitySearch = ({ setLatLon, setCityName, theme }) => {
-  const [cities, setCities] = useState([]);
+type City = {
+  cityId: string;
+  name: string;
+  adminCode: string;
+  country: string;
+  coordinates: [number, number];
+};
+
+type CitySearchProps = {
+  theme: THEME;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCityName: Dispatch<SetStateAction<string>>;
+};
+
+const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
+  const [cities, setCities] = useState<City[] | []>([]);
   const [cityIndex, setCityIndex] = useState(0);
   const inputRef = useRef(null);
 
   const isLightTheme = theme === "warning" || theme === "light";
 
-  const getCities = async (city) => {
+  const getCities = async (city: string) => {
     if (city !== "") {
       const res = await fetch(
         `${window.location.href}/api/cities?query=${city}`
@@ -26,12 +50,12 @@ const CitySearch = ({ setLatLon, setCityName, theme }) => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     getCities(e.target.value);
     setCityIndex(0);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "ArrowUp") {
       e.preventDefault();
       setCityIndex(cityIndex - 1 === -1 ? cities.length - 1 : cityIndex - 1);
@@ -41,11 +65,11 @@ const CitySearch = ({ setLatLon, setCityName, theme }) => {
     }
   };
 
-  const handleKeyUp = (e) => {
+  const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter" && inputRef.current?.value !== "") {
       const city = cities[cityIndex];
       setLatLon(city.coordinates);
-      setCityName(city.label);
+      setCityName(city.name);
       setCityIndex(0);
     }
   };
@@ -75,8 +99,8 @@ const CitySearch = ({ setLatLon, setCityName, theme }) => {
             boxShadow: "inherit",
             fontSize: "2rem",
             borderColor: isLightTheme
-              ? chroma(colors[theme]).darken(0.3)
-              : chroma(colors[theme]).brighten(0.3),
+              ? chroma(colors[theme]).darken(0.3).css()
+              : chroma(colors[theme]).brighten(0.3).css(),
           }}
           onChange={debouncedHandleChange}
           onKeyDown={handleKeyDown}
@@ -86,7 +110,7 @@ const CitySearch = ({ setLatLon, setCityName, theme }) => {
       <CitiesList
         cities={cities}
         theme={theme}
-        inputValue={inputRef.current}
+        inputValue={inputRef?.current?.value || ""}
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCityName={setCityName}

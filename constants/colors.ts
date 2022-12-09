@@ -1,4 +1,6 @@
-export default {
+import { THEME } from "./themes";
+
+const COLORS: { [K in THEME]: string } = {
   light: "hsl(0, 0%, 96%)",
   dark: "hsl(0, 0%, 21%)",
   primary: "hsl(171, 100%, 41%)",
@@ -8,3 +10,5 @@ export default {
   warning: "hsl(48, 100%, 67%)",
   danger: "hsl(348, 100%, 61%)",
 };
+
+export default COLORS;

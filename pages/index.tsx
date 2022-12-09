@@ -5,13 +5,15 @@ import Weather from "../components/Weather";
 import Landing from "../components/Landing";
 import Application from "../components/Application";
 
+import { THEME } from "../constants/themes";
+
 type HeroProps = {
-  theme: string;
+  theme: THEME;
   cityName: string;
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
-  weather: { daily: object; current: object };
+  weather: { daily: []; current: object };
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
@@ -66,10 +68,8 @@ const Home = () => {
   const [cityName, setCityName] = useState<string | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [weather, setWeather] = useState<{ daily: object; current: object }>(
-    null
-  );
-  const [theme, setTheme] = useState("dark");
+  const [weather, setWeather] = useState<{ daily: []; current: object }>(null);
+  const [theme, setTheme] = useState<THEME>("dark");
   const [dailyForecastView, setDailyForecastView] = useState("temperature");
 
   useEffect(() => {

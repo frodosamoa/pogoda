@@ -1,17 +1,15 @@
+import { SetStateAction, Dispatch } from "react";
 import { Check as CheckIcon } from "react-feather";
 
-const THEMES = [
-  "primary",
-  "link",
-  "info",
-  "success",
-  "warning",
-  "danger",
-  "dark",
-  "light",
-];
+import THEMES, { THEME } from "../../constants/themes";
 
-const Theme = ({ theme, globalTheme, setTheme }) => (
+type ThemeProps = {
+  theme: THEME;
+  globalTheme: THEME;
+  setTheme: Dispatch<SetStateAction<string>>;
+};
+
+const Theme = ({ theme, globalTheme, setTheme }: ThemeProps) => (
   <div
     className={`has-background-${theme}`}
     style={{
@@ -38,7 +36,12 @@ const Theme = ({ theme, globalTheme, setTheme }) => (
   </div>
 );
 
-const Themes = ({ globalTheme, setTheme }) => (
+type ThemesProps = {
+  globalTheme: THEME;
+  setTheme: Dispatch<SetStateAction<string>>;
+};
+
+const Themes = ({ globalTheme, setTheme }: ThemesProps) => (
   <>
     <p className="is-size-6 m-b-16">theme</p>
     {THEMES.map((theme) => (

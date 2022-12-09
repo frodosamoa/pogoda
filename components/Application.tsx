@@ -1,8 +1,15 @@
+import { Dispatch, SetStateAction } from "react";
 import { Search as SearchIcon } from "react-feather";
 
 import Settings from "./Settings";
 
-const Title = ({ weather }) => (
+import { THEME } from "../constants/themes";
+
+type TitleProps = {
+  weather?: object;
+};
+
+const Title = ({ weather }: TitleProps) => (
   <div
     style={{
       position: "fixed",
@@ -18,6 +25,22 @@ const Title = ({ weather }) => (
   </div>
 );
 
+type ApplicationProps = {
+  theme: THEME;
+  latLon: [number, number];
+  isMetric: boolean;
+  isSettingsOpen: boolean;
+  dailyForecastView: string;
+  weather: { daily: []; current: object };
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCityName: Dispatch<SetStateAction<string>>;
+  setDailyForecastView: Dispatch<SetStateAction<string>>;
+  setTheme: Dispatch<SetStateAction<THEME>>;
+  setIsMetric: Dispatch<SetStateAction<boolean>>;
+  setWeather: Dispatch<SetStateAction<{ daily: []; current: object }>>;
+};
+
 const Application = ({
   isSettingsOpen,
   setIsSettingsOpen,
@@ -32,7 +55,7 @@ const Application = ({
   setCityName,
   setWeather,
   weather,
-}) => {
+}: ApplicationProps) => {
   return (
     <div
       className={
@@ -58,7 +81,7 @@ const Application = ({
       <SearchIcon
         size={42}
         onClick={() => {
-          setLatLon([]);
+          setLatLon(null);
           setWeather(null);
           setIsSettingsOpen(false);
         }}
