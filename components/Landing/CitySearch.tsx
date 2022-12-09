@@ -7,6 +7,7 @@ import {
   ChangeEventHandler,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
@@ -42,10 +43,13 @@ const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
     }
   };
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    getCities(e.target.value);
-    setCityIndex(0);
-  };
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      getCities(e.target.value);
+      setCityIndex(0);
+    },
+    []
+  );
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "ArrowUp") {
@@ -66,7 +70,10 @@ const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
     }
   };
 
-  const debouncedHandleChange = useMemo(() => debounce(handleChange, 200), []);
+  const debouncedHandleChange = useMemo(
+    () => debounce(handleChange, 200),
+    [handleChange]
+  );
 
   useEffect(() => {
     inputRef.current.focus();
@@ -76,7 +83,7 @@ const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
     return () => {
       debouncedHandleChange.cancel();
     };
-  }, []);
+  }, [debouncedHandleChange]);
 
   return (
     <>

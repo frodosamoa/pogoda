@@ -8,6 +8,8 @@ type UserResponseProps = {
   fetchGeo: boolean;
   setFetchGeo: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setCityName: Dispatch<SetStateAction<string>>;
   latLon: [number, number];
 };
 
@@ -17,6 +19,8 @@ const UserResponse = ({
   latLon,
   fetchGeo,
   setFetchGeo,
+  setCityName,
+  setIsSettingsOpen,
   setLatLon,
 }: UserResponseProps) => {
   if (!latitude && !longitude) {
@@ -35,7 +39,7 @@ const UserResponse = ({
           use your location
         </button>
         <div className="is-size-7 is-italic m-t-8">
-          your location isn't stored
+          your location isn&apos;t stored
         </div>
       </>
     );
@@ -43,19 +47,23 @@ const UserResponse = ({
 
   return (
     <>
-      {latitude === latLon[1] && longitude === latLon[0] && (
-        <p className="is-size-6 has-text-grey">using your location</p>
-      )}
-      {latitude !== latLon[1] && longitude !== latLon[0] && (
-        <button
-          className="button is-black"
-          onClick={() => {
-            setLatLon([longitude, latitude]);
-          }}
-        >
-          use your location
-        </button>
-      )}
+      {latitude === (latLon && latLon[1]) &&
+        longitude === (latLon && latLon[0]) && (
+          <p className="is-size-6 has-text-grey">using your location</p>
+        )}
+      {latitude !== (latLon && latLon[1]) &&
+        longitude !== (latLon && latLon[0]) && (
+          <button
+            className="button is-black"
+            onClick={() => {
+              setLatLon([longitude, latitude]);
+              setIsSettingsOpen(false);
+              setCityName(null);
+            }}
+          >
+            use your location
+          </button>
+        )}
     </>
   );
 };
@@ -82,7 +90,7 @@ const UseUserLocation = ({
       setIsSettingsOpen(false);
       setCityName(null);
     }
-  }, [latitude, longitude]);
+  }, [latitude, longitude, setLatLon, setIsSettingsOpen, setCityName]);
 
   return (
     <div
@@ -102,6 +110,8 @@ const UseUserLocation = ({
         fetchGeo={fetchGeo}
         setFetchGeo={setFetchGeo}
         setLatLon={setLatLon}
+        setIsSettingsOpen={setIsSettingsOpen}
+        setCityName={setCityName}
       />
     </div>
   );

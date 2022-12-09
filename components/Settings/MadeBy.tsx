@@ -11,6 +11,7 @@ const MadeBy = () => (
       <a
         className="has-text-light"
         target="_blank"
+        rel="noreferrer"
         href={"https://www.andrewkowalczyk.com"}
       >
         Andrew Kowalczyk

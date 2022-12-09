@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const useGeoPosition = (fetch = false, options?: PositionOptions) => {
   const [state, setState] = useState<{
@@ -11,8 +11,7 @@ const useGeoPosition = (fetch = false, options?: PositionOptions) => {
     longitude: null,
     timestamp: Date.now(),
   });
-
-  let mounted = true;
+  const mounted = useRef(true);
 
   const onEvent: PositionCallback = (event) => {
     if (mounted) {
@@ -25,7 +24,7 @@ const useGeoPosition = (fetch = false, options?: PositionOptions) => {
   };
 
   const onEventError: PositionErrorCallback = (error) =>
-    mounted && setState((oldState) => ({ ...oldState, error }));
+    mounted.current && setState((oldState) => ({ ...oldState, error }));
 
   useEffect(() => {
     if (fetch) {
@@ -33,9 +32,9 @@ const useGeoPosition = (fetch = false, options?: PositionOptions) => {
     }
 
     return () => {
-      mounted = false;
+      mounted.current = false;
     };
-  }, [fetch]);
+  }, [fetch, options]);
 
   return state;
 };
