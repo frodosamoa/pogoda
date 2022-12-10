@@ -1,4 +1,4 @@
-export default {
+const WEATHER_ICONS = {
   200: {
     label: "thunderstorm with light rain",
     icon: "storm-showers",
@@ -292,3 +292,5 @@ export default {
     icon: "cloudy-gusts",
   },
 };
+
+export default WEATHER_ICONS;
