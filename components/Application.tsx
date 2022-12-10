@@ -34,48 +34,47 @@ const Application = ({
   setCityName,
   setWeather,
   weather,
-}: ApplicationProps) => {
-  return (
-    <div
-      className={
-        theme === "warning" || theme === "light"
-          ? "has-text-dark"
-          : "has-text-light"
-      }
-    >
-      <AppTitle hasWeather={weather !== null} />
-      <Settings
-        isSettingsOpen={isSettingsOpen}
-        setIsSettingsOpen={setIsSettingsOpen}
-        isMetric={isMetric}
-        setIsMetric={setIsMetric}
-        setTheme={setTheme}
-        theme={theme}
-        latLon={latLon}
-        setLatLon={setLatLon}
-        dailyForecastView={dailyForecastView}
-        setDailyForecastView={setDailyForecastView}
-        setCityName={setCityName}
-        setWeather={setWeather}
-      />
-      <SearchIcon
-        size={42}
-        onClick={() => {
-          setLatLon(null);
-          setWeather(null);
-          setIsSettingsOpen(false);
-        }}
-        style={{
-          position: "fixed",
-          bottom: 24,
-          left: 24,
-          cursor: "pointer",
-          opacity: weather !== null ? 1 : 0,
-          transition: "opacity 150ms ease-in-out",
-        }}
-      />
-    </div>
-  );
-};
+}: ApplicationProps) => (
+  <div
+    style={{ transition: "color 150ms ease-in-out" }}
+    className={
+      theme === "warning" || theme === "light"
+        ? "has-text-dark"
+        : "has-text-light"
+    }
+  >
+    <AppTitle hasWeather={weather !== null} />
+    <Settings
+      isSettingsOpen={isSettingsOpen}
+      setIsSettingsOpen={setIsSettingsOpen}
+      isMetric={isMetric}
+      setIsMetric={setIsMetric}
+      setTheme={setTheme}
+      theme={theme}
+      latLon={latLon}
+      setLatLon={setLatLon}
+      dailyForecastView={dailyForecastView}
+      setDailyForecastView={setDailyForecastView}
+      setCityName={setCityName}
+      setWeather={setWeather}
+    />
+    <SearchIcon
+      size={42}
+      onClick={() => {
+        setLatLon(null);
+        setWeather(null);
+        setIsSettingsOpen(false);
+      }}
+      style={{
+        position: "fixed",
+        bottom: 24,
+        left: 24,
+        cursor: "pointer",
+        opacity: weather !== null ? 1 : 0,
+        transition: "opacity 300ms ease-in-out",
+      }}
+    />
+  </div>
+);
 
 export default Application;

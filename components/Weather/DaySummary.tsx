@@ -1,4 +1,4 @@
-import classnames from "classnames";
+import classNames from "classnames";
 import { format } from "date-fns";
 
 import { MM_TO_INCHES, MPS_TO_MPH } from "../../constants/conversion";
@@ -42,7 +42,7 @@ const DaySummary = ({
     (isFirstDay && (day.sunrise > currentDate || currentDate < day.sunset)) ||
     !isFirstDay;
 
-  const iconClassName = classnames(weatherToIcon(weather.id, isDay), {
+  const iconClassName = classNames(weatherToIcon(weather.id, isDay), {
     "is-size-2": true,
   });
   const indexOffset = index + 1;

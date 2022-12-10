@@ -1,21 +1,7 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  KeyboardEventHandler,
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-} from "react";
-import debounce from "lodash.debounce";
-import chroma from "chroma-js";
-
-import colors from "../../constants/colors";
-import { getCityLabel } from "../../lib/weatherUtils";
+import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 
 import CitiesList from "./CitiesList";
+import CityInput from "./CityInput";
 
 type CitySearchProps = {
   theme: Theme;
@@ -23,107 +9,38 @@ type CitySearchProps = {
   setCityName: Dispatch<SetStateAction<string>>;
 };
 
-const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
+const CitySearch = ({ theme, setLatLon, setCityName }: CitySearchProps) => {
   const [cities, setCities] = useState<City[] | []>([]);
   const [cityIndex, setCityIndex] = useState(0);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const isLightTheme = theme === "warning" || theme === "light";
-
-  const getCities = async (city: string) => {
-    if (city !== "") {
-      const res = await fetch(
-        `${window.location.href}/api/cities?query=${city}`
-      );
-      const json = await res.json();
-
-      setCities(json);
-    } else {
-      setCities([]);
-    }
-  };
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      // remove non-word characters
-      const query = e.target.value.replace(/[\W_]+/g, "");
-
-      if (query !== "") {
-        getCities(query);
-        setCityIndex(0);
-      }
-    },
-    []
-  );
-
-  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setCityIndex(cityIndex - 1 === -1 ? cities.length - 1 : cityIndex - 1);
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setCityIndex((cityIndex + 1) % cities.length);
-    }
-  };
-
-  const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Enter" && inputRef.current?.value !== "") {
-      const city = cities[cityIndex];
-      setLatLon(city.coordinates);
-      setCityName(getCityLabel(city));
-      setCityIndex(0);
-    }
-  };
-
-  const debouncedHandleChange = useMemo(
-    () => debounce(handleChange, 200),
-    [handleChange]
-  );
+  const isInputEmptyString = (inputRef?.current?.value || "") === "";
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    return () => {
-      debouncedHandleChange.cancel();
-    };
-  }, [debouncedHandleChange]);
-
   return (
     <>
-      <div style={{ width: 450 }}>
-        <input
-          ref={inputRef}
-          placeholder="Search for a city..."
-          className={`input citySearch is-${theme} is-large is-rounded has-background-${theme} ${
-            isLightTheme ? "has-text-dark" : "has-text-light"
-          }`}
-          style={{
-            boxShadow: "inherit",
-            fontSize: "2rem",
-            borderColor: isLightTheme
-              ? chroma(colors[theme]).darken(0.3).css()
-              : chroma(colors[theme]).brighten(0.3).css(),
-          }}
-          onChange={debouncedHandleChange}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-        />
-      </div>
+      <CityInput
+        ref={inputRef}
+        isInputEmptyString={isInputEmptyString}
+        cities={cities}
+        theme={theme}
+        cityIndex={cityIndex}
+        setCityIndex={setCityIndex}
+        setCities={setCities}
+        setCityName={setCityName}
+        setLatLon={setLatLon}
+      />
       <CitiesList
         cities={cities}
         theme={theme}
-        inputValue={inputRef?.current?.value || ""}
+        isInputEmptyString={isInputEmptyString}
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCityName={setCityName}
       />
-      <style jsx>{`
-        .citySearch::placeholder {
-          color: ${isLightTheme ? "hsl(0, 0%, 21%)" : "hsl(0, 0%, 96%)"};
-        }
-      `}</style>
     </>
   );
 };

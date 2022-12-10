@@ -66,10 +66,11 @@ const Settings = ({
         style={{
           position: "fixed",
           top: 0,
-          right: isSettingsOpen ? 0 : -WIDTH,
+          right: 0,
           width: WIDTH,
           height: "100%",
-          transition: "right 300ms ease-in-out",
+          transform: `translateX(${isSettingsOpen ? 0 : WIDTH}px)`,
+          transition: "transform 400ms ease-in-out",
           padding: 24,
         }}
       >
@@ -161,10 +162,12 @@ const Settings = ({
         style={{
           position: "fixed",
           bottom: 24,
-          right: isSettingsOpen ? WIDTH + 24 : 24,
+          right: 24,
           cursor: "pointer",
-          transform: `rotate(${isSettingsOpen ? 0 : 180}deg)`,
-          transition: "all 300ms ease-in-out",
+          transform: `translateX(-${isSettingsOpen ? WIDTH : 0}px) rotate(${
+            isSettingsOpen ? 0 : 90
+          }deg)`,
+          transition: "transform 400ms ease-in-out",
         }}
       />
     </>

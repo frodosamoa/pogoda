@@ -8,7 +8,7 @@ type LandingProps = {
   setCityName: Dispatch<SetStateAction<string>>;
 };
 
-const Landing = ({ setLatLon, setCityName, theme }: LandingProps) => (
+const Landing = ({ theme, setLatLon, setCityName }: LandingProps) => (
   <div
     style={{
       display: "flex",

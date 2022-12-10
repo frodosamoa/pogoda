@@ -24,10 +24,11 @@ const City = ({
     style={{
       cursor: "pointer",
       backgroundColor: isSelected
-        ? chroma(colors[theme]).darken(0.3).css()
+        ? chroma(colors[theme]).darken(0.5).css()
         : "inherit",
       padding: 4,
       borderRadius: 6,
+      transition: "background-color 150ms ease-in-out",
     }}
     key={city.cityId}
     onClick={() => {
@@ -43,7 +44,7 @@ type CitiesListProps = {
   theme: Theme;
   cityIndex: number;
   cities: City[];
-  inputValue: string;
+  isInputEmptyString: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
 };
@@ -51,7 +52,7 @@ type CitiesListProps = {
 const CitiesList = ({
   theme,
   cities,
-  inputValue,
+  isInputEmptyString,
   cityIndex,
   setLatLon,
   setCityName,
@@ -77,7 +78,7 @@ const CitiesList = ({
         setCityName={setCityName}
       />
     ))}
-    {cities.length === 0 && inputValue && inputValue !== "" && (
+    {cities.length === 0 && !isInputEmptyString && (
       <p className="is-size-4">no results</p>
     )}
   </div>

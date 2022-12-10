@@ -10,7 +10,7 @@ const AppTitle = ({ hasWeather }: AppTitleProps) => (
       left: 24,
       textAlign: "start",
       opacity: hasWeather ? 0 : 1,
-      transition: "opacity 150ms ease-in-out",
+      transition: "opacity 300ms ease-in-out",
     }}
   >
     <p className="is-size-4">pogoda</p>

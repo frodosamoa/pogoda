@@ -24,7 +24,7 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
       .json(
         CITIES.filter((city) =>
           normalizeString(city.name).match(
-            normalizeString(query.replace(/[\W_]+/g, ""))
+            normalizeString(query.replace(/[^\w\s]/g, ""))
           )
         ).slice(0, 7)
       );
