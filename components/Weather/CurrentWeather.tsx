@@ -122,8 +122,8 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
   }
 
   return (
-    <div className="section">
-      <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ padding: 24 }}>
+      <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         <div
           className="up-fade stagger-up-2"
           style={{
@@ -142,7 +142,7 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
         <div
           className="up-fade stagger-up-2"
           style={{
-            flex: 1,
+            flex: "0 0 33%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

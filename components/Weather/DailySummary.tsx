@@ -11,7 +11,7 @@ const DailySummary = ({
   isMetric,
   dailyForecastView,
 }: DailySummaryProps) => (
-  <div className="section">
+  <div style={{ padding: 24 }}>
     <div className="columns is-centered is-2 is-variable">
       {daily.map((day, index) => (
         <DaySummary

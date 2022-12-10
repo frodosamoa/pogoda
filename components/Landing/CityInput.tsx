@@ -23,7 +23,7 @@ type CityInputProps = {
   isLoading: boolean;
   isInputEmptyString: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
   setCities: Dispatch<SetStateAction<[] | City[]>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityIndex: Dispatch<SetStateAction<number>>;
@@ -37,7 +37,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
       cityIndex,
       isInputEmptyString,
       setCityIndex,
-      setCityName,
+      setCity,
       setCities,
       setLatLon,
       setIsLoading,
@@ -74,8 +74,8 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === "Enter" && !isInputEmptyString) {
         const city = cities[cityIndex];
-        setLatLon(city.coordinates);
-        setCityName(getCityLabel(city));
+        setLatLon(city.loc.coordinates);
+        setCity(city);
         setCityIndex(0);
       }
     };

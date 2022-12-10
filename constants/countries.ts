@@ -1,4 +1,4 @@
-export default {
+const COUNTRIES: { [countryCode: string]: string } = {
   AD: "Andorra",
   AE: "United Arab Emirates",
   AF: "Afghanistan",
@@ -252,3 +252,5 @@ export default {
   CS: "Serbia and Montenegro",
   AN: "Netherlands Antilles",
 };
+
+export default COUNTRIES;

@@ -8,7 +8,7 @@ const mappedCitiesSortedByPopulation = citiesSortedByPopulation.map(
   ({ cityId, name, adminCode, country, loc }) => ({
     cityId,
     name,
-    coordinates: loc.coordinates,
+    loc,
     country,
     adminCode,
   })

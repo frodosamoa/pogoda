@@ -13,7 +13,9 @@ type City = {
   name: string;
   adminCode: string;
   country: string;
-  coordinates: [number, number];
+  loc: {
+    coordinates: [number, number];
+  };
 };
 
 type CurrentWeather = {

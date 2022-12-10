@@ -5,7 +5,7 @@ import Hero from "../components/Hero";
 
 const Home = () => {
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
-  const [cityName, setCityName] = useState<string | null>(null);
+  const [city, setCity] = useState<City | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [weather, setWeather] = useState<Weather>(null);
@@ -33,9 +33,9 @@ const Home = () => {
         theme={theme}
         latLon={latLon}
         setLatLon={setLatLon}
-        setCityName={setCityName}
+        setCity={setCity}
         setIsSettingsOpen={setIsSettingsOpen}
-        cityName={cityName}
+        city={city}
         weather={weather}
         isMetric={isMetric}
         dailyForecastView={dailyForecastView}
@@ -51,7 +51,7 @@ const Home = () => {
         setLatLon={setLatLon}
         dailyForecastView={dailyForecastView}
         setDailyForecastView={setDailyForecastView}
-        setCityName={setCityName}
+        setCity={setCity}
         setWeather={setWeather}
         weather={weather}
       />

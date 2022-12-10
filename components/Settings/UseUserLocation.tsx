@@ -10,7 +10,7 @@ type UserResponseProps = {
   setFetchGeo: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
   setWeather: Dispatch<SetStateAction<Weather>>;
 };
 
@@ -20,7 +20,7 @@ const UserResponse = ({
   latLon,
   fetchGeo,
   setFetchGeo,
-  setCityName,
+  setCity,
   setIsSettingsOpen,
   setLatLon,
   setWeather,
@@ -61,7 +61,7 @@ const UserResponse = ({
               setWeather(null);
               setLatLon([longitude, latitude]);
               setIsSettingsOpen(false);
-              setCityName(null);
+              setCity(null);
             }}
           >
             use your location
@@ -74,14 +74,14 @@ const UserResponse = ({
 type UseUserLocationProps = {
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
   setWeather: Dispatch<SetStateAction<Weather>>;
   latLon: [number, number];
 };
 
 const UseUserLocation = ({
   setLatLon,
-  setCityName,
+  setCity,
   setIsSettingsOpen,
   setWeather,
   latLon,
@@ -94,16 +94,9 @@ const UseUserLocation = ({
       setWeather(null);
       setLatLon([longitude, latitude]);
       setIsSettingsOpen(false);
-      setCityName(null);
+      setCity(null);
     }
-  }, [
-    latitude,
-    longitude,
-    setLatLon,
-    setIsSettingsOpen,
-    setCityName,
-    setWeather,
-  ]);
+  }, [latitude, longitude, setLatLon, setIsSettingsOpen, setCity, setWeather]);
 
   return (
     <div
@@ -124,7 +117,7 @@ const UseUserLocation = ({
         setFetchGeo={setFetchGeo}
         setLatLon={setLatLon}
         setIsSettingsOpen={setIsSettingsOpen}
-        setCityName={setCityName}
+        setCity={setCity}
         setWeather={setWeather}
       />
     </div>

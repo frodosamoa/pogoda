@@ -6,33 +6,34 @@ import Landing from "../components/Landing";
 
 type HeroProps = {
   theme: Theme;
-  cityName: string;
+  city: City;
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
   weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
 const Hero = ({
   theme,
+  city,
   latLon,
-  cityName,
   weather,
   isMetric,
   dailyForecastView,
   setLatLon,
-  setCityName,
+  setCity,
   setIsSettingsOpen,
 }: HeroProps) => (
-  <section
+  <div
     style={{
       transition: "background-color 150ms ease-in-out, color 150ms ease-in-out",
     }}
     className={classNames(
-      "hero is-fullheight",
+      "hero",
+      "is-fullheight",
       `has-background-${theme}`,
       theme === "warning" || theme === "light"
         ? "has-text-dark"
@@ -45,14 +46,10 @@ const Hero = ({
     >
       <div className="container">
         {!(latLon?.length > 0) ? (
-          <Landing
-            setLatLon={setLatLon}
-            setCityName={setCityName}
-            theme={theme}
-          />
+          <Landing setLatLon={setLatLon} setCity={setCity} theme={theme} />
         ) : (
           <Weather
-            cityName={cityName}
+            city={city}
             weather={weather}
             isMetric={isMetric}
             dailyForecastView={dailyForecastView}
@@ -60,7 +57,7 @@ const Hero = ({
         )}
       </div>
     </div>
-  </section>
+  </div>
 );
 
 export default Hero;

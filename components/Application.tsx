@@ -13,7 +13,7 @@ type ApplicationProps = {
   weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
   setDailyForecastView: Dispatch<SetStateAction<string>>;
   setTheme: Dispatch<SetStateAction<Theme>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
@@ -31,7 +31,7 @@ const Application = ({
   setLatLon,
   dailyForecastView,
   setDailyForecastView,
-  setCityName,
+  setCity,
   setWeather,
   weather,
 }: ApplicationProps) => (
@@ -55,7 +55,7 @@ const Application = ({
       setLatLon={setLatLon}
       dailyForecastView={dailyForecastView}
       setDailyForecastView={setDailyForecastView}
-      setCityName={setCityName}
+      setCity={setCity}
       setWeather={setWeather}
     />
     <SearchIcon

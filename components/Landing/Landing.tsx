@@ -5,10 +5,10 @@ import CitySearch from "./CitySearch";
 type LandingProps = {
   theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
-const Landing = ({ theme, setLatLon, setCityName }: LandingProps) => (
+const Landing = ({ theme, setLatLon, setCity }: LandingProps) => (
   <div
     style={{
       display: "flex",
@@ -16,7 +16,7 @@ const Landing = ({ theme, setLatLon, setCityName }: LandingProps) => (
       alignItems: "center",
     }}
   >
-    <CitySearch setLatLon={setLatLon} setCityName={setCityName} theme={theme} />
+    <CitySearch setLatLon={setLatLon} setCity={setCity} theme={theme} />
   </div>
 );
 

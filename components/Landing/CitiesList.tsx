@@ -11,16 +11,10 @@ type CityProps = {
   isSelected: boolean;
   theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
-const City = ({
-  city,
-  isSelected,
-  theme,
-  setLatLon,
-  setCityName,
-}: CityProps) => (
+const City = ({ city, isSelected, theme, setLatLon, setCity }: CityProps) => (
   <div
     style={{
       cursor: "pointer",
@@ -33,8 +27,8 @@ const City = ({
     }}
     key={city.cityId}
     onClick={() => {
-      setLatLon(city.coordinates);
-      setCityName(getCityLabel(city));
+      setLatLon(city.loc.coordinates);
+      setCity(city);
     }}
   >
     {getCityLabel(city)}
@@ -48,7 +42,7 @@ type CitiesListProps = {
   isInputEmptyString: boolean;
   isLoading: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setCityName: Dispatch<SetStateAction<string>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
 const CitiesList = ({
@@ -58,7 +52,7 @@ const CitiesList = ({
   cityIndex,
   isLoading,
   setLatLon,
-  setCityName,
+  setCity,
 }: CitiesListProps) => (
   <div
     style={{
@@ -84,7 +78,7 @@ const CitiesList = ({
             theme={theme}
             isSelected={index === cityIndex}
             setLatLon={setLatLon}
-            setCityName={setCityName}
+            setCity={setCity}
           />
         ))}
         {cities.length === 0 && !isInputEmptyString && (
