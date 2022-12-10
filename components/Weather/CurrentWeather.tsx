@@ -142,7 +142,7 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
         <div
           className="up-fade stagger-up-2"
           style={{
-            flex: "0 0 33%",
+            flex: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
