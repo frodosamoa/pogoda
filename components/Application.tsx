@@ -2,26 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Search as SearchIcon } from "react-feather";
 
 import Settings from "./Settings";
-
-type TitleProps = {
-  weather?: Weather;
-};
-
-const Title = ({ weather }: TitleProps) => (
-  <div
-    style={{
-      position: "fixed",
-      top: 24,
-      left: 24,
-      textAlign: "start",
-      opacity: weather ? 0 : 1,
-      transition: "opacity 150ms ease-in-out",
-    }}
-  >
-    <p className="is-size-4">pogoda</p>
-    <p className="is-size-6">weather dashboard</p>
-  </div>
-);
+import AppTitle from "./AppTitle";
 
 type ApplicationProps = {
   theme: Theme;
@@ -62,7 +43,7 @@ const Application = ({
           : "has-text-light"
       }
     >
-      <Title />
+      <AppTitle hasWeather={weather !== null} />
       <Settings
         isSettingsOpen={isSettingsOpen}
         setIsSettingsOpen={setIsSettingsOpen}
@@ -75,6 +56,7 @@ const Application = ({
         dailyForecastView={dailyForecastView}
         setDailyForecastView={setDailyForecastView}
         setCityName={setCityName}
+        setWeather={setWeather}
       />
       <SearchIcon
         size={42}
@@ -88,7 +70,7 @@ const Application = ({
           bottom: 24,
           left: 24,
           cursor: "pointer",
-          opacity: weather ? 1 : 0,
+          opacity: weather !== null ? 1 : 0,
           transition: "opacity 150ms ease-in-out",
         }}
       />

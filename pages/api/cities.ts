@@ -6,6 +6,7 @@ import CITIES from "../../constants/cities";
 const normalizeString = (s: string) =>
   s
     .normalize("NFD")
+    // removes diacritical marks
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 
@@ -16,13 +17,15 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
     const { query: queryParam } = queryString.parse(
       url.slice(url.indexOf("?"))
     );
-    const qury = Array.isArray(queryParam) ? queryParam[0] : queryParam;
+    const query = Array.isArray(queryParam) ? queryParam[0] : queryParam;
 
     res
       .status(200)
       .json(
         CITIES.filter((city) =>
-          normalizeString(city.name).match(normalizeString(qury))
+          normalizeString(city.name).match(
+            normalizeString(query.replace(/[\W_]+/g, ""))
+          )
         ).slice(0, 7)
       );
   } else {

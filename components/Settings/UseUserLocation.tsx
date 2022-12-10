@@ -6,11 +6,12 @@ type UserResponseProps = {
   latitude: number;
   longitude: number;
   fetchGeo: boolean;
+  latLon: [number, number];
   setFetchGeo: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setCityName: Dispatch<SetStateAction<string>>;
-  latLon: [number, number];
+  setWeather: Dispatch<SetStateAction<Weather>>;
 };
 
 const UserResponse = ({
@@ -22,6 +23,7 @@ const UserResponse = ({
   setCityName,
   setIsSettingsOpen,
   setLatLon,
+  setWeather,
 }: UserResponseProps) => {
   if (!latitude && !longitude) {
     return (
@@ -56,6 +58,7 @@ const UserResponse = ({
           <button
             className="button is-black"
             onClick={() => {
+              setWeather(null);
               setLatLon([longitude, latitude]);
               setIsSettingsOpen(false);
               setCityName(null);
@@ -72,6 +75,7 @@ type UseUserLocationProps = {
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
+  setWeather: Dispatch<SetStateAction<Weather>>;
   latLon: [number, number];
 };
 
@@ -79,6 +83,7 @@ const UseUserLocation = ({
   setLatLon,
   setCityName,
   setIsSettingsOpen,
+  setWeather,
   latLon,
 }: UseUserLocationProps) => {
   const [fetchGeo, setFetchGeo] = useState(false);
@@ -86,11 +91,19 @@ const UseUserLocation = ({
 
   useEffect(() => {
     if (latitude && longitude) {
+      setWeather(null);
       setLatLon([longitude, latitude]);
       setIsSettingsOpen(false);
       setCityName(null);
     }
-  }, [latitude, longitude, setLatLon, setIsSettingsOpen, setCityName]);
+  }, [
+    latitude,
+    longitude,
+    setLatLon,
+    setIsSettingsOpen,
+    setCityName,
+    setWeather,
+  ]);
 
   return (
     <div
@@ -112,6 +125,7 @@ const UseUserLocation = ({
         setLatLon={setLatLon}
         setIsSettingsOpen={setIsSettingsOpen}
         setCityName={setCityName}
+        setWeather={setWeather}
       />
     </div>
   );

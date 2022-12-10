@@ -35,13 +35,14 @@ type SettingProps = {
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
+  isSettingsOpen: boolean;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   setTheme: Dispatch<SetStateAction<Theme>>;
   setDailyForecastView: Dispatch<SetStateAction<string>>;
-  isSettingsOpen: boolean;
+  setWeather: Dispatch<SetStateAction<Weather>>;
 };
 
 const Settings = ({
@@ -56,6 +57,7 @@ const Settings = ({
   dailyForecastView,
   setDailyForecastView,
   setCityName,
+  setWeather,
 }: SettingProps) => {
   return (
     <>
@@ -146,6 +148,7 @@ const Settings = ({
             setLatLon={setLatLon}
             setCityName={setCityName}
             setIsSettingsOpen={setIsSettingsOpen}
+            setWeather={setWeather}
           />
 
           <MadeBy />

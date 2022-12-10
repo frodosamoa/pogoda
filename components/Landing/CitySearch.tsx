@@ -45,8 +45,13 @@ const CitySearch = ({ setLatLon, setCityName, theme }: CitySearchProps) => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      getCities(e.target.value);
-      setCityIndex(0);
+      // remove non-word characters
+      const query = e.target.value.replace(/[\W_]+/g, "");
+
+      if (query !== "") {
+        getCities(query);
+        setCityIndex(0);
+      }
     },
     []
   );

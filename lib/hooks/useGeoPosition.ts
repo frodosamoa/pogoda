@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-const useGeoPosition = (fetch = false, options?: PositionOptions) => {
+const useGeoPosition = (fetch = false) => {
   const [state, setState] = useState<{
     latitude: number | null;
     longitude: number | null;
@@ -11,7 +11,8 @@ const useGeoPosition = (fetch = false, options?: PositionOptions) => {
     longitude: null,
     timestamp: Date.now(),
   });
-  const mounted = useRef(true);
+
+  let mounted = true;
 
   const onEvent: PositionCallback = (event) => {
     if (mounted) {
@@ -23,18 +24,21 @@ const useGeoPosition = (fetch = false, options?: PositionOptions) => {
     }
   };
 
-  const onEventError: PositionErrorCallback = (error) =>
-    mounted.current && setState((oldState) => ({ ...oldState, error }));
+  const onEventError: PositionErrorCallback = (error) => {
+    if (mounted) {
+      setState((oldState) => ({ ...oldState, error }));
+    }
+  };
 
   useEffect(() => {
     if (fetch) {
-      navigator.geolocation.getCurrentPosition(onEvent, onEventError, options);
+      navigator.geolocation.getCurrentPosition(onEvent, onEventError);
     }
 
     return () => {
-      mounted.current = false;
+      mounted = false;
     };
-  }, [fetch, options]);
+  }, [fetch]);
 
   return state;
 };
