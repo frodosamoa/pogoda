@@ -6,10 +6,21 @@ const MadeBy = () => (
       flexDirection: "column",
     }}
   >
-    <p className="is-size-6">made by </p>
-    <p className="is-size-6 is-underlined">
+    <p className="is-size-7">
+      code available on{" "}
       <a
-        className="has-text-light"
+        className="has-text-light is-underlined"
+        target="_blank"
+        rel="noreferrer"
+        href={"https://www.github.com/frodosamoa/pogoda"}
+      >
+        GitHub
+      </a>
+    </p>
+    <p className="is-size-7">
+      made by{" "}
+      <a
+        className="has-text-light is-underlined"
         target="_blank"
         rel="noreferrer"
         href={"https://www.andrewkowalczyk.com"}
