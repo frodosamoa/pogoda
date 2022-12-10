@@ -18,8 +18,8 @@ const Weather = ({
 }: WeatherProps) => {
   if (!weather) {
     return (
-      <div className="quick-fade-in spin">
-        <LoaderIcon size={36} />
+      <div className="quick-fade-in">
+        <LoaderIcon size={36} className="spin" />
       </div>
     );
   }

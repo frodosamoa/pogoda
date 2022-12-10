@@ -10,6 +10,7 @@ type CitySearchProps = {
 };
 
 const CitySearch = ({ theme, setLatLon, setCityName }: CitySearchProps) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [cities, setCities] = useState<City[] | []>([]);
   const [cityIndex, setCityIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,6 +25,8 @@ const CitySearch = ({ theme, setLatLon, setCityName }: CitySearchProps) => {
     <>
       <CityInput
         ref={inputRef}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
         isInputEmptyString={isInputEmptyString}
         cities={cities}
         theme={theme}
@@ -40,6 +43,7 @@ const CitySearch = ({ theme, setLatLon, setCityName }: CitySearchProps) => {
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCityName={setCityName}
+        isLoading={isLoading}
       />
     </>
   );

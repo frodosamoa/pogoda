@@ -7,6 +7,7 @@ import {
   SetStateAction,
   useCallback,
   forwardRef,
+  useState,
 } from "react";
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
@@ -19,7 +20,9 @@ type CityInputProps = {
   theme: Theme;
   cities: City[] | [];
   cityIndex: number;
+  isLoading: boolean;
   isInputEmptyString: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   setCityName: Dispatch<SetStateAction<string>>;
   setCities: Dispatch<SetStateAction<[] | City[]>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
@@ -37,24 +40,25 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
       setCityName,
       setCities,
       setLatLon,
+      setIsLoading,
     },
     ref
   ) => {
     const themeColor = chroma(colors[theme]);
     const getCities = useCallback(
-      async (city: string) => {
+      (city: string) => {
         if (city !== "") {
-          const res = await fetch(
-            `${window.location.href}/api/cities?query=${city}`
-          );
-          const json = await res.json();
-
-          setCities(json);
+          fetch(`${window.location.href}/api/cities?query=${city}`)
+            .then((res) => res.json())
+            .then((json) => {
+              setCities(json);
+              setIsLoading(false);
+            });
         } else {
           setCities([]);
         }
       },
-      [setCities]
+      [setCities, setIsLoading]
     );
 
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -80,16 +84,16 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
       (e) => {
         // remove non-word characters
         const query = e.target.value.replace(/[^\w\s]/g, "");
-        console.log(query);
 
         if (query !== "") {
+          setIsLoading(true);
           getCities(query);
           setCityIndex(0);
         } else {
           setCities([]);
         }
       },
-      [getCities, setCityIndex, setCities]
+      [getCities, setCityIndex, setCities, setIsLoading]
     );
 
     const debouncedHandleChange = useMemo(

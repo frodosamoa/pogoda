@@ -1,3 +1,4 @@
+import { Loader as LoaderIcon } from "react-feather";
 import { Dispatch, SetStateAction } from "react";
 
 import chroma from "chroma-js";
@@ -45,6 +46,7 @@ type CitiesListProps = {
   cityIndex: number;
   cities: City[];
   isInputEmptyString: boolean;
+  isLoading: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityName: Dispatch<SetStateAction<string>>;
 };
@@ -54,6 +56,7 @@ const CitiesList = ({
   cities,
   isInputEmptyString,
   cityIndex,
+  isLoading,
   setLatLon,
   setCityName,
 }: CitiesListProps) => (
@@ -68,18 +71,26 @@ const CitiesList = ({
       alignItems: "center",
     }}
   >
-    {cities.map((city, index) => (
-      <City
-        key={index}
-        city={city}
-        theme={theme}
-        isSelected={index === cityIndex}
-        setLatLon={setLatLon}
-        setCityName={setCityName}
-      />
-    ))}
-    {cities.length === 0 && !isInputEmptyString && (
-      <p className="is-size-4">no results</p>
+    {isLoading ? (
+      <div className="quick-fade-in m-t-16">
+        <LoaderIcon size={36} className="spin" />
+      </div>
+    ) : (
+      <>
+        {cities.map((city, index) => (
+          <City
+            key={index}
+            city={city}
+            theme={theme}
+            isSelected={index === cityIndex}
+            setLatLon={setLatLon}
+            setCityName={setCityName}
+          />
+        ))}
+        {cities.length === 0 && !isInputEmptyString && (
+          <p className="is-size-4">no results</p>
+        )}
+      </>
     )}
   </div>
 );

@@ -23,7 +23,7 @@ $body-font-size: 1.25em;
 
 .quick-fade-in {
   opacity: 0;
-  animation: 0.8s cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     simpleFadeIn;
 }
 
@@ -63,17 +63,17 @@ $body-font-size: 1.25em;
     upFade;
 }
 
-.spin {
-  animation: 1.2s linear 0 infinite normal forwards running spinAround;
-}
-
 @keyframes spinAround {
-  from {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
+}
+
+.spin {
+  animation: 1.5s linear 200ms infinite normal forwards running spinAround;
 }
 
 $staggeramounts: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12);

@@ -30,6 +30,41 @@ const SettingsItem = ({ children }: SettingsItemProps) => (
   </div>
 );
 
+type SettingsContainerProps = {
+  isSettingsOpen: boolean;
+  children: ReactNode;
+};
+
+const SettingsContainer = ({
+  isSettingsOpen,
+  children,
+}: SettingsContainerProps) => (
+  <div
+    className="has-background-black-ter has-text-light has-text-centered"
+    style={{
+      position: "fixed",
+      top: 0,
+      right: 0,
+      width: WIDTH,
+      height: "100%",
+      transform: `translateX(${isSettingsOpen ? 0 : WIDTH}px)`,
+      transition: "transform 400ms ease-out",
+      padding: 24,
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
+    >
+      {children}
+    </div>
+  </div>
+);
+
 type SettingProps = {
   theme: Theme;
   latLon: [number, number];
@@ -61,100 +96,79 @@ const Settings = ({
 }: SettingProps) => {
   return (
     <>
-      <div
-        className="has-background-black-ter has-text-light has-text-centered"
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          width: WIDTH,
-          height: "100%",
-          transform: `translateX(${isSettingsOpen ? 0 : WIDTH}px)`,
-          transition: "transform 400ms ease-in-out",
-          padding: 24,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%",
-          }}
-        >
-          <SettingsItem>
-            <Themes globalTheme={globalTheme} setTheme={setTheme} />
-          </SettingsItem>
+      <SettingsContainer isSettingsOpen={isSettingsOpen}>
+        <SettingsItem>
+          <Themes globalTheme={globalTheme} setTheme={setTheme} />
+        </SettingsItem>
 
-          <SettingsItem>
-            <p className="is-size-6 m-b-16">settings</p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className={"buttons has-addons"}>
-                <button
-                  className={classNames("button", !isMetric && "is-black")}
-                  onClick={() => setIsMetric(true)}
-                >
-                  °C, m/s
-                </button>
-                <button
-                  className={classNames("button", isMetric && "is-black")}
-                  onClick={() => setIsMetric(false)}
-                >
-                  °F, mph
-                </button>
-              </div>
+        <SettingsItem>
+          <p className="is-size-6 m-b-16">settings</p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className={"buttons has-addons"}>
+              <button
+                className={classNames("button", !isMetric && "is-black")}
+                onClick={() => setIsMetric(true)}
+              >
+                °C, m/s
+              </button>
+              <button
+                className={classNames("button", isMetric && "is-black")}
+                onClick={() => setIsMetric(false)}
+              >
+                °F, mph
+              </button>
             </div>
-          </SettingsItem>
+          </div>
+        </SettingsItem>
 
-          <SettingsItem>
-            <p className="is-size-6 m-b-16">daily forecast</p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className={"buttons has-addons"}>
-                <button
-                  title="temperature"
-                  className={classNames(
-                    "button",
-                    dailyForecastView !== "temperature" && "is-black"
-                  )}
-                  onClick={() => setDailyForecastView("temperature")}
-                >
-                  <ThermometerIcon size={16} />
-                </button>
-                <button
-                  title="precipitation"
-                  className={classNames(
-                    "button",
-                    dailyForecastView !== "precipitation" && "is-black"
-                  )}
-                  onClick={() => setDailyForecastView("precipitation")}
-                >
-                  <CloudRainIcon size={16} />
-                </button>
-                <button
-                  title="wind"
-                  className={classNames(
-                    "button",
-                    dailyForecastView !== "wind" && "is-black"
-                  )}
-                  onClick={() => setDailyForecastView("wind")}
-                >
-                  <WindIcon size={16} />
-                </button>
-              </div>
+        <SettingsItem>
+          <p className="is-size-6 m-b-16">daily forecast</p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className={"buttons has-addons"}>
+              <button
+                title="temperature"
+                className={classNames(
+                  "button",
+                  dailyForecastView !== "temperature" && "is-black"
+                )}
+                onClick={() => setDailyForecastView("temperature")}
+              >
+                <ThermometerIcon size={16} />
+              </button>
+              <button
+                title="precipitation"
+                className={classNames(
+                  "button",
+                  dailyForecastView !== "precipitation" && "is-black"
+                )}
+                onClick={() => setDailyForecastView("precipitation")}
+              >
+                <CloudRainIcon size={16} />
+              </button>
+              <button
+                title="wind"
+                className={classNames(
+                  "button",
+                  dailyForecastView !== "wind" && "is-black"
+                )}
+                onClick={() => setDailyForecastView("wind")}
+              >
+                <WindIcon size={16} />
+              </button>
             </div>
-          </SettingsItem>
+          </div>
+        </SettingsItem>
 
-          <UseUserLocation
-            latLon={latLon}
-            setLatLon={setLatLon}
-            setCityName={setCityName}
-            setIsSettingsOpen={setIsSettingsOpen}
-            setWeather={setWeather}
-          />
+        <UseUserLocation
+          latLon={latLon}
+          setLatLon={setLatLon}
+          setCityName={setCityName}
+          setIsSettingsOpen={setIsSettingsOpen}
+          setWeather={setWeather}
+        />
 
-          <MadeBy />
-        </div>
-      </div>
+        <MadeBy />
+      </SettingsContainer>
 
       <SettingsIcon
         size={42}
@@ -167,7 +181,7 @@ const Settings = ({
           transform: `translateX(-${isSettingsOpen ? WIDTH : 0}px) rotate(${
             isSettingsOpen ? 0 : 90
           }deg)`,
-          transition: "transform 400ms ease-in-out",
+          transition: "transform 400ms ease-out",
         }}
       />
     </>
