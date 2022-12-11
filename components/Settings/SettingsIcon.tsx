@@ -16,7 +16,7 @@ const StyledSettings = styled(Settings)<StyledSettingsProps>`
   transform: translateX(
       -${({ $isSettingsOpen }) => ($isSettingsOpen ? WIDTH : 0)}px
     )
-    rotate(${({ $isSettingsOpen }) => ($isSettingsOpen ? 0 : 90)}deg);
+    rotate(${({ $isSettingsOpen }) => ($isSettingsOpen ? -90 : 0)}deg);
   transition: transform 400ms ease-out;
 `;
 

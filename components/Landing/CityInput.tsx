@@ -13,7 +13,7 @@ import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 import classNames from "classnames";
 
-import colors from "../../constants/colors";
+import { COLORS } from "../../constants/theme";
 
 type CityInputProps = {
   theme: Theme;
@@ -43,7 +43,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     },
     ref
   ) => {
-    const themeColor = chroma(colors[theme]);
+    const themeColor = chroma(COLORS[theme]);
     const getCities = useCallback(
       (city: string) => {
         if (city !== "") {

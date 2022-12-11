@@ -15,11 +15,11 @@ type ContainerProps = {
 const Container = styled.div<ContainerProps>`
   position: fixed;
   top: 0;
-  right: 0;
+  right: -${WIDTH}px;
   width: ${WIDTH}px;
   height: 100%;
   transform: translateX(
-    ${({ $isSettingsOpen }) => ($isSettingsOpen ? 0 : WIDTH)}px
+    ${({ $isSettingsOpen }) => ($isSettingsOpen ? -WIDTH : 0)}px
   );
   transition: transform 400ms ease-out;
   padding: 24px;

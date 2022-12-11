@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
+import { fadeIn } from "../../constants/animations";
 import Loader from "../Loader";
 import City from "./City";
 
@@ -19,12 +20,15 @@ const Container = styled.div`
   position: absolute;
   z-index: 100;
   display: flex;
-  flexd-irection: column;
+  flex-direction: column;
   align-items: center;
 `;
 
 const LoaderContainer = styled.div`
   margin-top: ${({ theme }) => theme.units.lg}px;
+  opacity: 0;
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+    ${fadeIn};
 `;
 
 const CitiesList = ({
@@ -37,7 +41,7 @@ const CitiesList = ({
 }: CitiesListProps) => (
   <Container>
     {isLoading ? (
-      <LoaderContainer className="quick-fade-in">
+      <LoaderContainer>
         <Loader />
       </LoaderContainer>
     ) : (

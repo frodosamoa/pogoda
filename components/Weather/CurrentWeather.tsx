@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { format } from "date-fns";
 
 import {
@@ -6,6 +7,7 @@ import {
   MPS_TO_MPH,
 } from "../../constants/conversion";
 import { degreeToCompass } from "../../lib/weatherUtils";
+import { fadeUp } from "../../constants/animations";
 
 import LargeDailySummary from "./LargeDailySummary";
 
@@ -38,6 +40,13 @@ type CurrentWeatherProps = {
   current: CurrentWeather;
   isMetric: boolean;
 };
+
+const StyledDiv = styled.div<{ $animationDelay: number }>`
+  opacity: 0;
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+    ${fadeUp};
+  animation-delay: ${({ $animationDelay = 200 }) => $animationDelay}ms;
+`;
 
 const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
   const {
@@ -91,8 +100,8 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
   return (
     <div style={{ padding: 24 }}>
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-        <div
-          className="up-fade stagger-4"
+        <StyledDiv
+          $animationDelay={600}
           style={{
             display: "flex",
             flex: 1,
@@ -102,12 +111,12 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
           }}
         >
           <AdditionalInfo info={additionalInfo} />
-        </div>
-        <div className="up-fade" style={{ flex: 1 }}>
+        </StyledDiv>
+        <StyledDiv $animationDelay={200} style={{ flex: 1 }}>
           <LargeDailySummary current={current} isMetric={isMetric} />
-        </div>
-        <div
-          className="up-fade stagger-4"
+        </StyledDiv>
+        <StyledDiv
+          $animationDelay={600}
           style={{
             flex: 1,
             display: "flex",
@@ -117,7 +126,7 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
           }}
         >
           <AdditionalInfo info={additionalInfoTwo} />
-        </div>
+        </StyledDiv>
       </div>
     </div>
   );

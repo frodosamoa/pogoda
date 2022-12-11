@@ -10,7 +10,7 @@ Pogoda is a simple and minimalist <a href="https://pogoda.vercel.app">weather da
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Bulma.io](https://bulma.io/)
-- [Sass](https://sass-lang.com/)
+- [`styled-components`](https://styled-components.com/)
 
 The project uses [OpenWeather](https://openweathermap.org/)'s [Weather API](https://openweathermap.org/api) to fetch real time weather data.
 

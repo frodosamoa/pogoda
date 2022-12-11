@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import { format } from "date-fns";
+import styled from "styled-components";
 
+import { fadeIn } from "../../constants/animations";
 import { MM_TO_INCHES, MPS_TO_MPH } from "../../constants/conversion";
 
 import {
@@ -18,6 +20,13 @@ type DaySummaryProps = {
   isMetric: boolean;
   dailyForecastView: string;
 };
+
+const Container = styled.div<{ $animationDelay: number }>`
+  opacity: 0;
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+    ${fadeIn};
+  animation-delay: ${({ $animationDelay = 200 }) => $animationDelay}ms;
+`;
 
 const DaySummary = ({
   index,
@@ -50,7 +59,7 @@ const DaySummary = ({
     indexOffset > count / 2 ? count - indexOffset + 1 : indexOffset;
 
   return (
-    <div className={`column quick-fade-in stagger-${staggerNumber}`}>
+    <Container $animationDelay={200 + staggerNumber * 100} className={"column"}>
       <div>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
           {format(new Date(date * 1000), "ccc")}
@@ -99,7 +108,7 @@ const DaySummary = ({
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
