@@ -12,6 +12,8 @@ Pogoda is a simple and minimalist <a href="https://pogoda.vercel.app">weather da
 - [Bulma.io](https://bulma.io/)
 - [Sass](https://sass-lang.com/)
 
+The project uses [OpenWeather](https://openweathermap.org/)'s [Weather API](https://openweathermap.org/api) to fetch real time weather data.
+
 ## Getting Started
 
 In order to run the project locally, you'll need the following:
