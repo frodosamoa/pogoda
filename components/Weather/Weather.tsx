@@ -1,6 +1,6 @@
-import { Loader as LoaderIcon } from "react-feather";
 import ADMIN_CODES from "../../constants/adminCodes";
 import COUNTRIES from "../../constants/countries";
+import Loader from "../Loader";
 
 import CurrentWeather from "./CurrentWeather";
 import DailySummary from "./DailySummary";
@@ -21,7 +21,7 @@ const Weather = ({
   if (!weather) {
     return (
       <div className="quick-fade-in">
-        <LoaderIcon size={36} className="spin" />
+        <Loader />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-const COLORS: { [K in Theme]: string } = {
+export const COLORS: { [K in Theme]: string } = {
   light: "hsl(0, 0%, 96%)",
   dark: "hsl(0, 0%, 21%)",
   primary: "hsl(171, 100%, 41%)",
@@ -9,4 +9,11 @@ const COLORS: { [K in Theme]: string } = {
   danger: "hsl(348, 100%, 61%)",
 };
 
-export default COLORS;
+export const UNITS: { [K in Sizes]: number } = {
+  xs: 2,
+  sm: 4,
+  md: 8,
+  lg: 16,
+  xl: 32,
+  xxl: 48,
+};

@@ -38,7 +38,6 @@ const CitySearch = ({ theme, setLatLon, setCity }: CitySearchProps) => {
       />
       <CitiesList
         cities={cities}
-        theme={theme}
         isInputEmptyString={isInputEmptyString}
         cityIndex={cityIndex}
         setLatLon={setLatLon}

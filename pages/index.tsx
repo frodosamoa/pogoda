@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { ThemeProvider, DefaultTheme } from "styled-components";
 
+import { UNITS, COLORS } from "../constants/theme";
 import Application from "../components/Application";
 import Hero from "../components/Hero";
 
@@ -27,8 +29,14 @@ const Home = () => {
     }
   }, [latLon]);
 
+  const providedTheme: DefaultTheme = {
+    theme,
+    units: UNITS,
+    themes: COLORS,
+  };
+
   return (
-    <>
+    <ThemeProvider theme={providedTheme}>
       <Hero
         theme={theme}
         latLon={latLon}
@@ -55,7 +63,7 @@ const Home = () => {
         setWeather={setWeather}
         weather={weather}
       />
-    </>
+    </ThemeProvider>
   );
 };
 

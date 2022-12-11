@@ -2,9 +2,8 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    colors: {
-      primary: string;
-      secondary: string;
-    };
+    theme: Theme;
+    units: { [K in Sizes]: number };
+    themes: { [K in Theme]: string };
   }
 }

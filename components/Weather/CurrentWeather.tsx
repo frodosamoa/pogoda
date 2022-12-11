@@ -5,42 +5,9 @@ import {
   MM_TO_INCHES,
   MPS_TO_MPH,
 } from "../../constants/conversion";
-import {
-  degreeToCompass,
-  kelvinToFahrenheit,
-  kelvinToCelcius,
-  weatherToIcon,
-  getWeatherCodeIconInfo,
-} from "../../lib/weatherUtils";
+import { degreeToCompass } from "../../lib/weatherUtils";
 
-type LargeDailySummaryProps = {
-  current: CurrentWeather;
-  isMetric: boolean;
-};
-
-const LargeDailySummary = ({ current, isMetric }: LargeDailySummaryProps) => {
-  const { dt, sunrise, sunset, weather, temp } = current;
-  const weatherIconInfo = weather && weather[0];
-  let weatherLabel = getWeatherCodeIconInfo(weatherIconInfo.id).label;
-  weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
-
-  const isDay = dt > sunrise && dt < sunset;
-
-  return (
-    <>
-      <p className="is-size-1">
-        <i className={weatherToIcon(weatherIconInfo.id, isDay)}></i>{" "}
-        {isMetric
-          ? `${kelvinToCelcius(temp)} °C`
-          : `${kelvinToFahrenheit(temp)} °F`}
-      </p>
-
-      <p className="is-size-4">{format(new Date(dt * 1000), `EEEE p`)}</p>
-      <p className="is-size-4">{format(new Date(dt * 1000), `MMM d`)}</p>
-      <p className="is-size-4">{weatherLabel}</p>
-    </>
-  );
-};
+import LargeDailySummary from "./LargeDailySummary";
 
 const AdditionalInfo = ({ info }: { info: string[] }) => (
   <div>
@@ -125,7 +92,7 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
     <div style={{ padding: 24 }}>
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         <div
-          className="up-fade stagger-up-2"
+          className="up-fade stagger-4"
           style={{
             display: "flex",
             flex: 1,
@@ -140,7 +107,7 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
           <LargeDailySummary current={current} isMetric={isMetric} />
         </div>
         <div
-          className="up-fade stagger-up-2"
+          className="up-fade stagger-4"
           style={{
             flex: 1,
             display: "flex",

@@ -8,6 +8,8 @@ type Theme =
   | "dark"
   | "light";
 
+type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+
 type City = {
   cityId: string;
   name: string;

@@ -50,7 +50,7 @@ const DaySummary = ({
     indexOffset > count / 2 ? count - indexOffset + 1 : indexOffset;
 
   return (
-    <div className={`column quick-fade-in stagger-quick-${staggerNumber}`}>
+    <div className={`column quick-fade-in stagger-${staggerNumber}`}>
       <div>
         <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
           {format(new Date(date * 1000), "ccc")}

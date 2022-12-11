@@ -1,10 +1,10 @@
-import { Loader as LoaderIcon } from "react-feather";
 import { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
+import Loader from "../Loader";
 import City from "./City";
 
 type CitiesListProps = {
-  theme: Theme;
   cityIndex: number;
   cities: City[];
   isInputEmptyString: boolean;
@@ -13,8 +13,21 @@ type CitiesListProps = {
   setCity: Dispatch<SetStateAction<City>>;
 };
 
+const Container = styled.div`
+  width: 450px;
+  margin-top: 100px;
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  flexd-irection: column;
+  align-items: center;
+`;
+
+const LoaderContainer = styled.div`
+  margin-top: ${({ theme }) => theme.units.lg}px;
+`;
+
 const CitiesList = ({
-  theme,
   cities,
   isInputEmptyString,
   cityIndex,
@@ -22,28 +35,17 @@ const CitiesList = ({
   setLatLon,
   setCity,
 }: CitiesListProps) => (
-  <div
-    style={{
-      width: 450,
-      marginTop: 100,
-      position: "absolute",
-      zIndex: 100,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}
-  >
+  <Container>
     {isLoading ? (
-      <div style={{ marginTop: 16 }} className="quick-fade-in">
-        <LoaderIcon size={36} className="spin" />
-      </div>
+      <LoaderContainer className="quick-fade-in">
+        <Loader />
+      </LoaderContainer>
     ) : (
       <>
         {cities.map((city, index) => (
           <City
             key={index}
             city={city}
-            theme={theme}
             isSelected={index === cityIndex}
             setLatLon={setLatLon}
             setCity={setCity}
@@ -54,7 +56,7 @@ const CitiesList = ({
         )}
       </>
     )}
-  </div>
+  </Container>
 );
 
 export default CitiesList;

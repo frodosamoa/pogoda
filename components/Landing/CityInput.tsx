@@ -14,7 +14,6 @@ import chroma from "chroma-js";
 import classNames from "classnames";
 
 import colors from "../../constants/colors";
-import { getCityLabel } from "../../lib/weatherUtils";
 
 type CityInputProps = {
   theme: Theme;
