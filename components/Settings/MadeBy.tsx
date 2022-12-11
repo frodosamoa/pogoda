@@ -1,11 +1,13 @@
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+`;
+
 const MadeBy = () => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "end",
-      flexDirection: "column",
-    }}
-  >
+  <Container>
     <p className="is-size-7">
       code available on{" "}
       <a
@@ -28,7 +30,7 @@ const MadeBy = () => (
         Andrew Kowalczyk
       </a>
     </p>
-  </div>
+  </Container>
 );
 
 export default MadeBy;

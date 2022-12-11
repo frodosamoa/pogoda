@@ -1,7 +1,6 @@
 import classNames from "classnames";
-import { Dispatch, SetStateAction, ReactNode } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
-  Settings as SettingsIcon,
   Thermometer as ThermometerIcon,
   Wind as WindIcon,
   CloudRain as CloudRainIcon,
@@ -10,60 +9,9 @@ import {
 import Themes from "./Themes";
 import UseUserLocation from "./UseUserLocation";
 import MadeBy from "./MadeBy";
-
-const WIDTH = 250;
-
-type SettingsItemProps = {
-  children: ReactNode;
-};
-
-const SettingsItem = ({ children }: SettingsItemProps) => (
-  <div
-    style={{
-      flex: 1,
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-    }}
-  >
-    {children}
-  </div>
-);
-
-type SettingsContainerProps = {
-  isSettingsOpen: boolean;
-  children: ReactNode;
-};
-
-const SettingsContainer = ({
-  isSettingsOpen,
-  children,
-}: SettingsContainerProps) => (
-  <div
-    className="has-background-black-ter has-text-light has-text-centered"
-    style={{
-      position: "fixed",
-      top: 0,
-      right: 0,
-      width: WIDTH,
-      height: "100%",
-      transform: `translateX(${isSettingsOpen ? 0 : WIDTH}px)`,
-      transition: "transform 400ms ease-out",
-      padding: 24,
-    }}
-  >
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "100%",
-      }}
-    >
-      {children}
-    </div>
-  </div>
-);
+import SettingsItem from "./SettingsItem";
+import SettingsContainer from "./SettingsContainer";
+import SettingsIcon from "./SettingsIcon";
 
 type SettingProps = {
   theme: Theme;
@@ -171,18 +119,8 @@ const Settings = ({
       </SettingsContainer>
 
       <SettingsIcon
-        size={42}
-        onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-        style={{
-          position: "fixed",
-          bottom: 24,
-          right: 24,
-          cursor: "pointer",
-          transform: `translateX(-${isSettingsOpen ? WIDTH : 0}px) rotate(${
-            isSettingsOpen ? 0 : 90
-          }deg)`,
-          transition: "transform 400ms ease-out",
-        }}
+        setIsSettingsOpen={setIsSettingsOpen}
+        isSettingsOpen={isSettingsOpen}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Search as SearchIcon } from "react-feather";
 
-import Settings from "./Settings";
+import Settings from "../Settings";
+import SearchIcon from "./SearchIcon";
 import AppTitle from "./AppTitle";
 
 type ApplicationProps = {
@@ -59,20 +59,10 @@ const Application = ({
       setWeather={setWeather}
     />
     <SearchIcon
-      size={42}
-      onClick={() => {
-        setLatLon(null);
-        setWeather(null);
-        setIsSettingsOpen(false);
-      }}
-      style={{
-        position: "fixed",
-        bottom: 24,
-        left: 24,
-        cursor: "pointer",
-        opacity: weather !== null ? 1 : 0,
-        transition: "opacity 300ms ease-in-out",
-      }}
+      hasWeather={weather !== null}
+      setLatLon={setLatLon}
+      setIsSettingsOpen={setIsSettingsOpen}
+      setWeather={setWeather}
     />
   </div>
 );
