@@ -50,7 +50,9 @@ const Settings = ({
         </SettingsItem>
 
         <SettingsItem>
-          <p className="is-size-6 m-b-16">settings</p>
+          <p style={{ marginBottom: 16 }} className="is-size-6">
+            settings
+          </p>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div className={"buttons has-addons"}>
               <button
@@ -70,7 +72,9 @@ const Settings = ({
         </SettingsItem>
 
         <SettingsItem>
-          <p className="is-size-6 m-b-16">daily forecast</p>
+          <p style={{ marginBottom: 16 }} className="is-size-6">
+            daily forecast
+          </p>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div className={"buttons has-addons"}>
               <button

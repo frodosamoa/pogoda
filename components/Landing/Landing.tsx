@@ -1,4 +1,5 @@
 import { SetStateAction, Dispatch } from "react";
+import styled from "styled-components";
 
 import CitySearch from "./CitySearch";
 
@@ -8,16 +9,16 @@ type LandingProps = {
   setCity: Dispatch<SetStateAction<City>>;
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Landing = ({ theme, setLatLon, setCity }: LandingProps) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}
-  >
+  <Container>
     <CitySearch setLatLon={setLatLon} setCity={setCity} theme={theme} />
-  </div>
+  </Container>
 );
 
 export default Landing;

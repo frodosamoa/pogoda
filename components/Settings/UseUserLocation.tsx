@@ -40,7 +40,10 @@ const UserResponse = ({
         >
           use your location
         </button>
-        <div className="is-size-7 is-italic m-t-8">
+        <div
+          style={{ marginTop: 8, fontStyle: "italic" }}
+          className="is-size-7"
+        >
           your location isn&apos;t stored
         </div>
       </>
