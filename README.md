@@ -62,3 +62,9 @@ You can also make a production build:
 ```bash
 yarn build
 ```
+
+Or analyze the production build itself:
+
+```bash
+yarn analyze
+```
