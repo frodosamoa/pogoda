@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-import { fadeIn } from "../../constants/animations";
+import { fadeIn } from "../../lib/constants/animations";
 import Loader from "../Loader";
 import City from "./City";
 
@@ -15,7 +15,7 @@ type CitiesListProps = {
 };
 
 const Container = styled.div`
-  width: 450px;
+  width: 500px;
   margin-top: 100px;
   position: absolute;
   z-index: 100;
@@ -48,7 +48,7 @@ const CitiesList = ({
       <>
         {cities.map((city, index) => (
           <City
-            key={index}
+            key={city.cityId}
             city={city}
             isSelected={index === cityIndex}
             setLatLon={setLatLon}

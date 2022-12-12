@@ -5,7 +5,7 @@ import {
   kelvinToCelcius,
   weatherToIcon,
   getWeatherCodeIconInfo,
-} from "../../lib/weatherUtils";
+} from "../../lib/utils/weather";
 
 type LargeDailySummaryProps = {
   current: CurrentWeather;

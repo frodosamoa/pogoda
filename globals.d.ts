@@ -13,11 +13,10 @@ type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type City = {
   cityId: string;
   name: string;
-  adminCode: string;
-  country: string;
-  loc: {
-    coordinates: [number, number];
-  };
+  latitude: number;
+  longitude: number;
+  countryName: string;
+  administrativeName: string;
 };
 
 type CurrentWeather = {

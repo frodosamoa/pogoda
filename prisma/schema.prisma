@@ -1,0 +1,25 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model City {
+  cityId                       Int     @id
+  name                         String
+  normalizedName               String
+  population                   Int
+  latitude                     Float
+  longitude                    Float
+  countryCode                  String
+  normalizedCountryCode        String
+  countryName                  String
+  normalizedCountryName        String
+  administrativeName           String?
+  normalizedAdministrativeName String?
+
+  @@index([population(sort: Desc)])
+}

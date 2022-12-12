@@ -2,8 +2,8 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import styled from "styled-components";
 
-import { fadeIn } from "../../constants/animations";
-import { MM_TO_INCHES, MPS_TO_MPH } from "../../constants/conversion";
+import { fadeIn } from "../../lib/constants/animations";
+import { MM_TO_INCHES, MPS_TO_MPH } from "../../lib/constants/conversion";
 
 import {
   kelvinToFahrenheit,
@@ -11,7 +11,7 @@ import {
   weatherToIcon,
   getWeatherCodeIconInfo,
   degreeToCompass,
-} from "../../lib/weatherUtils";
+} from "../../lib/utils/weather";
 
 type DaySummaryProps = {
   index: number;

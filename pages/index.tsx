@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { UNITS, COLORS } from "../constants/theme";
+import { UNITS, COLORS } from "../lib/constants/theme";
 import Application from "../components/Application";
 import Hero from "../components/Hero";
+import useGetWeather from "../lib/hooks/useGetWeather";
 
 const Home = () => {
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [weather, setWeather] = useState<Weather>(null);
+  const [weather, setWeather] = useGetWeather({ latLon });
   const [theme, setTheme] = useState<Theme>("dark");
   const [dailyForecastView, setDailyForecastView] = useState("temperature");
-
-  useEffect(() => {
-    const getWeather = async (latitude: number, longitude: number) => {
-      const res = await fetch(
-        `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}`
-      );
-      const json = await res.json();
-
-      setWeather(json);
-    };
-
-    if (latLon?.length > 0) {
-      getWeather(latLon[1], latLon[0]);
-    }
-  }, [latLon]);
 
   const providedTheme: DefaultTheme = {
     theme,

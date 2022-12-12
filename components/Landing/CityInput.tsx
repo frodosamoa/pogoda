@@ -13,7 +13,7 @@ import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 import classNames from "classnames";
 
-import { COLORS } from "../../constants/theme";
+import { COLORS } from "../../lib/constants/theme";
 
 type CityInputProps = {
   theme: Theme;
@@ -73,7 +73,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === "Enter" && !isInputEmptyString) {
         const city = cities[cityIndex];
-        setLatLon(city.loc.coordinates);
+        setLatLon([city.latitude, city.longitude]);
         setCity(city);
         setCityIndex(0);
       }
@@ -123,7 +123,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
               : "has-text-light"
           )}
           style={{
-            width: 450,
+            width: 500,
             boxShadow: "inherit",
             fontSize: "2rem",
             borderColor:

@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-import ADMIN_CODES from "../../constants/adminCodes";
-import COUNTRIES from "../../constants/countries";
 import Loader from "../Loader";
 
-import { fadeIn, fadeUp } from "../../constants/animations";
+import { fadeIn, fadeUp } from "../../lib/constants/animations";
 import CurrentWeather from "./CurrentWeather";
 import DailySummary from "./DailySummary";
 
@@ -46,10 +44,8 @@ const Weather = ({
       <div style={{ padding: 24 }}>
         <StyledP className="is-size-2">{city.name}</StyledP>
         <StyledP className="is-size-3">
-          {city.adminCode
-            ? `${ADMIN_CODES[`${city.country}.${city.adminCode}`]}, `
-            : ""}
-          {COUNTRIES[city.country]}
+          {city.administrativeName ? `${city.administrativeName}, ` : ""}
+          {city.countryName}
         </StyledP>
       </div>
       <CurrentWeather current={weather.current} isMetric={isMetric} />

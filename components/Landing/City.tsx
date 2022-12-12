@@ -2,8 +2,6 @@ import { Dispatch, SetStateAction } from "react";
 import chroma from "chroma-js";
 import styled from "styled-components";
 
-import { getCityLabel } from "../../lib/weatherUtils";
-
 type CityProps = {
   city: City;
   isSelected: boolean;
@@ -24,17 +22,19 @@ const Container = styled.div<ContainerProps>`
   padding: 4px;
   border-radius: 6px;
   transition: background-color 150ms ease-in-out;
+  font-size: 18px;
 `;
 
 const City = ({ city, isSelected, setLatLon, setCity }: CityProps) => (
   <Container
     $isSelected={isSelected}
     onClick={() => {
-      setLatLon(city.loc.coordinates);
+      setLatLon([city.latitude, city.longitude]);
       setCity(city);
     }}
   >
-    {getCityLabel(city)}
+    {city.name}, {city.administrativeName ? `${city.administrativeName}, ` : ""}{" "}
+    {city.countryName}
   </Container>
 );
 

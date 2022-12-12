@@ -5,9 +5,9 @@ import {
   METERS_TO_MILES,
   MM_TO_INCHES,
   MPS_TO_MPH,
-} from "../../constants/conversion";
-import { degreeToCompass } from "../../lib/weatherUtils";
-import { fadeUp } from "../../constants/animations";
+} from "../../lib/constants/conversion";
+import { degreeToCompass } from "../../lib/utils/weather";
+import { fadeUp } from "../../lib/constants/animations";
 
 import LargeDailySummary from "./LargeDailySummary";
 
@@ -64,10 +64,13 @@ const CurrentWeather = ({ current, isMetric }: CurrentWeatherProps) => {
     return null;
   }
 
-  const additionalInfo = [
-    `Sunrise: ↑${format(new Date(sunrise * 1000), "pp")}`,
-    `Sunset: ↓${format(new Date(sunset * 1000), "pp")}`,
-  ];
+  const additionalInfo = [];
+  if (sunrise) {
+    additionalInfo.push(`Sunrise: ↑${format(new Date(sunrise * 1000), "pp")}`);
+  }
+  if (sunset) {
+    additionalInfo.push(`Sunset: ↓${format(new Date(sunset * 1000), "pp")}`);
+  }
   if (visibility) {
     if (isMetric) {
       additionalInfo.push(`Visibility: ${Math.round(visibility / 1000)} km`);

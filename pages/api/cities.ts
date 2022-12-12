@@ -1,14 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import queryString from "query-string";
 
-import CITIES from "../../constants/cities";
+import prisma from "../../lib/prisma";
 
-const normalizeString = (s: string) =>
-  s
-    .normalize("NFD")
-    // removes diacritical marks
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+import { normalizeString } from "../../lib/utils/string";
 
 module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, url } = req;
@@ -18,16 +13,37 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
       url.slice(url.indexOf("?"))
     );
     const query = Array.isArray(queryParam) ? queryParam[0] : queryParam;
+    const normalizedQuery = normalizeString(query);
 
-    res
-      .status(200)
-      .json(
-        CITIES.filter((city) =>
-          normalizeString(city.name).match(
-            normalizeString(query.replace(/[^\w\s]/g, ""))
-          )
-        ).slice(0, 7)
-      );
+    const cities = await prisma.city.findMany({
+      orderBy: {
+        population: "desc",
+      },
+      where: {
+        OR: [
+          "normalizedName",
+          "normalizedAdministrativeName",
+          "normalizedCountryCode",
+          "normalizedCountryName",
+        ].map((columnName) => ({
+          [columnName]: {
+            contains: normalizedQuery,
+          },
+        })),
+      },
+      select: {
+        cityId: true,
+        administrativeName: true,
+        countryCode: true,
+        latitude: true,
+        longitude: true,
+        name: true,
+        countryName: true,
+      },
+      take: 7,
+    });
+
+    res.status(200).json(cities);
   } else {
     res.setHeader("Allow", ["GET"]);
     res.status(405).end(`Method ${method} Not Allowed`);
