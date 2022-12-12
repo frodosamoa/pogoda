@@ -44,8 +44,6 @@ type DailyWeather = {
 };
 
 type Weather = {
-  lat: number;
-  lon: number;
   daily: DailyWeather[];
   current: CurrentWeather;
 };

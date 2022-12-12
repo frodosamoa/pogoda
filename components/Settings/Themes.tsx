@@ -1,4 +1,4 @@
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { SetStateAction, Dispatch } from "react";
 
 import Theme from "./Theme";
@@ -8,14 +8,17 @@ type ThemesProps = {
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
+const Title = styled.p`
+  margin-bottom: 16px;
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
 const Themes = ({ globalTheme, setTheme }: ThemesProps) => {
   const theme = useTheme();
 
   return (
     <>
-      <p style={{ marginBottom: 16 }} className="is-size-6">
-        theme
-      </p>
+      <Title>theme</Title>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {Object.keys(theme.themes).map((theme) => (
           <Theme

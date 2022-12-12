@@ -6,9 +6,13 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const Paragraph = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[7]};
+`;
+
 const MadeBy = () => (
   <Container>
-    <p className="is-size-7">
+    <Paragraph>
       code available on{" "}
       <a
         className="has-text-light is-underlined"
@@ -18,8 +22,8 @@ const MadeBy = () => (
       >
         GitHub
       </a>
-    </p>
-    <p className="is-size-7">
+    </Paragraph>
+    <Paragraph>
       made by{" "}
       <a
         className="has-text-light is-underlined"
@@ -29,7 +33,7 @@ const MadeBy = () => (
       >
         Andrew Kowalczyk
       </a>
-    </p>
+    </Paragraph>
   </Container>
 );
 

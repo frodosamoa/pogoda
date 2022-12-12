@@ -17,3 +17,13 @@ export const UNITS: { [K in Sizes]: number } = {
   xl: 32,
   xxl: 48,
 };
+
+export const FONT_SIZES = {
+  1: "3rem",
+  2: "2.5rem",
+  3: "2rem",
+  4: "1.5rem",
+  5: "1.25rem",
+  6: "1rem",
+  7: "0.75rem",
+};

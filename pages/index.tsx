@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { UNITS, COLORS } from "../lib/constants/theme";
+import { UNITS, COLORS, FONT_SIZES } from "../lib/constants/theme";
 import Application from "../components/Application";
 import Hero from "../components/Hero";
 import useGetWeather from "../lib/hooks/useGetWeather";
@@ -19,6 +19,7 @@ const Home = () => {
     theme,
     units: UNITS,
     themes: COLORS,
+    fontSizes: FONT_SIZES,
   };
 
   return (

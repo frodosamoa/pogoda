@@ -5,5 +5,6 @@ declare module "styled-components" {
     theme: Theme;
     units: { [K in Sizes]: number };
     themes: { [K in Theme]: string };
+    fontSizes: { [size: number]: string };
   }
 }

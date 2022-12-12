@@ -9,10 +9,14 @@ Pogoda is a simple and minimalist <a href="https://pogoda.vercel.app">weather da
 - [React.js](https://reactjs.org/)
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [PostgresQL](https://www.postgresql.org/)
 - [Bulma.io](https://bulma.io/)
 - [`styled-components`](https://styled-components.com/)
 
 The project uses [OpenWeather](https://openweathermap.org/)'s [Weather API](https://openweathermap.org/api) to fetch real time weather data.
+
+The production site connects to a PostgreSQL instance located on Supabase.
 
 ## Getting Started
 
@@ -22,6 +26,11 @@ In order to run the project locally, you'll need the following:
 - [`Node.js`](https://nodejs.org/) (16.x)
 - [`npm`](https://www.npmjs.com/)
 - [`yarn`](https://classic.yarnpkg.com/) (1.x)
+
+You'll also need the following in order to fetch real time data:
+
+- API key for OpenWeather
+- database URL for PostgreSQL
 
 [`nvm`](https://github.com/nvm-sh/nvm) lets us quickly install and use different versions of `node`/`npm` via the command line. Instructions for installing are located [here](https://github.com/nvm-sh/nvm#installing-and-updating).
 

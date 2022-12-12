@@ -13,14 +13,22 @@ const Container = styled.div<ContainerProps>`
   transition: opacity 300ms ease-in-out;
 `;
 
+const Title = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
+
+const Subtitle = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
 type AppTitleProps = {
   hasWeather: boolean;
 };
 
 const AppTitle = ({ hasWeather }: AppTitleProps) => (
   <Container $hasWeather={hasWeather}>
-    <p className="is-size-4">pogoda</p>
-    <p className="is-size-6">weather dashboard</p>
+    <Title>pogoda</Title>
+    <Subtitle>weather dashboard</Subtitle>
   </Container>
 );
 

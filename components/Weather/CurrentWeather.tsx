@@ -11,12 +11,14 @@ import { fadeUp } from "../../lib/constants/animations";
 
 import LargeDailySummary from "./LargeDailySummary";
 
+const Info = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
+
 const AdditionalInfo = ({ info }: { info: string[] }) => (
   <div>
     {info.map((i, index) => (
-      <p key={index} className="is-size-4">
-        {i}
-      </p>
+      <Info key={index}>{i}</Info>
     ))}
   </div>
 );

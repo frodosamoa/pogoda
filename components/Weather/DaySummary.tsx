@@ -28,6 +28,18 @@ const Container = styled.div<{ $animationDelay: number }>`
   animation-delay: ${({ $animationDelay = 200 }) => $animationDelay}ms;
 `;
 
+const Title = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
+
+const Subtitle = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
+const Icon = styled.i`
+  font-size: ${({ theme }) => theme.fontSizes[2]};
+`;
+
 const DaySummary = ({
   index,
   day,
@@ -51,9 +63,6 @@ const DaySummary = ({
     (isFirstDay && (day.sunrise > currentDate || currentDate < day.sunset)) ||
     !isFirstDay;
 
-  const iconClassName = classNames(weatherToIcon(weather.id, isDay), {
-    "is-size-2": true,
-  });
   const indexOffset = index + 1;
   const staggerNumber =
     indexOffset > count / 2 ? count - indexOffset + 1 : indexOffset;
@@ -61,49 +70,49 @@ const DaySummary = ({
   return (
     <Container $animationDelay={200 + staggerNumber * 100} className={"column"}>
       <div>
-        <p title={format(new Date(date * 1000), "PP")} className="is-size-4">
+        <Title title={format(new Date(date * 1000), "PP")}>
           {format(new Date(date * 1000), "ccc")}
-        </p>
-        <p className="is-size-6">{format(new Date(date * 1000), "MMM d")}</p>
+        </Title>
+        <Subtitle>{format(new Date(date * 1000), "MMM d")}</Subtitle>
         <br></br>
         <p>
-          <i
+          <Icon
             title={getWeatherCodeIconInfo(weather.id).label}
-            className={iconClassName}
-          ></i>
+            className={weatherToIcon(weather.id, isDay)}
+          />
         </p>
         <br></br>
         <div>
           {dailyForecastView === "temperature" && (
             <>
-              <p className="is-size-4">
+              <Title>
                 {isMetric
                   ? `${kelvinToCelcius(temp.max)} °C`
                   : `${kelvinToFahrenheit(temp.max)} °F`}
-              </p>
-              <p className="is-size-6">
+              </Title>
+              <Subtitle>
                 {isMetric
                   ? `${kelvinToCelcius(temp.min)} °C`
                   : `${kelvinToFahrenheit(temp.min)} °F`}
-              </p>
+              </Subtitle>
             </>
           )}
           {dailyForecastView === "precipitation" && (
-            <p className="is-size-6">
+            <Subtitle>
               {isMetric
                 ? (rain ?? 0).toFixed(1)
                 : ((rain ?? 0) * MM_TO_INCHES).toFixed(1)}
               {isMetric ? "mm" : " inches"}
-            </p>
+            </Subtitle>
           )}
           {dailyForecastView === "wind" && (
             <>
-              <p className="is-size-6">
+              <Subtitle>
                 {isMetric
                   ? `${windSpeed.toFixed(1)}m/s`
                   : `${(windSpeed * MPS_TO_MPH).toFixed(1)}mph`}
-              </p>
-              <p className="is-size-6">{degreeToCompass(windDegree)}</p>
+              </Subtitle>
+              <Subtitle>{degreeToCompass(windDegree)}</Subtitle>
             </>
           )}
         </div>

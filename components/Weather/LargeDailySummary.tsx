@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import styled from "styled-components";
 
 import {
   kelvinToFahrenheit,
@@ -6,6 +7,14 @@ import {
   weatherToIcon,
   getWeatherCodeIconInfo,
 } from "../../lib/utils/weather";
+
+const Title = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[1]};
+`;
+
+const Subtitle = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
 
 type LargeDailySummaryProps = {
   current: CurrentWeather;
@@ -22,16 +31,16 @@ const LargeDailySummary = ({ current, isMetric }: LargeDailySummaryProps) => {
 
   return (
     <>
-      <p className="is-size-1">
+      <Title>
         <i className={weatherToIcon(weatherIconInfo.id, isDay)}></i>{" "}
         {isMetric
           ? `${kelvinToCelcius(temp)} °C`
           : `${kelvinToFahrenheit(temp)} °F`}
-      </p>
+      </Title>
 
-      <p className="is-size-4">{format(new Date(dt * 1000), `EEEE p`)}</p>
-      <p className="is-size-4">{format(new Date(dt * 1000), `MMM d`)}</p>
-      <p className="is-size-4">{weatherLabel}</p>
+      <Subtitle>{format(new Date(dt * 1000), `EEEE p`)}</Subtitle>
+      <Subtitle>{format(new Date(dt * 1000), `MMM d`)}</Subtitle>
+      <Subtitle>{weatherLabel}</Subtitle>
     </>
   );
 };

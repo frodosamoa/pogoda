@@ -5,6 +5,7 @@ import {
   Wind as WindIcon,
   CloudRain as CloudRainIcon,
 } from "react-feather";
+import styled from "styled-components";
 
 import Themes from "./Themes";
 import UseUserLocation from "./UseUserLocation";
@@ -12,6 +13,11 @@ import MadeBy from "./MadeBy";
 import SettingsItem from "./SettingsItem";
 import SettingsContainer from "./SettingsContainer";
 import SettingsIcon from "./SettingsIcon";
+
+const Title = styled.p`
+  margin-bottom: 16px;
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
 
 type SettingProps = {
   theme: Theme;
@@ -50,9 +56,7 @@ const Settings = ({
         </SettingsItem>
 
         <SettingsItem>
-          <p style={{ marginBottom: 16 }} className="is-size-6">
-            settings
-          </p>
+          <Title>settings</Title>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div className={"buttons has-addons"}>
               <button
@@ -72,9 +76,7 @@ const Settings = ({
         </SettingsItem>
 
         <SettingsItem>
-          <p style={{ marginBottom: 16 }} className="is-size-6">
-            daily forecast
-          </p>
+          <Title>daily forecast</Title>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div className={"buttons has-addons"}>
               <button

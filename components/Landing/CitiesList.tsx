@@ -31,6 +31,10 @@ const LoaderContainer = styled.div`
     ${fadeIn};
 `;
 
+const NoResults = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
+
 const CitiesList = ({
   cities,
   isInputEmptyString,
@@ -56,7 +60,7 @@ const CitiesList = ({
           />
         ))}
         {cities.length === 0 && !isInputEmptyString && (
-          <p className="is-size-4">no results</p>
+          <NoResults>no results</NoResults>
         )}
       </>
     )}

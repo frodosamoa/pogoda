@@ -1,4 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
 import useGeoPosition from "../../lib/hooks/useGeoPosition";
 
@@ -13,6 +14,16 @@ type UserResponseProps = {
   setCity: Dispatch<SetStateAction<City>>;
   setWeather: Dispatch<SetStateAction<Weather>>;
 };
+
+const LocationNotStored = styled.div`
+  margin-top: 8px;
+  font-style: italic;
+  font-size: ${({ theme }) => theme.fontSizes[7]};
+`;
+
+const UsingYourLocation = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
 
 const UserResponse = ({
   latitude,
@@ -40,12 +51,7 @@ const UserResponse = ({
         >
           use your location
         </button>
-        <div
-          style={{ marginTop: 8, fontStyle: "italic" }}
-          className="is-size-7"
-        >
-          your location isn&apos;t stored
-        </div>
+        <LocationNotStored>your location isn&apos;t stored</LocationNotStored>
       </>
     );
   }
@@ -54,7 +60,9 @@ const UserResponse = ({
     <>
       {latitude === (latLon && latLon[1]) &&
         longitude === (latLon && latLon[0]) && (
-          <p className="is-size-6 has-text-grey">using your location</p>
+          <UsingYourLocation className="has-text-grey">
+            using your location
+          </UsingYourLocation>
         )}
       {latitude !== (latLon && latLon[1]) &&
         longitude !== (latLon && latLon[0]) && (
