@@ -19,7 +19,8 @@ const Container = styled.div<ContainerProps>`
     $isSelected
       ? chroma(theme.themes[theme.theme]).darken(0.5).css()
       : "inherit"};
-  padding: 4px;
+  padding: 4px 6px;
+  margin-bottom: 2px;
   border-radius: 6px;
   transition: background-color 150ms ease-in-out;
   font-size: 18px;

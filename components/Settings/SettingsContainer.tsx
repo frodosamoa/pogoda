@@ -24,6 +24,8 @@ const Container = styled.div<ContainerProps>`
   transition: transform 400ms ease-out;
   padding: 24px;
   text-align: center;
+  color: ${({ theme: { themes } }) => themes.light};
+  background-color: ${({ theme }) => theme.colors.black};
 `;
 
 const ChildrenContainer = styled.div`
@@ -37,10 +39,7 @@ const SettingsContainer = ({
   isSettingsOpen,
   children,
 }: SettingsContainerProps) => (
-  <Container
-    className="has-background-black-ter has-text-light"
-    $isSettingsOpen={isSettingsOpen}
-  >
+  <Container $isSettingsOpen={isSettingsOpen}>
     <ChildrenContainer>{children}</ChildrenContainer>
   </Container>
 );

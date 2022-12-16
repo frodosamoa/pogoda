@@ -4,7 +4,6 @@ import { SetStateAction, Dispatch } from "react";
 import Theme from "./Theme";
 
 type ThemesProps = {
-  globalTheme: Theme;
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
@@ -13,7 +12,7 @@ const Title = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
 
-const Themes = ({ globalTheme, setTheme }: ThemesProps) => {
+const Themes = ({ setTheme }: ThemesProps) => {
   const theme = useTheme();
 
   return (
@@ -21,12 +20,7 @@ const Themes = ({ globalTheme, setTheme }: ThemesProps) => {
       <Title>theme</Title>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {Object.keys(theme.themes).map((theme) => (
-          <Theme
-            key={theme}
-            theme={theme as Theme}
-            globalTheme={globalTheme}
-            setTheme={setTheme}
-          />
+          <Theme key={theme} theme={theme as Theme} setTheme={setTheme} />
         ))}
       </div>
     </>

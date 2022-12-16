@@ -1,12 +1,14 @@
 type Theme =
-  | "primary"
-  | "link"
-  | "info"
-  | "success"
-  | "warning"
-  | "danger"
+  | "light"
   | "dark"
-  | "light";
+  | "red"
+  | "orange"
+  | "yellow"
+  | "green"
+  | "turquoise"
+  | "cyan"
+  | "blue"
+  | "purple";
 
 type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 

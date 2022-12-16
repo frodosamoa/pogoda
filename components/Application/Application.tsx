@@ -1,11 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
 import Settings from "../Settings";
 import SearchIcon from "./SearchIcon";
 import AppTitle from "./AppTitle";
 
+const Container = styled.div`
+  transition: color 150ms ease-in-out;
+  color: ${({ theme: { themes, theme } }) =>
+    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+`;
+
 type ApplicationProps = {
-  theme: Theme;
   latLon: [number, number];
   isMetric: boolean;
   isSettingsOpen: boolean;
@@ -26,7 +32,6 @@ const Application = ({
   isMetric,
   setIsMetric,
   setTheme,
-  theme,
   latLon,
   setLatLon,
   dailyForecastView,
@@ -35,14 +40,7 @@ const Application = ({
   setWeather,
   weather,
 }: ApplicationProps) => (
-  <div
-    style={{ transition: "color 150ms ease-in-out" }}
-    className={
-      theme === "warning" || theme === "light"
-        ? "has-text-dark"
-        : "has-text-light"
-    }
-  >
+  <Container>
     <AppTitle hasWeather={weather !== null} />
     <Settings
       isSettingsOpen={isSettingsOpen}
@@ -50,7 +48,6 @@ const Application = ({
       isMetric={isMetric}
       setIsMetric={setIsMetric}
       setTheme={setTheme}
-      theme={theme}
       latLon={latLon}
       setLatLon={setLatLon}
       dailyForecastView={dailyForecastView}
@@ -64,7 +61,7 @@ const Application = ({
       setIsSettingsOpen={setIsSettingsOpen}
       setWeather={setWeather}
     />
-  </div>
+  </Container>
 );
 
 export default Application;

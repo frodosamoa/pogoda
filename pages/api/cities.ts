@@ -5,6 +5,23 @@ import prisma from "../../lib/prisma";
 
 import { normalizeString } from "../../lib/utils/string";
 
+const COLUMNS_TO_SEARCH = [
+  "normalizedName",
+  "normalizedAdministrativeName",
+  "normalizedCountryCode",
+  "normalizedCountryName",
+];
+
+const COLUMNS_TO_INCLUDE = [
+  "cityId",
+  "administrativeName",
+  "countryCode",
+  "latitude",
+  "longitude",
+  "name",
+  "countryName",
+];
+
 module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, url } = req;
 
@@ -20,26 +37,17 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
         population: "desc",
       },
       where: {
-        OR: [
-          "normalizedName",
-          "normalizedAdministrativeName",
-          "normalizedCountryCode",
-          "normalizedCountryName",
-        ].map((columnName) => ({
-          [columnName]: {
+        OR: COLUMNS_TO_SEARCH.map((column) => ({
+          [column]: {
             contains: normalizedQuery,
           },
         })),
       },
-      select: {
-        cityId: true,
-        administrativeName: true,
-        countryCode: true,
-        latitude: true,
-        longitude: true,
-        name: true,
-        countryName: true,
-      },
+      select: COLUMNS_TO_INCLUDE.reduce(
+        (columns, column) => ({ ...columns, [column]: true }),
+        {}
+      ),
+
       take: 7,
     });
 

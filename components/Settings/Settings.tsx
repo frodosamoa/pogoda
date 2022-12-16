@@ -20,7 +20,6 @@ const Title = styled.p`
 `;
 
 type SettingProps = {
-  theme: Theme;
   latLon: [number, number];
   isMetric: boolean;
   dailyForecastView: string;
@@ -42,7 +41,6 @@ const Settings = ({
   setTheme,
   latLon,
   setLatLon,
-  theme: globalTheme,
   dailyForecastView,
   setDailyForecastView,
   setCity,
@@ -52,7 +50,7 @@ const Settings = ({
     <>
       <SettingsContainer isSettingsOpen={isSettingsOpen}>
         <SettingsItem>
-          <Themes globalTheme={globalTheme} setTheme={setTheme} />
+          <Themes setTheme={setTheme} />
         </SettingsItem>
 
         <SettingsItem>

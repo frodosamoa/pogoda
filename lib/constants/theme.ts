@@ -1,12 +1,19 @@
-export const COLORS: { [K in Theme]: string } = {
+export const THEMES: { [K in Theme]: string } = {
   light: "hsl(0, 0%, 96%)",
   dark: "hsl(0, 0%, 21%)",
-  primary: "hsl(171, 100%, 41%)",
-  link: "hsl(217, 71%, 53%)",
-  info: "hsl(204, 86%, 53%)",
-  success: "hsl(141, 71%, 48%)",
-  warning: "hsl(48, 100%, 67%)",
-  danger: "hsl(348, 100%, 61%)",
+  red: "hsl(348, 86%, 61%)",
+  orange: "hsl(14, 100%, 53%)",
+  yellow: "hsl(44, 100%, 77%)",
+  green: "hsl(153, 53%, 53%)",
+  turquoise: "hsl(171, 100%, 41%)",
+  cyan: "hsl(207, 61%, 53%)",
+  blue: "hsl(229, 53%, 53%)",
+  purple: "hsl(271, 100%, 71%)",
+};
+
+export const COLORS = {
+  black: "hsl(0, 0%, 14%)",
+  grey: "hsl(0, 0%, 86%)",
 };
 
 export const UNITS: { [K in Sizes]: number } = {

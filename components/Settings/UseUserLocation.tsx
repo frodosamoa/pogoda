@@ -23,6 +23,7 @@ const LocationNotStored = styled.div`
 
 const UsingYourLocation = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[6]};
+  color: ${({ theme: { colors } }) => colors.grey};
 `;
 
 const UserResponse = ({
@@ -60,9 +61,7 @@ const UserResponse = ({
     <>
       {latitude === (latLon && latLon[1]) &&
         longitude === (latLon && latLon[0]) && (
-          <UsingYourLocation className="has-text-grey">
-            using your location
-          </UsingYourLocation>
+          <UsingYourLocation>using your location</UsingYourLocation>
         )}
       {latitude !== (latLon && latLon[1]) &&
         longitude !== (latLon && latLon[0]) && (

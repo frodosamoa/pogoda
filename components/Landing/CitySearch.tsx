@@ -4,12 +4,11 @@ import CitiesList from "./CitiesList";
 import CityInput from "./CityInput";
 
 type CitySearchProps = {
-  theme: Theme;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
 };
 
-const CitySearch = ({ theme, setLatLon, setCity }: CitySearchProps) => {
+const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cities, setCities] = useState<City[] | []>([]);
   const [cityIndex, setCityIndex] = useState(0);
@@ -29,7 +28,6 @@ const CitySearch = ({ theme, setLatLon, setCity }: CitySearchProps) => {
         setIsLoading={setIsLoading}
         isInputEmptyString={isInputEmptyString}
         cities={cities}
-        theme={theme}
         cityIndex={cityIndex}
         setCityIndex={setCityIndex}
         setCities={setCities}

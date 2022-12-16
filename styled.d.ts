@@ -6,5 +6,6 @@ declare module "styled-components" {
     units: { [K in Sizes]: number };
     themes: { [K in Theme]: string };
     fontSizes: { [size: number]: string };
+    colors: { [name: string]: string };
   }
 }

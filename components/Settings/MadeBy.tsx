@@ -10,29 +10,36 @@ const Paragraph = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 
+const Link = styled.a`
+  text-decoration: underline;
+  color: ${({ theme }) => theme.themes.light};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.grey};
+  }
+`;
+
 const MadeBy = () => (
   <Container>
     <Paragraph>
       code available on{" "}
-      <a
-        className="has-text-light is-underlined"
+      <Link
         target="_blank"
         rel="noreferrer"
         href={"https://www.github.com/frodosamoa/pogoda"}
       >
         GitHub
-      </a>
+      </Link>
     </Paragraph>
     <Paragraph>
       made by{" "}
-      <a
-        className="has-text-light is-underlined"
+      <Link
         target="_blank"
         rel="noreferrer"
         href={"https://www.andrewkowalczyk.com"}
       >
         Andrew Kowalczyk
-      </a>
+      </Link>
     </Paragraph>
   </Container>
 );

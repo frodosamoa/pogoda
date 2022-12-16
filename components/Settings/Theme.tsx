@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 type ThemeProps = {
   theme: Theme;
-  globalTheme: Theme;
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
@@ -18,30 +17,36 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const IconContainer = styled.div`
+type IconContainerProps = {
+  $iconTheme: Theme;
+};
+
+const IconContainer = styled.div<IconContainerProps>`
   height: 100%;
   width: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${({ theme, $iconTheme }) => theme.themes[$iconTheme]};
 `;
 
-const Theme = ({ theme, globalTheme, setTheme }: ThemeProps) => (
+type StyledCheckIconProps = {
+  $iconTheme: Theme;
+};
+
+const StyledCheckIcon = styled(CheckIcon)<StyledCheckIconProps>`
+  color: ${({ theme: { themes, theme } }) =>
+    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+  opacity: ${({ theme: { theme }, $iconTheme }) =>
+    theme === $iconTheme ? 1 : 0};
+  transition: opacity 150ms ease-in-out;
+`;
+
+const Theme = ({ theme, setTheme }: ThemeProps) => (
   <Container onClick={() => setTheme(theme)}>
-    <IconContainer className={`has-background-${theme}`}>
-      <CheckIcon
-        size={24}
-        style={{
-          opacity: globalTheme === theme ? 1 : 0,
-          transition: "opacity 150ms ease-in-out",
-        }}
-        className={
-          theme === "warning" || theme === "light"
-            ? "has-text-dark"
-            : "has-text-light"
-        }
-      />
+    <IconContainer $iconTheme={theme}>
+      <StyledCheckIcon size={24} $iconTheme={theme} />
     </IconContainer>
   </Container>
 );
