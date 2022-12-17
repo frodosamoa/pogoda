@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="./pogoda-screenshot-dark.png" height="200" />
   <h1>Pogoda</h1>
 </div>
 

@@ -12,6 +12,8 @@ import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 import styled from "styled-components";
 
+import { fadeIn } from "../../lib/constants/animations";
+
 type CityInputProps = {
   cities: City[] | [];
   cityIndex: number;
@@ -36,6 +38,9 @@ const StyledInput = styled.input`
     theme === "yellow" || theme === "light"
       ? colors.greyDark
       : colors.whiteTer};
+
+  opacity: 0;
+  animation: 300ms ease-in-out 0ms 1 normal forwards running ${fadeIn};
 
   transition: background-color 150ms ease-in-out, color 150ms ease-in-out,
     border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;

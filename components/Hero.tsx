@@ -5,7 +5,6 @@ import Weather from "../components/Weather";
 import Landing from "../components/Landing";
 
 type HeroProps = {
-  theme: Theme;
   city: City;
   latLon: [number, number];
   isMetric: boolean;
@@ -24,7 +23,6 @@ const Container = styled.div`
 `;
 
 const Hero = ({
-  theme,
   city,
   latLon,
   weather,
