@@ -7,16 +7,12 @@ import {
   SetStateAction,
   useCallback,
   forwardRef,
-  useState,
 } from "react";
 import debounce from "lodash.debounce";
 import chroma from "chroma-js";
-import classNames from "classnames";
-
-import { COLORS } from "../../lib/constants/theme";
+import styled from "styled-components";
 
 type CityInputProps = {
-  theme: Theme;
   cities: City[] | [];
   cityIndex: number;
   isLoading: boolean;
@@ -28,10 +24,59 @@ type CityInputProps = {
   setCityIndex: Dispatch<SetStateAction<number>>;
 };
 
+const StyledInput = styled.input`
+  box-shadow: none;
+  font-size: 2rem;
+  width: 500px;
+  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
+  color: ${({ theme: { themes, theme } }) =>
+    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+  border-width: 2px;
+  border-color: ${({ theme: { theme, colors } }) =>
+    theme === "yellow" || theme === "light"
+      ? colors.greyDark
+      : colors.whiteTer};
+
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out,
+    border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+
+  &:focus {
+    border-color: ${({ theme: { theme, colors } }) =>
+      theme === "yellow" || theme === "light"
+        ? colors.greyDark
+        : colors.whiteTer};
+    box-shadow: 0px 0px 0px 2px
+      ${({ theme: { theme, colors } }) =>
+        theme === "yellow" || theme === "light"
+          ? chroma(colors.greyDark).alpha(0.5).css()
+          : chroma(colors.whiteTer).alpha(0.5).css()};
+  }
+
+  &:hover {
+    border-color: ${({ theme: { theme, colors } }) =>
+      theme === "yellow" || theme === "light"
+        ? colors.greyDark
+        : colors.whiteTer};
+    box-shadow: 0px 0px 0px 2px
+      ${({ theme: { theme, colors } }) =>
+        theme === "yellow" || theme === "light"
+          ? chroma(colors.greyDark).alpha(0.5).css()
+          : chroma(colors.whiteTer).alpha(0.5).css()};
+  }
+
+  &::placeholder {
+    color: ${({ theme: { theme, colors } }) =>
+      theme === "yellow" || theme === "light"
+        ? colors.greyDark
+        : colors.whiteTer};
+    opacity: 0.5;
+    transition: color 150ms ease-in-out;
+  }
+`;
+
 const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
   (
     {
-      theme,
       cities,
       cityIndex,
       isInputEmptyString,
@@ -43,7 +88,6 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     },
     ref
   ) => {
-    const themeColor = chroma(COLORS[theme]);
     const getCities = useCallback(
       (city: string) => {
         if (city !== "") {
@@ -107,52 +151,14 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     }, [debouncedHandleChange]);
 
     return (
-      <>
-        <input
-          ref={ref}
-          placeholder="Search for a city..."
-          className={classNames(
-            "input",
-            "city-input",
-            `$is-${theme}`,
-            "is-large",
-            "is-rounded",
-            `has-background-${theme}`,
-            theme === "warning" || theme === "light"
-              ? "has-text-dark"
-              : "has-text-light"
-          )}
-          style={{
-            width: 500,
-            boxShadow: "inherit",
-            fontSize: "2rem",
-            borderColor:
-              theme === "warning" ||
-              theme === "light" ||
-              theme === "danger" ||
-              theme === "success"
-                ? themeColor.darken(0.3).css()
-                : themeColor.brighten(0.3).css(),
-            transition:
-              "background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out",
-          }}
-          onChange={debouncedHandleChange}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-        />
-
-        <style jsx>{`
-          .city-input::placeholder {
-            color: ${theme === "warning" ||
-            theme === "light" ||
-            theme === "danger" ||
-            theme === "success"
-              ? themeColor.darken(0.7).css()
-              : themeColor.brighten(0.7).css()};
-            transition: color 150ms ease-in-out;
-          }
-        `}</style>
-      </>
+      <StyledInput
+        ref={ref}
+        placeholder="Search for a place..."
+        className={"input is-large is-rounded"}
+        onChange={debouncedHandleChange}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+      />
     );
   }
 );

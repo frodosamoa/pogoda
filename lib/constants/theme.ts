@@ -12,8 +12,18 @@ export const THEMES: { [K in Theme]: string } = {
 };
 
 export const COLORS = {
-  black: "hsl(0, 0%, 14%)",
-  grey: "hsl(0, 0%, 86%)",
+  black: "hsl(0, 0%, 4%)",
+  blackBis: "hsl(0, 0%, 7%)",
+  blackTer: "hsl(0, 0%, 14%)",
+  greyDarker: "hsl(0, 0%, 14%)",
+  greyDark: "hsl(0, 0%, 29%)",
+  grey: "hsl(0, 0%, 48%)",
+  greyLight: "hsl(0, 0%, 71%)",
+  greyLighter: "hsl(0, 0%, 86%)",
+  greyLightest: "hsl(0, 0%, 93%)",
+  whiteTer: "hsl(0, 0%, 96%)",
+  whiteBis: "hsl(0, 0%, 98%)",
+  white: "hsl(0, 0%, 100%)",
 };
 
 export const UNITS: { [K in Sizes]: number } = {

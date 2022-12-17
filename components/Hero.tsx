@@ -1,5 +1,5 @@
 import { SetStateAction, Dispatch } from "react";
-import classNames from "classnames";
+import styled from "styled-components";
 
 import Weather from "../components/Weather";
 import Landing from "../components/Landing";
@@ -16,6 +16,13 @@ type HeroProps = {
   setCity: Dispatch<SetStateAction<City>>;
 };
 
+const Container = styled.div`
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
+  color: ${({ theme: { themes, theme } }) =>
+    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+`;
+
 const Hero = ({
   theme,
   city,
@@ -27,26 +34,14 @@ const Hero = ({
   setCity,
   setIsSettingsOpen,
 }: HeroProps) => (
-  <div
-    style={{
-      transition: "background-color 150ms ease-in-out, color 150ms ease-in-out",
-    }}
-    className={classNames(
-      "hero",
-      "is-fullheight",
-      `has-background-${theme}`,
-      theme === "warning" || theme === "light"
-        ? "has-text-dark"
-        : "has-text-light"
-    )}
-  >
+  <Container className={"hero is-fullheight"}>
     <div
       className="hero-body has-text-centered"
       onClick={() => setIsSettingsOpen(false)}
     >
       <div className="container">
         {!(latLon?.length > 0) ? (
-          <Landing setLatLon={setLatLon} setCity={setCity} theme={theme} />
+          <Landing setLatLon={setLatLon} setCity={setCity} />
         ) : (
           <Weather
             city={city}
@@ -57,7 +52,7 @@ const Hero = ({
         )}
       </div>
     </div>
-  </div>
+  </Container>
 );
 
 export default Hero;
