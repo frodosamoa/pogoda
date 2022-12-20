@@ -7,5 +7,6 @@ declare module "styled-components" {
     themes: { [K in Theme]: string };
     fontSizes: { [size: number]: string };
     colors: { [name: string]: string };
+    breakpoints: { [name: string]: number };
   }
 }

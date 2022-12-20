@@ -48,6 +48,15 @@ export const FONT_SIZES = {
 };
 
 export const BREAKPOINTS = {
+  mobile: 451,
   tablet: 769,
   desktop: 1024,
+};
+
+export const DEFAULT_THEME = {
+  units: UNITS,
+  themes: THEMES,
+  fontSizes: FONT_SIZES,
+  colors: COLORS,
+  breakpoints: BREAKPOINTS,
 };

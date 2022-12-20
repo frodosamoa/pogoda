@@ -35,10 +35,30 @@ const Container = styled.div`
     theme === "yellow" || theme === "light"
       ? chroma(colors.greyDark).alpha(0.3).css()
       : chroma(colors.whiteTer).alpha(0.3).css()};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    grid-column: 1 / 4;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    grid-column: 1 / 3;
+  }
 `;
 
 const Hour = styled.div`
   flex: 0 0 8.33%;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    flex: 0 0 11.11%;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    flex: 0 0 16.66%;
+  }
 `;
 
 const HourContainer = styled.div`

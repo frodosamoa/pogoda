@@ -28,6 +28,16 @@ const WeatherItems = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   grid-auto-rows: minmax(100px, auto);
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const Weather = ({
