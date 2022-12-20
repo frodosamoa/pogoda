@@ -1,5 +1,5 @@
 import { SetStateAction, Dispatch } from "react";
-import { Check as CheckIcon } from "react-feather";
+import { Check as CheckIcon } from "lucide-react";
 import styled from "styled-components";
 
 type ThemeProps = {

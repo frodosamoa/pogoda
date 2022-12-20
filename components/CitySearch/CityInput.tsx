@@ -158,7 +158,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     return (
       <StyledInput
         ref={ref}
-        placeholder="Search for a place..."
+        placeholder="Search for a city..."
         className={"input is-large is-rounded"}
         onChange={debouncedHandleChange}
         onKeyDown={handleKeyDown}

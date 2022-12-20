@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
 import CitiesList from "./CitiesList";
 import CityInput from "./CityInput";
@@ -7,6 +8,12 @@ type CitySearchProps = {
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +28,7 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
   }, []);
 
   return (
-    <>
+    <Container>
       <CityInput
         ref={inputRef}
         isLoading={isLoading}
@@ -42,7 +49,7 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
         setCity={setCity}
         isLoading={isLoading}
       />
-    </>
+    </Container>
   );
 };
 

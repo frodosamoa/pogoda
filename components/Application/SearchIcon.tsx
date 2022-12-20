@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Search } from "react-feather";
+import { Search } from "lucide-react";
 import styled from "styled-components";
 
 type StyledSearchProps = {

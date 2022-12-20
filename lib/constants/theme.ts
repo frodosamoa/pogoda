@@ -36,6 +36,7 @@ export const UNITS: { [K in Sizes]: number } = {
 };
 
 export const FONT_SIZES = {
+  0: "4rem",
   1: "3rem",
   2: "2.5rem",
   3: "2rem",
@@ -43,4 +44,10 @@ export const FONT_SIZES = {
   5: "1.25rem",
   6: "1rem",
   7: "0.75rem",
+  8: "0.5rem",
+};
+
+export const BREAKPOINTS = {
+  tablet: 769,
+  desktop: 1024,
 };

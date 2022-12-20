@@ -15,9 +15,11 @@ type ContainerProps = {
 
 const Container = styled.div<ContainerProps>`
   cursor: pointer;
-  background-color: ${({ $isSelected, theme }) =>
+  background-color: ${({ $isSelected, theme: { theme, colors } }) =>
     $isSelected
-      ? chroma(theme.themes[theme.theme]).darken(0.5).css()
+      ? theme === "yellow" || theme === "light"
+        ? chroma(colors.greyDark).alpha(0.3).css()
+        : chroma(colors.whiteTer).alpha(0.3).css()
       : "inherit"};
   padding: 4px 6px;
   margin-bottom: 2px;

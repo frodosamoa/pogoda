@@ -4,7 +4,7 @@ import {
   Thermometer as ThermometerIcon,
   Wind as WindIcon,
   CloudRain as CloudRainIcon,
-} from "react-feather";
+} from "lucide-react";
 import styled from "styled-components";
 
 import Themes from "./Themes";

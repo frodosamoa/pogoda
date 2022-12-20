@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Loader as LoaderIcon } from "react-feather";
+import { Loader as LoaderIcon } from "lucide-react";
 
 import { rotate } from "../lib/constants/animations";
 

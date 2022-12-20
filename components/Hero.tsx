@@ -2,7 +2,7 @@ import { SetStateAction, Dispatch } from "react";
 import styled from "styled-components";
 
 import Weather from "../components/Weather";
-import Landing from "../components/Landing";
+import CitySearch from "./CitySearch";
 
 type HeroProps = {
   city: City;
@@ -32,14 +32,14 @@ const Hero = ({
   setCity,
   setIsSettingsOpen,
 }: HeroProps) => (
-  <Container className={"hero is-fullheight"}>
+  <Container className="hero is-fullheight">
     <div
       className="hero-body has-text-centered"
       onClick={() => setIsSettingsOpen(false)}
     >
-      <div className="container">
+      <div className="container is-max-desktop">
         {!(latLon?.length > 0) ? (
-          <Landing setLatLon={setLatLon} setCity={setCity} />
+          <CitySearch setLatLon={setLatLon} setCity={setCity} />
         ) : (
           <Weather
             city={city}

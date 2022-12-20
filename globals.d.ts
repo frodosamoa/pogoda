@@ -21,6 +21,13 @@ type City = {
   administrativeName: string;
 };
 
+type WeatherCondition = {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+};
+
 type CurrentWeather = {
   dt: number;
   sunset: number;
@@ -30,22 +37,38 @@ type CurrentWeather = {
   wind_speed: number;
   wind_deg: number;
   temp: number;
-  weather: { id: number; main: string; description: string; icon: string }[];
+  feels_like: number;
+  uvi: number;
+  pressure: number;
+  weather: WeatherCondition[];
   rain: number | { "1h": number };
 };
 
-type DailyWeather = {
+type DailyForecast = {
   dt: number;
   sunset: number;
   sunrise: number;
   wind_speed: number;
   wind_deg: number;
-  weather: { id: number; main: string; description: string; icon: string }[];
-  temp: { min: number; max: number; day: number };
+  pop: number;
   rain: number;
+  weather: WeatherCondition[];
+  temp: { min: number; max: number; day: number };
+};
+
+type HourlyForecast = {
+  dt: number;
+  wind_speed: number;
+  wind_deg: number;
+  pop: number;
+  temp: number;
+  rain: number;
+  weather: WeatherCondition[];
 };
 
 type Weather = {
-  daily: DailyWeather[];
+  timezone: string;
+  daily: DailyForecast[];
+  hourly: HourlyForecast[];
   current: CurrentWeather;
 };

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Settings } from "react-feather";
+import { Settings } from "lucide-react";
 import styled from "styled-components";
 
 const WIDTH = 250;

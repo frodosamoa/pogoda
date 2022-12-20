@@ -8,13 +8,12 @@ const useGetWeather = ({
   const [weather, setWeather] = useState<Weather>(null);
 
   useEffect(() => {
-    const getWeather = async (latitude: number, longitude: number) => {
-      const res = await fetch(
-        `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}`
-      );
-      const json = await res.json();
-
-      setWeather(json);
+    const getWeather = (latitude: number, longitude: number) => {
+      fetch(
+        `${window.location.href}/api/weather?latitude=${latitude}&longitude=${longitude}&exclude=minutely`
+      )
+        .then((res) => res.json())
+        .then((json) => setWeather(json));
     };
 
     if (latLon?.length > 0) {
