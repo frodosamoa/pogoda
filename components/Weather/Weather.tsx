@@ -59,8 +59,16 @@ const Weather = ({
       <City city={city} weather={weather} isMetric={isMetric} />
 
       <WeatherItems>
-        <CurrentWeather current={weather.current} isMetric={isMetric} />
-        <HourlyForecast hourly={weather.hourly} isMetric={isMetric} />
+        <CurrentWeather
+          current={weather.current}
+          isMetric={isMetric}
+          timezone={weather.timezone}
+        />
+        <HourlyForecast
+          hourly={weather.hourly}
+          isMetric={isMetric}
+          timezone={weather.timezone}
+        />
         <DailyForecast
           daily={weather.daily}
           isMetric={isMetric}

@@ -1,14 +1,15 @@
-import { format } from "date-fns";
 import { Sunrise, Sunset } from "lucide-react";
+import { formatInTimeZone } from "date-fns-tz";
 
 import WeatherItem from "./WeatherItem";
 
 type SunrisePropsSunset = {
   sunset: number;
   sunrise: number;
+  timezone: string;
 };
 
-const SunriseSunset = ({ sunrise, sunset }: SunrisePropsSunset) => {
+const SunriseSunset = ({ sunrise, sunset, timezone }: SunrisePropsSunset) => {
   const now = Date.now();
   const isDay = now > sunrise && now < sunset;
 
@@ -19,8 +20,8 @@ const SunriseSunset = ({ sunrise, sunset }: SunrisePropsSunset) => {
       $animationDelay={600}
     >
       {isDay
-        ? format(new Date(sunset * 1000), "kk:mm")
-        : format(new Date(sunrise * 1000), "kk:mm")}
+        ? formatInTimeZone(new Date(sunset * 1000), timezone, "kk:mm")
+        : formatInTimeZone(new Date(sunrise * 1000), timezone, "kk:mm")}
     </WeatherItem>
   );
 };

@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import styled from "styled-components";
 import chroma from "chroma-js";
 import { Clock } from "lucide-react";
@@ -13,6 +13,7 @@ import { fadeIn } from "../../lib/constants/animations";
 type HourlyForecastProps = {
   hourly: HourlyForecast[];
   isMetric: boolean;
+  timezone: string;
 };
 
 const Icon = styled.i`
@@ -87,7 +88,11 @@ function withIconStyles<T>(Component: React.ComponentType<T>) {
   `;
 }
 
-const HourlyForecast = ({ hourly = [], isMetric }: HourlyForecastProps) => {
+const HourlyForecast = ({
+  hourly = [],
+  isMetric,
+  timezone,
+}: HourlyForecastProps) => {
   const StyledIcon = withIconStyles(Clock);
   return (
     <Container>
@@ -99,7 +104,9 @@ const HourlyForecast = ({ hourly = [], isMetric }: HourlyForecastProps) => {
         {hourly.map((hour, index) => (
           <Hour key={index}>
             <div>
-              {index === 0 ? "Now" : format(new Date(hour.dt * 1000), "kk")}
+              {index === 0
+                ? "Now"
+                : formatInTimeZone(new Date(hour.dt * 1000), timezone, "HH")}
             </div>
             <Icon
               title={getWeatherCodeIconInfo(hour.weather[0].id).label}

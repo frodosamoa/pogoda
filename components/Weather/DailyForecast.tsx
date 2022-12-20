@@ -55,6 +55,8 @@ const DailyForecast = ({
   dailyForecastView,
 }: DailyForecastProps) => {
   const StyledIcon = withIconStyles(CalendarDays);
+  const minTemp = Math.min(...daily.map((day) => day.temp.min));
+  const maxTemp = Math.max(...daily.map((day) => day.temp.max));
   return (
     <Container>
       <TitleContainer>
@@ -69,6 +71,8 @@ const DailyForecast = ({
             day={day}
             isMetric={isMetric}
             dailyForecastView={dailyForecastView}
+            minTemp={minTemp}
+            maxTemp={maxTemp}
           />
         ))}
       </div>

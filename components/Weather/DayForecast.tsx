@@ -1,8 +1,7 @@
-import { format } from "date-fns";
 import styled from "styled-components";
 import chroma from "chroma-js";
+import { format } from "date-fns";
 
-import { fadeIn } from "../../lib/constants/animations";
 import { MM_TO_INCHES, MPS_TO_MPH } from "../../lib/constants/conversion";
 import {
   kelvinToFahrenheit,
@@ -17,6 +16,8 @@ type DayForecastProps = {
   day: DailyForecast;
   isMetric: boolean;
   dailyForecastView: string;
+  minTemp: number;
+  maxTemp: number;
 };
 
 const Container = styled.div`
@@ -39,10 +40,43 @@ const Title = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
 
+const Temp = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
 const Icon = styled.i`
   flex: 1;
   height: ${({ theme }) => theme.fontSizes[6]};
   font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
+const Bar = styled.div`
+  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
+  height: 10px;
+  flex: 1;
+  border-radius: 5px;
+  margin: 0px 8px;
+  position: relative;
+
+  transition: background-color 150ms ease-in-out;
+`;
+
+const InnerBar = styled.div<{ $start: string; $end: string }>`
+  background-color: ${({ theme: { theme, colors } }) =>
+    theme === "yellow" || theme === "light"
+      ? chroma(colors.greyDark).alpha(0.3).css()
+      : chroma(colors.whiteTer).alpha(0.3).css()};
+  height: 6px;
+  flex: 1;
+  border-radius: 3px;
+  margin: 2px;
+  position: absolute;
+  z-index: 100;
+
+  left: ${({ $start }) => $start}%;
+  right: ${({ $end }) => $end}%;
+
+  transition: background-color 150ms ease-in-out;
 `;
 
 const DayForecast = ({
@@ -50,6 +84,8 @@ const DayForecast = ({
   day,
   isMetric,
   dailyForecastView,
+  minTemp,
+  maxTemp,
 }: DayForecastProps) => {
   const {
     weather: weatherArray,
@@ -67,54 +103,73 @@ const DayForecast = ({
     (isFirstDay && (day.sunrise > currentDate || currentDate < day.sunset)) ||
     !isFirstDay;
 
+  const barWidth = maxTemp - minTemp;
+  const innerBarStart = (((temp.min - minTemp) / barWidth) * 100).toFixed(2);
+  const innerBarEnd = (((maxTemp - temp.max) / barWidth) * 100).toFixed(2);
+
   return (
     <Container>
       <Title title={format(new Date(date * 1000), "PP")}>
-        {format(new Date(date * 1000), "ccc")}
+        {index === 0 ? "Today" : format(new Date(date * 1000), "ccc")}
       </Title>
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Icon
           title={getWeatherCodeIconInfo(weather.id).label}
           className={weatherToIcon(weather.id, isDay)}
         />
-        {/* {pop > 0 && <PercentChance>{Math.round(pop * 100)}%</PercentChance>} */}
       </div>
-      <div style={{ flex: 3, display: "flex" }}>
-        {dailyForecastView === "temperature" && (
-          <>
-            <Title>
-              {isMetric
-                ? kelvinToCelcius(temp.min)
-                : kelvinToFahrenheit(temp.min)}
-              °
-            </Title>
-            <Title>
-              {isMetric
-                ? kelvinToCelcius(temp.max)
-                : kelvinToFahrenheit(temp.max)}
-              °
-            </Title>
-          </>
-        )}
-        {dailyForecastView === "precipitation" && (
+
+      {dailyForecastView === "temperature" && (
+        <div
+          style={{
+            flex: 3,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Temp>
+            {isMetric
+              ? kelvinToCelcius(temp.min)
+              : kelvinToFahrenheit(temp.min)}
+            °
+          </Temp>
+          <Bar>
+            <InnerBar $start={innerBarStart} $end={innerBarEnd} />
+          </Bar>
+          <Temp>
+            {isMetric
+              ? kelvinToCelcius(temp.max)
+              : kelvinToFahrenheit(temp.max)}
+            °
+          </Temp>
+        </div>
+      )}
+      {dailyForecastView === "precipitation" && (
+        <div
+          style={{ flex: 3, display: "flex", justifyContent: "space-between" }}
+        >
+          {/* {pop > 0 && <PercentChance>{Math.round(pop * 100)}%</PercentChance>} */}
           <Title>
             {isMetric
               ? (rain ?? 0).toFixed(1)
               : ((rain ?? 0) * MM_TO_INCHES).toFixed(1)}
             {isMetric ? "mm" : " inches"}
           </Title>
-        )}
-        {dailyForecastView === "wind" && (
-          <>
-            <Title>
-              {isMetric
-                ? `${windSpeed.toFixed(1)}m/s`
-                : `${(windSpeed * MPS_TO_MPH).toFixed(1)}mph`}
-            </Title>
-            <Title>{degreeToCompass(windDegree)}</Title>
-          </>
-        )}
-      </div>
+        </div>
+      )}
+      {dailyForecastView === "wind" && (
+        <div
+          style={{ flex: 3, display: "flex", justifyContent: "space-between" }}
+        >
+          <Title>
+            {isMetric
+              ? `${windSpeed.toFixed(1)}m/s`
+              : `${(windSpeed * MPS_TO_MPH).toFixed(1)}mph`}
+          </Title>
+          <Title>{degreeToCompass(windDegree)}</Title>
+        </div>
+      )}
     </Container>
   );
 };
