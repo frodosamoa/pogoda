@@ -17,7 +17,7 @@ Pogoda is a simple and minimalist <a href="https://pogoda.vercel.app">weather da
 
 The project uses [OpenWeather](https://openweathermap.org/)'s [Weather API](https://openweathermap.org/api) to fetch real time weather data.
 
-The production site connects to a PostgreSQL instance located on Supabase.
+The production site connects to a PostgreSQL instance located on [Supabase](https://supabase.com/).
 
 ## Getting Started
 
