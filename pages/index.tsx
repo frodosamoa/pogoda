@@ -2,7 +2,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 
 import Application from "../components/Application";
 import Hero from "../components/Hero";
-import useGetWeather from "../lib/hooks/useGetWeather";
+import useWeather from "../lib/hooks/useWeather";
 
 type IndexProps = { setTheme: Dispatch<SetStateAction<Theme>> };
 
@@ -11,17 +11,27 @@ const Index = ({ setTheme }: IndexProps) => {
   const [city, setCity] = useState<City | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [weather, setWeather] = useGetWeather({ latLon, isMetric });
+  const {
+    data: weather,
+    error,
+    isLoading,
+    mutate: setWeather,
+  } = useWeather({
+    latLon,
+    isMetric,
+  });
 
   return (
     <>
       <Hero
-        latLon={latLon}
         setLatLon={setLatLon}
         setCity={setCity}
         setIsSettingsOpen={setIsSettingsOpen}
         city={city}
         weather={weather}
+        error={error}
+        isLoading={isLoading}
+        setWeather={setWeather}
       />
       <Application
         isSettingsOpen={isSettingsOpen}

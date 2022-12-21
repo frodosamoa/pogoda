@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-import Loader from "../Loader";
-import { fadeIn } from "../../lib/constants/animations";
-
 import City from "./City";
 import Alerts from "./Alerts";
 import DailyForecast from "./DailyForecast";
@@ -21,15 +18,6 @@ type WeatherProps = {
   city?: City;
   weather: Weather;
 };
-
-const LoaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
-    ${fadeIn};
-`;
 
 const WeatherItemsContainer = styled.div`
   display: flex;
@@ -62,14 +50,6 @@ const WeatherItems = styled.div`
 `;
 
 const Weather = ({ weather, city }: WeatherProps) => {
-  if (!weather) {
-    return (
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-    );
-  }
-
   const {
     airQuality,
     feelsLike,

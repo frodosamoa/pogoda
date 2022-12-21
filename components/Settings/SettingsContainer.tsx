@@ -25,7 +25,7 @@ const Container = styled.div<ContainerProps>`
   padding: 24px;
   text-align: center;
   color: ${({ theme: { themes } }) => themes.light};
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.blackTer};
 `;
 
 const ChildrenContainer = styled.div`

@@ -1,17 +1,18 @@
-import { SetStateAction, Dispatch } from "react";
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { KeyedMutator } from "swr";
 
-import Weather from "../components/Weather";
-
-import CitySearch from "./CitySearch";
+import HeroContent from "./HeroContent";
 
 type HeroProps = {
   city: City;
-  latLon: [number, number];
   weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
+  error: Error;
+  isLoading: boolean;
+  setWeather: KeyedMutator<WeatherResponse>;
 };
 
 const Container = styled.div`
@@ -23,20 +24,26 @@ const Container = styled.div`
 
 const Hero = ({
   city,
-  latLon,
   weather,
   setLatLon,
   setCity,
   setIsSettingsOpen,
+  error,
+  setWeather,
+  isLoading,
 }: HeroProps) => (
   <Container className="hero is-fullheight">
     <div className="hero-body" onClick={() => setIsSettingsOpen(false)}>
       <div className="container is-max-desktop">
-        {!(latLon?.length > 0) ? (
-          <CitySearch setLatLon={setLatLon} setCity={setCity} />
-        ) : (
-          <Weather city={city} weather={weather} />
-        )}
+        <HeroContent
+          setLatLon={setLatLon}
+          setCity={setCity}
+          city={city}
+          weather={weather}
+          error={error}
+          setWeather={setWeather}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   </Container>
