@@ -1,18 +1,24 @@
 import styled from "styled-components";
 
 import Loader from "../Loader";
-
 import { fadeIn } from "../../lib/constants/animations";
-import CurrentWeather from "./CurrentWeather";
 
+import City from "./City";
+import Alerts from "./Alerts";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
-import City from "./City";
+import Visibility from "./Visibility";
+import Humidity from "./Humidity";
+import SunriseSunset from "./SunriseSunset";
+import Wind from "./Wind";
+import Rainfall from "./Rainfall";
+import FeelsLike from "./FeelsLike";
+import UVIndex from "./UVIndex";
+import Pressure from "./Pressure";
+import AirQuality from "./AirQuality";
 
 type WeatherProps = {
   city?: City;
-  isMetric: boolean;
-  dailyForecastView: string;
   weather: Weather;
 };
 
@@ -22,30 +28,34 @@ const LoaderContainer = styled.div`
     ${fadeIn};
 `;
 
+const WeatherItemsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const WeatherItems = styled.div`
   display: grid;
   margin-bottom: 16px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 120px);
+  grid-template-rows: repeat(6, 120px);
   gap: 16px;
-  grid-auto-rows: minmax(125px, auto);
+  grid-auto-rows: 120px;
+  grid-auto-columns: 120px;
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 120px);
+    grid-template-rows: repeat(2, 120px);
   }
 `;
 
-const Weather = ({
-  weather,
-  city,
-  isMetric,
-  dailyForecastView,
-}: WeatherProps) => {
+const Weather = ({ weather, city }: WeatherProps) => {
   if (!weather) {
     return (
       <LoaderContainer>
@@ -54,27 +64,47 @@ const Weather = ({
     );
   }
 
+  const {
+    airQuality,
+    windSpeed,
+    windDegree,
+    humidity,
+    rain,
+    sunrise,
+    sunset,
+    visibility,
+    feelsLike,
+    pressure,
+    uvIndex,
+    isDay,
+  } = weather.current;
+
   return (
     <>
-      <City city={city} weather={weather} isMetric={isMetric} />
+      <City city={city} current={weather.current} />
 
-      <WeatherItems>
-        <CurrentWeather
-          current={weather.current}
-          isMetric={isMetric}
-          timezone={weather.timezone}
-        />
-        <HourlyForecast
-          hourly={weather.hourly}
-          isMetric={isMetric}
-          timezone={weather.timezone}
-        />
-        <DailyForecast
-          daily={weather.daily}
-          isMetric={isMetric}
-          dailyForecastView={dailyForecastView}
-        />
-      </WeatherItems>
+      <WeatherItemsContainer>
+        <WeatherItems>
+          <Alerts alerts={weather?.alerts} />
+          <HourlyForecast
+            hourly={weather.hourly}
+            hasAlerts={weather?.alerts?.length > 0}
+          />
+          <DailyForecast
+            daily={weather.daily}
+            hasAlerts={weather?.alerts?.length > 0}
+          />
+          <SunriseSunset sunrise={sunrise} sunset={sunset} isDay={isDay} />
+          <Visibility visibility={visibility} />
+          <Humidity humidity={humidity} />
+          <Wind windDegree={windDegree} windSpeed={windSpeed} />
+          <Rainfall rain={rain} />
+          <FeelsLike feelsLike={feelsLike} />
+          <UVIndex uvIndex={uvIndex} />
+          <Pressure pressure={pressure} />
+          <AirQuality airQuality={airQuality} />
+        </WeatherItems>
+      </WeatherItemsContainer>
     </>
   );
 };

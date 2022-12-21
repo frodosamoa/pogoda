@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { CalendarDays } from "lucide-react";
 import chroma from "chroma-js";
+
 import { fadeIn } from "../../../lib/constants/animations";
 import DayForecast from "./DayForecast";
 
 type DailyForecastProps = {
   daily: DailyForecast[];
-  isMetric: boolean;
-  dailyForecastView: string;
+  hasAlerts: boolean;
 };
 
-const Container = styled.div`
+const Container = styled.div<{ $hasAlerts: boolean }>`
   grid-column: 1 / 3;
   grid-row: 2 / 5;
   padding: 8px;
@@ -23,9 +23,18 @@ const Container = styled.div`
     theme === "yellow" || theme === "light"
       ? chroma(colors.greyDark).alpha(0.3).css()
       : chroma(colors.whiteTer).alpha(0.3).css()};
-
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 600ms 1 normal forwards running
     ${fadeIn};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    ${({ $hasAlerts }) => ($hasAlerts ? "grid-row: 3 / 6;" : "")}
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    ${({ $hasAlerts }) => ($hasAlerts ? "grid-row: 3 / 6;" : "")}
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -49,33 +58,32 @@ function withIconStyles<T>(Component: React.ComponentType<T>) {
   `;
 }
 
-const DailyForecast = ({
-  daily = [],
-  isMetric,
-  dailyForecastView,
-}: DailyForecastProps) => {
+const DayForecastContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DailyForecast = ({ daily = [], hasAlerts }: DailyForecastProps) => {
   const StyledIcon = withIconStyles(CalendarDays);
   const minTemp = Math.min(...daily.map((day) => day.temp.min));
   const maxTemp = Math.max(...daily.map((day) => day.temp.max));
+
   return (
-    <Container>
+    <Container $hasAlerts={hasAlerts}>
       <TitleContainer>
         <StyledIcon />
         <Title>Daily Forecast</Title>
       </TitleContainer>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <DayForecastContainer>
         {daily.map((day, index) => (
           <DayForecast
             key={index}
-            index={index}
             day={day}
-            isMetric={isMetric}
-            dailyForecastView={dailyForecastView}
             minTemp={minTemp}
             maxTemp={maxTemp}
           />
         ))}
-      </div>
+      </DayForecastContainer>
     </Container>
   );
 };

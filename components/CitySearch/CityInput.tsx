@@ -28,7 +28,6 @@ type CityInputProps = {
 
 const StyledInput = styled.input`
   box-shadow: none;
-  font-size: 2rem;
   width: 500px;
   background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   color: ${({ theme: { themes, theme } }) =>
@@ -76,6 +75,18 @@ const StyledInput = styled.input`
         : colors.whiteTer};
     opacity: 0.5;
     transition: color 150ms ease-in-out;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    grid-column: 1 / 4;
+    width: 350px;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    grid-column: 1 / 3;
+    width: 250px;
   }
 `;
 

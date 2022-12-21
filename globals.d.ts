@@ -28,7 +28,7 @@ type WeatherCondition = {
   icon: string;
 };
 
-type CurrentWeather = {
+type CurrentWeatherResponse = {
   dt: number;
   sunset: number;
   sunrise: number;
@@ -44,7 +44,7 @@ type CurrentWeather = {
   rain: number | { "1h": number };
 };
 
-type DailyForecast = {
+type DailyForecastResponse = {
   dt: number;
   sunset: number;
   sunrise: number;
@@ -56,7 +56,7 @@ type DailyForecast = {
   temp: { min: number; max: number; day: number };
 };
 
-type HourlyForecast = {
+type HourlyForecastResponse = {
   dt: number;
   wind_speed: number;
   wind_deg: number;
@@ -66,9 +66,79 @@ type HourlyForecast = {
   weather: WeatherCondition[];
 };
 
+type AirPollution = {
+  main: {
+    aqi: 1 | 2 | 3 | 4 | 5;
+  };
+};
+
+type AirPollutionResponse = {
+  list: AirPollution[];
+};
+
+type AlertResponse = {
+  sender_name: string;
+  event: string;
+  end: number;
+};
+
+type WeatherResponse = {
+  timezone: string;
+  daily: DailyForecastResponse[];
+  hourly: HourlyForecastResponse[];
+  current: CurrentWeatherResponse;
+  airPollution: AirPollutionResponse;
+  alerts: AlertResponse[];
+};
+
+type CurrentWeather = {
+  humidity: number;
+  isDay: boolean;
+  sunrise: string;
+  sunset: string;
+  temp: number;
+  label: string;
+  iconId: number;
+  feelsLike: number;
+  visibility: string;
+  windSpeed: string;
+  windDegree: string;
+  pressure: number;
+  uvIndex: number;
+  rain: string;
+  airQuality;
+};
+
+type DailyForecast = {
+  fullDate: string;
+  sunset: number;
+  sunrise: number;
+  date: string;
+  temp: {
+    min: number;
+    max: number;
+  };
+  label: string;
+  iconId: number;
+};
+
+type HourlyForecast = {
+  date: string;
+  temp: number;
+  label: string;
+  iconId: number;
+};
+
+type Alert = {
+  senderName: string;
+  event: string;
+  end: string;
+};
+
 type Weather = {
   timezone: string;
   daily: DailyForecast[];
   hourly: HourlyForecast[];
   current: CurrentWeather;
+  alerts: Alert[];
 };

@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
 import { fadeUp } from "../../lib/constants/animations";
-import {
-  kelvinToFahrenheit,
-  kelvinToCelcius,
-  getWeatherCodeIconInfo,
-} from "../../lib/utils/weather";
 
 const Container = styled.div`
   padding-bottom: 24px;
@@ -35,25 +30,17 @@ const Name = styled.div`
 
 type CityProps = {
   city?: City;
-  isMetric: boolean;
-  weather: Weather;
+  current: CurrentWeather;
 };
 
-const City = ({ city, weather, isMetric }: CityProps) => {
+const City = ({ city, current }: CityProps) => {
   if (!city) return null;
-
-  const { weather: currentWeather, temp } = weather.current;
-  const weatherIconInfo = currentWeather && currentWeather[0];
-  let weatherLabel = getWeatherCodeIconInfo(weatherIconInfo.id).label;
-  weatherLabel = weatherLabel.charAt(0).toUpperCase() + weatherLabel.slice(1);
 
   return (
     <Container>
       <Name>{city.name}</Name>
-      <Temperature>
-        {isMetric ? kelvinToCelcius(temp) : kelvinToFahrenheit(temp)}°
-      </Temperature>
-      <Label>{weatherLabel}</Label>
+      <Temperature>{current.temp}°</Temperature>
+      <Label>{current.label}</Label>
     </Container>
   );
 };

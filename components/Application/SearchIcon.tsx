@@ -19,7 +19,7 @@ type SearchIconProps = {
   hasWeather: boolean;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setWeather: Dispatch<SetStateAction<Weather>>;
+  setWeather: Dispatch<SetStateAction<WeatherResponse>>;
 };
 
 const SearchIcon = ({

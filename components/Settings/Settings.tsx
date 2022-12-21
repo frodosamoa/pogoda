@@ -1,10 +1,6 @@
 import classNames from "classnames";
 import { Dispatch, SetStateAction } from "react";
-import {
-  Thermometer as ThermometerIcon,
-  Wind as WindIcon,
-  CloudRain as CloudRainIcon,
-} from "lucide-react";
+
 import styled from "styled-components";
 
 import Themes from "./Themes";
@@ -22,15 +18,13 @@ const Title = styled.p`
 type SettingProps = {
   latLon: [number, number];
   isMetric: boolean;
-  dailyForecastView: string;
   isSettingsOpen: boolean;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   setTheme: Dispatch<SetStateAction<Theme>>;
-  setDailyForecastView: Dispatch<SetStateAction<string>>;
-  setWeather: Dispatch<SetStateAction<Weather>>;
+  setWeather: Dispatch<SetStateAction<WeatherResponse>>;
 };
 
 const Settings = ({
@@ -41,8 +35,6 @@ const Settings = ({
   setTheme,
   latLon,
   setLatLon,
-  dailyForecastView,
-  setDailyForecastView,
   setCity,
   setWeather,
 }: SettingProps) => {
@@ -68,44 +60,6 @@ const Settings = ({
                 onClick={() => setIsMetric(false)}
               >
                 °F, mph
-              </button>
-            </div>
-          </div>
-        </SettingsItem>
-
-        <SettingsItem>
-          <Title>daily forecast</Title>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <div className={"buttons has-addons"}>
-              <button
-                title="temperature"
-                className={classNames(
-                  "button",
-                  dailyForecastView !== "temperature" && "is-black"
-                )}
-                onClick={() => setDailyForecastView("temperature")}
-              >
-                <ThermometerIcon size={16} />
-              </button>
-              <button
-                title="precipitation"
-                className={classNames(
-                  "button",
-                  dailyForecastView !== "precipitation" && "is-black"
-                )}
-                onClick={() => setDailyForecastView("precipitation")}
-              >
-                <CloudRainIcon size={16} />
-              </button>
-              <button
-                title="wind"
-                className={classNames(
-                  "button",
-                  dailyForecastView !== "wind" && "is-black"
-                )}
-                onClick={() => setDailyForecastView("wind")}
-              >
-                <WindIcon size={16} />
               </button>
             </div>
           </div>

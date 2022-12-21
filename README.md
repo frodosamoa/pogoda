@@ -5,7 +5,7 @@
 
 ## What is Pogoda?
 
-Pogoda is a minimalist and responsive <a href="https://pogoda.vercel.app">weather dashboard</a> built with the following modern web development technologies:
+Pogoda is a minimalist, responsive, and customizable <a href="https://pogoda.vercel.app">weather dashboard</a> built with the following modern web development technologies:
 
 - [React.js](https://reactjs.org/)
 - [Next.js](https://nextjs.org/)

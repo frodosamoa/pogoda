@@ -7,8 +7,6 @@ import CitySearch from "./CitySearch";
 type HeroProps = {
   city: City;
   latLon: [number, number];
-  isMetric: boolean;
-  dailyForecastView: string;
   weather: Weather;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
@@ -26,8 +24,6 @@ const Hero = ({
   city,
   latLon,
   weather,
-  isMetric,
-  dailyForecastView,
   setLatLon,
   setCity,
   setIsSettingsOpen,
@@ -41,12 +37,7 @@ const Hero = ({
         {!(latLon?.length > 0) ? (
           <CitySearch setLatLon={setLatLon} setCity={setCity} />
         ) : (
-          <Weather
-            city={city}
-            weather={weather}
-            isMetric={isMetric}
-            dailyForecastView={dailyForecastView}
-          />
+          <Weather city={city} weather={weather} />
         )}
       </div>
     </div>

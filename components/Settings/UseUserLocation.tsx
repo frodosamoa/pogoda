@@ -12,7 +12,7 @@ type UserResponseProps = {
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setCity: Dispatch<SetStateAction<City>>;
-  setWeather: Dispatch<SetStateAction<Weather>>;
+  setWeather: Dispatch<SetStateAction<WeatherResponse>>;
 };
 
 const LocationNotStored = styled.div`
@@ -85,7 +85,7 @@ type UseUserLocationProps = {
   setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
-  setWeather: Dispatch<SetStateAction<Weather>>;
+  setWeather: Dispatch<SetStateAction<WeatherResponse>>;
   latLon: [number, number];
 };
 

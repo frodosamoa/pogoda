@@ -1,11 +1,14 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { formatWeather } from "../utils/weather";
 
 const useGetWeather = ({
   latLon,
+  isMetric,
 }: {
   latLon: [number, number];
-}): [Weather, Dispatch<SetStateAction<Weather>>] => {
-  const [weather, setWeather] = useState<Weather>(null);
+  isMetric: boolean;
+}): [Weather, Dispatch<SetStateAction<WeatherResponse>>] => {
+  const [weather, setWeather] = useState<WeatherResponse>(null);
 
   useEffect(() => {
     const getWeather = (latitude: number, longitude: number) => {
@@ -21,7 +24,7 @@ const useGetWeather = ({
     }
   }, [latLon]);
 
-  return [weather, setWeather];
+  return [formatWeather(weather, isMetric), setWeather];
 };
 
 export default useGetWeather;

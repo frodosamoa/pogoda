@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import chroma from "chroma-js";
-import { Clock } from "lucide-react";
+import { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 
-import { fadeIn } from "../../../lib/constants/animations";
+import { fadeIn } from "../../lib/constants/animations";
 
-import HourForecast from "./HourForecast";
-
-type HourlyForecastProps = {
-  hourly: HourlyForecast[];
-  hasAlerts: boolean;
+type AlertsProps = {
+  alerts: Alert[];
 };
 
-const Container = styled.div<{ $hasAlerts: boolean }>`
-  grid-column: ${({ $hasAlerts }) => ($hasAlerts ? "3 / 7" : "1 / 5")};
+const Container = styled.div`
+  grid-column: 1 / 3;
   grid-row: 1 / 2;
   padding: 8px;
   border-radius: 8px;
@@ -20,6 +18,7 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
   opacity: 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   position: relative;
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
     ${fadeIn};
@@ -31,28 +30,17 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
     grid-column: 1 / 4;
-
-    ${({ $hasAlerts }) => ($hasAlerts ? "grid-row: 2 / 3;" : "")}
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
     grid-column: 1 / 3;
-
-    ${({ $hasAlerts }) => ($hasAlerts ? "grid-row: 2 / 3;" : "")}
   }
-`;
-
-const HourContainer = styled.div`
-  display: flex;
-  overflow: scroll;
-  height: 100%;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
 `;
 
 const Title = styled.div`
@@ -60,6 +48,11 @@ const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
   text-transform: uppercase;
   letter-spacing: 1.2px;
+`;
+
+const Sender = styled.div`
+  text-align: start;
+  font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
 function withIconStyles<T>(Component: React.ComponentType<T>) {
@@ -70,21 +63,46 @@ function withIconStyles<T>(Component: React.ComponentType<T>) {
   `;
 }
 
-const HourlyForecast = ({ hourly = [], hasAlerts }: HourlyForecastProps) => {
-  const StyledIcon = withIconStyles(Clock);
+const ChildrenContainer = styled.p`
+  text-align: start;
+  font-size: ${({ theme }) => theme.fontSizes[7]};
+`;
+
+const Pagination = styled.div`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  cursor: pointer;
+  user-select: none;
+`;
+
+const Alerts = ({ alerts = [] }: AlertsProps) => {
+  const [alertIndex, setAlertIndex] = useState(0);
+
+  if (alerts.length === 0) return null;
+
+  const StyledIcon = withIconStyles(AlertTriangle);
+  const alert = alerts[alertIndex];
+
   return (
-    <Container $hasAlerts={hasAlerts}>
+    <Container>
       <TitleContainer>
         <StyledIcon />
-        <Title>Hourly Forecast</Title>
+        <Title>{alert.event}</Title>
       </TitleContainer>
-      <HourContainer>
-        {hourly.map((hour, index) => (
-          <HourForecast key={index} hour={hour} />
-        ))}
-      </HourContainer>
+      <ChildrenContainer>
+        {alert.event} until {alert.end}.
+      </ChildrenContainer>
+      <Sender>{alert.senderName}</Sender>
+      {alerts.length > 1 && (
+        <Pagination
+          onClick={() => setAlertIndex((alertIndex + 1) % alerts.length)}
+        >
+          {alertIndex + 1}/{alerts.length}
+        </Pagination>
+      )}
     </Container>
   );
 };
 
-export default HourlyForecast;
+export default Alerts;

@@ -1,16 +1,14 @@
 import { Thermometer } from "lucide-react";
 
-import { kelvinToCelcius, kelvinToFahrenheit } from "../../lib/utils/weather";
 import WeatherItem from "./WeatherItem";
 
 type FeelsLikeProps = {
-  isMetric: boolean;
   feelsLike: number;
 };
 
-const FeelsLike = ({ isMetric, feelsLike }: FeelsLikeProps) => (
+const FeelsLike = ({ feelsLike }: FeelsLikeProps) => (
   <WeatherItem Icon={Thermometer} title="Feels Like" $animationDelay={1000}>
-    {isMetric ? kelvinToCelcius(feelsLike) : kelvinToFahrenheit(feelsLike)}°
+    {feelsLike}°
   </WeatherItem>
 );
 
