@@ -53,8 +53,6 @@ const Icon = styled.i`
 `;
 
 const PercentChance = styled.p`
-  margin-top: 2px;
-
   text-align: center;
   font-size: ${({ theme }) => theme.fontSizes[8]};
 `;

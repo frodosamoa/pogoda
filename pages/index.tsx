@@ -1,26 +1,20 @@
-import { useState } from "react";
-import { ThemeProvider, DefaultTheme } from "styled-components";
+import { useState, Dispatch, SetStateAction } from "react";
 
-import { DEFAULT_THEME } from "../lib/constants/theme";
 import Application from "../components/Application";
 import Hero from "../components/Hero";
 import useGetWeather from "../lib/hooks/useGetWeather";
 
-const Home = () => {
+type IndexProps = { setTheme: Dispatch<SetStateAction<Theme>> };
+
+const Index = ({ setTheme }: IndexProps) => {
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
   const [isMetric, setIsMetric] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [weather, setWeather] = useGetWeather({ latLon, isMetric });
-  const [theme, setTheme] = useState<Theme>("dark");
-
-  const providedTheme: DefaultTheme = {
-    theme,
-    ...DEFAULT_THEME,
-  };
 
   return (
-    <ThemeProvider theme={providedTheme}>
+    <>
       <Hero
         latLon={latLon}
         setLatLon={setLatLon}
@@ -41,8 +35,8 @@ const Home = () => {
         setWeather={setWeather}
         weather={weather}
       />
-    </ThemeProvider>
+    </>
   );
 };
 
-export default Home;
+export default Index;

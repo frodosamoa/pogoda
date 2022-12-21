@@ -46,6 +46,11 @@ const WeatherItems = styled.div`
   grid-auto-columns: 120px;
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.container}px) {
+    grid-template-columns: repeat(4, 120px);
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
     grid-template-columns: repeat(3, 120px);
   }

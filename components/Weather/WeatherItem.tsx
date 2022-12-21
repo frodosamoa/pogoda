@@ -11,9 +11,9 @@ const Container = styled.div<{ $animationDelay: number }>`
   opacity: 0;
 
   background-color: ${({ theme: { theme, colors } }) =>
-    theme === "yellow" || theme === "light"
-      ? chroma(colors.greyDark).alpha(0.3).css()
-      : chroma(colors.whiteTer).alpha(0.3).css()};
+    theme === "dark"
+      ? chroma(colors.whiteTer).alpha(0.3).css()
+      : chroma(colors.greyDark).alpha(0.2).css()};
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     ${fadeIn};
   animation-delay: ${({ $animationDelay = 200 }) => $animationDelay}ms;

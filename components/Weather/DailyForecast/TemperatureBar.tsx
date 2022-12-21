@@ -16,27 +16,32 @@ const Temp = styled.div`
 const Bar = styled.div`
   flex: 4;
   height: 8px;
-  border-radius: 5px;
+  padding: 0 4px;
+  border-radius: 4px;
   margin: 0px 8px;
   position: relative;
   transition: background-color 150ms ease-in-out;
-  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
+
+  background-color: ${({ theme: { theme, colors } }) =>
+    theme === "dark"
+      ? chroma(colors.whiteTer).alpha(0.5).css()
+      : chroma(colors.greyDark).alpha(0.5).css()}; ;
 `;
 
 const InnerBar = styled.div<{ $start: string; $end: string }>`
   height: 6px;
   flex: 1;
-  border-radius: 3px;
+  border-radius: 4px;
   margin: 1px;
   position: absolute;
   z-index: 100;
   transition: background-color 150ms ease-in-out;
-  min-width: 6px;
 
-  background-color: ${({ theme: { theme, colors } }) =>
-    theme === "yellow" || theme === "light"
-      ? chroma(colors.greyDark).alpha(0.3).css()
-      : chroma(colors.whiteTer).alpha(0.3).css()};
+  background-color: ${({ theme: { theme, themes, colors } }) => {
+    if (theme === "dark") return themes["dark"];
+    if (theme === "light") return themes["light"];
+    return colors["greyLighter"];
+  }};
   left: ${({ $start }) => $start}%;
   right: ${({ $end }) => $end}%;
 `;

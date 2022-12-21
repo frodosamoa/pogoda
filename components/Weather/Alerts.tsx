@@ -31,7 +31,7 @@ const Container = styled.div`
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
-    grid-column: 1 / 4;
+    grid-column: 1 / 3;
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>

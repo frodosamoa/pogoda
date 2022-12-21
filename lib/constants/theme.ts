@@ -50,6 +50,7 @@ export const FONT_SIZES = {
 export const BREAKPOINTS = {
   mobile: 451,
   tablet: 769,
+  container: 960,
   desktop: 1024,
 };
 

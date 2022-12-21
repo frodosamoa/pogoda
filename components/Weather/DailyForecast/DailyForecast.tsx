@@ -22,11 +22,16 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
   opacity: 0;
 
   background-color: ${({ theme: { theme, colors } }) =>
-    theme === "yellow" || theme === "light"
-      ? chroma(colors.greyDark).alpha(0.3).css()
-      : chroma(colors.whiteTer).alpha(0.3).css()};
+    theme === "dark"
+      ? chroma(colors.whiteTer).alpha(0.3).css()
+      : chroma(colors.greyDark).alpha(0.2).css()};
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 600ms 1 normal forwards running
     ${fadeIn};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.container}px) {
+    ${({ $hasAlerts }) => ($hasAlerts ? "grid-row: 3 / 6;" : "")}
+  }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {

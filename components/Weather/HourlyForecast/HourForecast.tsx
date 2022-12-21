@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-const Icon = styled.i`
-  height: ${({ theme }) => theme.fontSizes[6]};
-  font-size: ${({ theme }) => theme.fontSizes[6]};
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,13 +23,16 @@ const Date = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 
+const Icon = styled.i`
+  height: ${({ theme }) => theme.fontSizes[6]};
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
 const Temp = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 
 const PercentChance = styled.p`
-  margin-top: 2px;
-
   font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
