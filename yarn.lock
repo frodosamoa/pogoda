@@ -1974,11 +1974,6 @@ opener@^1.5.2:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
   integrity sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==
 
-openweather-apis@^4.2.0:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/openweather-apis/-/openweather-apis-4.4.2.tgz#ea4f509e89adf0f6f2f0db79606c62d785c65f6b"
-  integrity sha512-hhmpDtG8/nC1kbfSo2rGeryORN3HY+c4GugdvsOQi22rtML0wT4MQ1kTosRv58SwFOX/9jRziWzEEvidydbvMg==
-
 optionator@^0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.9.1.tgz#4f236a6373dae0566a6d43e1326674f50c291499"

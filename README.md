@@ -10,6 +10,7 @@ Pogoda is a minimalist, responsive, and customizable <a href="https://pogoda.ver
 - [React.js](https://reactjs.org/)
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [SWR](https://swr.vercel.app/)
 - [Prisma](https://www.prisma.io/)
 - [PostgresQL](https://www.postgresql.org/)
 - [Bulma.io](https://bulma.io/)
