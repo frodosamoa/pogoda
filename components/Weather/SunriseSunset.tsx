@@ -1,4 +1,5 @@
 import { Sunrise, Sunset } from "lucide-react";
+import styled from "styled-components";
 
 import WeatherItem from "./WeatherItem";
 
@@ -8,6 +9,10 @@ type SunrisePropsSunset = {
   isDay: boolean;
 };
 
+const Value = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes[4]};
+`;
+
 const SunriseSunset = ({ sunrise, sunset, isDay }: SunrisePropsSunset) =>
   sunrise &&
   sunset && (
@@ -16,7 +21,7 @@ const SunriseSunset = ({ sunrise, sunset, isDay }: SunrisePropsSunset) =>
       title={isDay ? "Sunset" : "Sunrise"}
       $animationDelay={600}
     >
-      {isDay ? sunset : sunrise}
+      <Value>{isDay ? sunset : sunrise}</Value>
     </WeatherItem>
   );
 

@@ -44,7 +44,6 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.div`
-  text-align: start;
   font-size: ${({ theme }) => theme.fontSizes[7]};
   text-transform: uppercase;
   letter-spacing: 1.2px;

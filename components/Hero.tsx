@@ -29,10 +29,7 @@ const Hero = ({
   setIsSettingsOpen,
 }: HeroProps) => (
   <Container className="hero is-fullheight">
-    <div
-      className="hero-body has-text-centered"
-      onClick={() => setIsSettingsOpen(false)}
-    >
+    <div className="hero-body" onClick={() => setIsSettingsOpen(false)}>
       <div className="container is-max-desktop">
         {!(latLon?.length > 0) ? (
           <CitySearch setLatLon={setLatLon} setCity={setCity} />

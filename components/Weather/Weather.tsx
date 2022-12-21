@@ -37,7 +37,7 @@ const WeatherItems = styled.div`
   display: grid;
   margin-bottom: 16px;
   grid-template-columns: repeat(6, 120px);
-  grid-template-rows: repeat(6, 120px);
+  grid-template-rows: repeat(4, 120px);
   gap: 16px;
   grid-auto-rows: 120px;
   grid-auto-columns: 120px;
@@ -45,13 +45,11 @@ const WeatherItems = styled.div`
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
     grid-template-columns: repeat(3, 120px);
-    grid-template-rows: repeat(3, 120px);
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
     grid-template-columns: repeat(2, 120px);
-    grid-template-rows: repeat(2, 120px);
   }
 `;
 
@@ -66,17 +64,18 @@ const Weather = ({ weather, city }: WeatherProps) => {
 
   const {
     airQuality,
-    windSpeed,
-    windDegree,
+    feelsLike,
     humidity,
+    isDay,
+    pressure,
     rain,
     sunrise,
     sunset,
-    visibility,
-    feelsLike,
-    pressure,
     uvIndex,
-    isDay,
+    uvLabel,
+    visibility,
+    windDegree,
+    windSpeed,
   } = weather.current;
 
   return (
@@ -100,7 +99,7 @@ const Weather = ({ weather, city }: WeatherProps) => {
           <Wind windDegree={windDegree} windSpeed={windSpeed} />
           <Rainfall rain={rain} />
           <FeelsLike feelsLike={feelsLike} />
-          <UVIndex uvIndex={uvIndex} />
+          <UVIndex uvIndex={uvIndex} uvLabel={uvLabel} />
           <Pressure pressure={pressure} />
           <AirQuality airQuality={airQuality} />
         </WeatherItems>

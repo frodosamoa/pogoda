@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { weatherToIcon } from "../../../lib/utils/weather";
 
 const Icon = styled.i`
   height: ${({ theme }) => theme.fontSizes[6]};
@@ -10,6 +9,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: center;
   height: 100%;
   flex: 0 0 8.33%;
 
@@ -32,6 +32,12 @@ const Temp = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 
+const PercentChance = styled.p`
+  margin-top: 2px;
+
+  font-size: ${({ theme }) => theme.fontSizes[8]};
+`;
+
 type HourForecastProps = {
   hour: HourlyForecast;
 };
@@ -39,7 +45,12 @@ type HourForecastProps = {
 const HourForecast = ({ hour }: HourForecastProps) => (
   <Container>
     <Date>{hour.date}</Date>
-    <Icon title={hour.label} className={weatherToIcon(hour.iconId, false)} />
+    <div>
+      <Icon title={hour.label} className={hour.iconClassName} />
+      {hour.precipitationChance > 0 && (
+        <PercentChance>{hour.precipitationChance}%</PercentChance>
+      )}
+    </div>
     <Temp>{hour.temp}°</Temp>
   </Container>
 );

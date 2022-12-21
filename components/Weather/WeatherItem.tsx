@@ -25,7 +25,6 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.div`
-  text-align: start;
   font-size: ${({ theme }) => theme.fontSizes[7]};
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -40,11 +39,6 @@ function withIconStyles<T>(Component: React.ComponentType<T>) {
     height: ${({ theme }) => theme.fontSizes[7]};
   `;
 }
-
-const ChildrenContainer = styled.p`
-  text-align: start;
-  font-size: ${({ theme }) => theme.fontSizes[4]};
-`;
 
 type WeatherItemProps = {
   title: string;
@@ -66,7 +60,7 @@ const WeatherItem = ({
         <StyledIcon />
         <Title>{title}</Title>
       </TitleContainer>
-      <ChildrenContainer>{children}</ChildrenContainer>
+      {children}
     </Container>
   );
 };

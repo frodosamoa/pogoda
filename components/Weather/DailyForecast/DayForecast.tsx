@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import chroma from "chroma-js";
 
-import { weatherToIcon } from "../../../lib/utils/weather";
 import TemperatureBar from "./TemperatureBar";
 
 type DayForecastProps = {
@@ -32,24 +31,9 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.div`
-  text-align: start;
   line-height: 1;
 
   font-size: ${({ theme }) => theme.fontSizes[7]};
-`;
-
-const Subtitle = styled.div`
-  text-align: start;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  font-size: ${({ theme }) => theme.fontSizes[7]};
-
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.mobile}px) {
-    display: none;
-  }
 `;
 
 const IconContainer = styled.div`
@@ -61,8 +45,18 @@ const IconContainer = styled.div`
 const Icon = styled.i`
   flex: 1;
 
-  height: ${({ theme }) => theme.fontSizes[6]};
+  text-align: center;
+  line-height: initial;
+
+  height: 24px;
   font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
+const PercentChance = styled.p`
+  margin-top: 2px;
+
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
 const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
@@ -72,7 +66,10 @@ const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
       {/* <Subtitle title={day.label}>{day.label}</Subtitle> */}
     </TitleContainer>
     <IconContainer>
-      <Icon title={day.label} className={weatherToIcon(day.iconId, true)} />
+      <Icon title={day.label} className={day.iconClassName} />
+      {day.precipitationChance > 0 && (
+        <PercentChance>{day.precipitationChance}%</PercentChance>
+      )}
     </IconContainer>
 
     <TemperatureBar
@@ -81,7 +78,6 @@ const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
       dayMin={day.temp.min}
       dayMax={day.temp.max}
     />
-    {/* {pop > 0 && <PercentChance>{Math.round(pop * 100)}%</PercentChance>} */}
   </Container>
 );
 

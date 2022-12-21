@@ -8,7 +8,6 @@ const Container = styled.div<ContainerProps>`
   position: fixed;
   top: 24px;
   left: 24px;
-  text-align: start;
   opacity: ${({ $hasWeather }) => ($hasWeather ? 0 : 1)};
   transition: opacity 300ms ease-in-out;
 `;

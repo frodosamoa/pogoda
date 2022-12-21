@@ -1,14 +1,19 @@
 import { Component } from "lucide-react";
+import styled from "styled-components";
 
 import WeatherItem from "./WeatherItem";
 
 type AirQualityProps = {
-  airQuality: number;
+  airQuality: string;
 };
+
+const Value = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
 
 const AirQuality = ({ airQuality }: AirQualityProps) => (
   <WeatherItem Icon={Component} title="Air Quality" $animationDelay={1400}>
-    {airQuality}
+    <Value>{airQuality}</Value>
   </WeatherItem>
 );
 

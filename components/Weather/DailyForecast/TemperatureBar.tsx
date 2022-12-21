@@ -15,7 +15,7 @@ const Temp = styled.div`
 
 const Bar = styled.div`
   flex: 4;
-  height: 10px;
+  height: 8px;
   border-radius: 5px;
   margin: 0px 8px;
   position: relative;
@@ -27,7 +27,7 @@ const InnerBar = styled.div<{ $start: string; $end: string }>`
   height: 6px;
   flex: 1;
   border-radius: 3px;
-  margin: 2px;
+  margin: 1px;
   position: absolute;
   z-index: 100;
   transition: background-color 150ms ease-in-out;
@@ -57,7 +57,7 @@ const TemperatureBar = ({
   const barWidth = maxTemp - minTemp;
   const innerBarStart = (((dayMin - minTemp) / barWidth) * 100).toFixed(2);
   const innerBarEnd = (((maxTemp - dayMax) / barWidth) * 100).toFixed(2);
-
+  console.log(barWidth, innerBarStart, innerBarEnd);
   return (
     <Container>
       <Temp>{dayMin}°</Temp>

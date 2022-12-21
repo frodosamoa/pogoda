@@ -67,8 +67,8 @@ type HourlyForecastResponse = {
 };
 
 type AirPollution = {
-  main: {
-    aqi: 1 | 2 | 3 | 4 | 5;
+  components: {
+    pm2_5: number;
   };
 };
 
@@ -92,21 +92,22 @@ type WeatherResponse = {
 };
 
 type CurrentWeather = {
+  airQuality: string;
+  feelsLike: number;
   humidity: number;
+  iconId: number;
   isDay: boolean;
+  label: string;
+  pressure: number;
+  rain: string;
   sunrise: string;
   sunset: string;
   temp: number;
-  label: string;
-  iconId: number;
-  feelsLike: number;
-  visibility: string;
-  windSpeed: string;
-  windDegree: string;
-  pressure: number;
   uvIndex: number;
-  rain: string;
-  airQuality;
+  uvLabel: string;
+  visibility: string;
+  windDegree: string;
+  windSpeed: string;
 };
 
 type DailyForecast = {
@@ -119,14 +120,16 @@ type DailyForecast = {
     max: number;
   };
   label: string;
-  iconId: number;
+  iconClassName: string;
+  precipitationChance: number;
 };
 
 type HourlyForecast = {
   date: string;
   temp: number;
   label: string;
-  iconId: number;
+  iconClassName: string;
+  precipitationChance: number;
 };
 
 type Alert = {
