@@ -1,25 +1,16 @@
-import { formatInTimeZone } from "date-fns-tz";
 import styled from "styled-components";
 import chroma from "chroma-js";
 import { Clock } from "lucide-react";
-import {
-  getWeatherCodeIconInfo,
-  kelvinToCelcius,
-  kelvinToFahrenheit,
-  weatherToIcon,
-} from "../../lib/utils/weather";
-import { fadeIn } from "../../lib/constants/animations";
+
+import { fadeIn } from "../../../lib/constants/animations";
+
+import HourForecast from "./HourForecast";
 
 type HourlyForecastProps = {
   hourly: HourlyForecast[];
   isMetric: boolean;
   timezone: string;
 };
-
-const Icon = styled.i`
-  height: ${({ theme }) => theme.fontSizes[6]};
-  font-size: ${({ theme }) => theme.fontSizes[6]};
-`;
 
 const Container = styled.div`
   grid-column: 1 / 5;
@@ -28,6 +19,9 @@ const Container = styled.div`
   border-radius: 8px;
   overflow: scroll;
   opacity: 0;
+
+  display: flex;
+  flex-direction: column;
 
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
     ${fadeIn};
@@ -48,23 +42,10 @@ const Container = styled.div`
   }
 `;
 
-const Hour = styled.div`
-  flex: 0 0 8.33%;
-
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.tablet}px) {
-    flex: 0 0 11.11%;
-  }
-
-  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.mobile}px) {
-    flex: 0 0 16.66%;
-  }
-`;
-
 const HourContainer = styled.div`
   display: flex;
   overflow: scroll;
+  height: 100%;
 `;
 
 const TitleContainer = styled.div`
@@ -102,23 +83,13 @@ const HourlyForecast = ({
       </TitleContainer>
       <HourContainer>
         {hourly.map((hour, index) => (
-          <Hour key={index}>
-            <div>
-              {index === 0
-                ? "Now"
-                : formatInTimeZone(new Date(hour.dt * 1000), timezone, "HH")}
-            </div>
-            <Icon
-              title={getWeatherCodeIconInfo(hour.weather[0].id).label}
-              className={weatherToIcon(hour.weather[0].id, false)}
-            />
-            <div>
-              {isMetric
-                ? kelvinToCelcius(hour.temp)
-                : kelvinToFahrenheit(hour.temp)}
-              °
-            </div>
-          </Hour>
+          <HourForecast
+            isMetric={isMetric}
+            timezone={timezone}
+            key={index}
+            index={index}
+            hour={hour}
+          />
         ))}
       </HourContainer>
     </Container>

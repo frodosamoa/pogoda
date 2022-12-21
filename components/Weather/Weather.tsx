@@ -27,7 +27,7 @@ const WeatherItems = styled.div`
   margin-bottom: 16px;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(125px, auto);
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {

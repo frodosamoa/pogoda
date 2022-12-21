@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CalendarDays } from "lucide-react";
 import chroma from "chroma-js";
-import { fadeIn } from "../../lib/constants/animations";
+import { fadeIn } from "../../../lib/constants/animations";
 import DayForecast from "./DayForecast";
 
 type DailyForecastProps = {
@@ -12,7 +12,7 @@ type DailyForecastProps = {
 
 const Container = styled.div`
   grid-column: 1 / 3;
-  grid-row: 2 / 6;
+  grid-row: 2 / 5;
   padding: 8px;
   border-radius: 8px;
   display: flex;

@@ -8,7 +8,7 @@ import {
 } from "../../lib/utils/weather";
 
 const Container = styled.div`
-  padding: 24px;
+  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -2,14 +2,14 @@ import styled from "styled-components";
 import chroma from "chroma-js";
 import { format } from "date-fns";
 
-import { MM_TO_INCHES, MPS_TO_MPH } from "../../lib/constants/conversion";
+import { MM_TO_INCHES, MPS_TO_MPH } from "../../../lib/constants/conversion";
 import {
   kelvinToFahrenheit,
   kelvinToCelcius,
   weatherToIcon,
   getWeatherCodeIconInfo,
   degreeToCompass,
-} from "../../lib/utils/weather";
+} from "../../../lib/utils/weather";
 
 type DayForecastProps = {
   index: number;
@@ -35,8 +35,9 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.p`
+const Title = styled.div`
   flex: 1;
+  text-align: start;
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
 
