@@ -25,19 +25,17 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  flex: 1;
+  flex: 1.5;
   white-space: nowrap;
   overflow: hidden;
 `;
 
 const Title = styled.div`
-  line-height: 1;
-
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 
 const IconContainer = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
 `;

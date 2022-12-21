@@ -2,7 +2,7 @@ import styled from "styled-components";
 import chroma from "chroma-js";
 
 const Container = styled.div`
-  flex: 3;
+  flex: 6;
   display: flex;
   justify-content: space-between;
   align-items: center;
