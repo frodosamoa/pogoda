@@ -1,4 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
+
 import { formatWeather } from "../utils/weather";
 
 const useGetWeather = ({

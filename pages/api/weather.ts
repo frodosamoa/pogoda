@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
 import queryString from "query-string";
+
 import {
   getCurrentWeatherData,
   getAirPollutionData,

@@ -4,6 +4,7 @@ import chroma from "chroma-js";
 
 import { fadeIn } from "../../../lib/constants/animations";
 import { WeatherItemTitle } from "../WeatherItem";
+
 import DayForecast from "./DayForecast";
 
 type DailyForecastProps = {

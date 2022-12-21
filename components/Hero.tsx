@@ -2,6 +2,7 @@ import { SetStateAction, Dispatch } from "react";
 import styled from "styled-components";
 
 import Weather from "../components/Weather";
+
 import CitySearch from "./CitySearch";
 
 type HeroProps = {

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 import Settings from "../Settings";
+
 import SearchIcon from "./SearchIcon";
 import AppTitle from "./AppTitle";
 

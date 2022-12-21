@@ -145,7 +145,6 @@ export const formatWeather = (
   const { timezone, current, daily, hourly, airPollution, alerts } = weather;
   const now = Date.now();
 
-  console.log(current);
   return {
     timezone,
     alerts: alerts?.map(({ sender_name: senderName, event, end }) => ({

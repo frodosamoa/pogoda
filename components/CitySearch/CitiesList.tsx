@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { fadeIn } from "../../lib/constants/animations";
 import Loader from "../Loader";
+
 import City from "./City";
 
 type CitiesListProps = {

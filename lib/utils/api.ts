@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import queryString from "query-string";
+
 import {
   AIR_POLLUTION_DATA_URL,
   CURRENT_WEATHER_DATA_URL,

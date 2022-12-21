@@ -2,6 +2,7 @@ import chroma from "chroma-js";
 import styled from "styled-components";
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
+
 import { fadeIn } from "../../lib/constants/animations";
 
 const Container = styled.div<{ $animationDelay: number }>`

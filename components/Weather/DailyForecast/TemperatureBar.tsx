@@ -57,7 +57,7 @@ const TemperatureBar = ({
   const barWidth = maxTemp - minTemp;
   const innerBarStart = (((dayMin - minTemp) / barWidth) * 100).toFixed(2);
   const innerBarEnd = (((maxTemp - dayMax) / barWidth) * 100).toFixed(2);
-  console.log(barWidth, innerBarStart, innerBarEnd);
+
   return (
     <Container>
       <Temp>{dayMin}°</Temp>
