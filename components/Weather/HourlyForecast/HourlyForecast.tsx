@@ -3,6 +3,7 @@ import chroma from "chroma-js";
 import { Clock } from "lucide-react";
 
 import { fadeIn } from "../../../lib/constants/animations";
+import { WeatherItemTitle } from "../WeatherItem";
 
 import HourForecast from "./HourForecast";
 
@@ -49,41 +50,15 @@ const HourContainer = styled.div`
   height: 100%;
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-`;
-
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes[7]};
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-`;
-
-function withIconStyles<T>(Component: React.ComponentType<T>) {
-  return styled(Component)`
-    margin-right: 6px;
-    width: ${({ theme }) => theme.fontSizes[7]};
-    height: ${({ theme }) => theme.fontSizes[7]};
-  `;
-}
-
-const HourlyForecast = ({ hourly = [], hasAlerts }: HourlyForecastProps) => {
-  const StyledIcon = withIconStyles(Clock);
-  return (
-    <Container $hasAlerts={hasAlerts}>
-      <TitleContainer>
-        <StyledIcon />
-        <Title>Hourly Forecast</Title>
-      </TitleContainer>
-      <HourContainer>
-        {hourly.map((hour, index) => (
-          <HourForecast key={index} hour={hour} />
-        ))}
-      </HourContainer>
-    </Container>
-  );
-};
+const HourlyForecast = ({ hourly = [], hasAlerts }: HourlyForecastProps) => (
+  <Container $hasAlerts={hasAlerts}>
+    <WeatherItemTitle Icon={Clock} title="Hourly Forecast" />
+    <HourContainer>
+      {hourly.map((hour, index) => (
+        <HourForecast key={index} hour={hour} />
+      ))}
+    </HourContainer>
+  </Container>
+);
 
 export default HourlyForecast;

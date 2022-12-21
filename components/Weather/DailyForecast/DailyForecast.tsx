@@ -3,6 +3,7 @@ import { CalendarDays } from "lucide-react";
 import chroma from "chroma-js";
 
 import { fadeIn } from "../../../lib/constants/animations";
+import { WeatherItemTitle } from "../WeatherItem";
 import DayForecast from "./DayForecast";
 
 type DailyForecastProps = {
@@ -37,42 +38,18 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
   }
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-`;
-
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes[7]};
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-`;
-
-function withIconStyles<T>(Component: React.ComponentType<T>) {
-  return styled(Component)`
-    margin-right: 6px;
-    width: ${({ theme }) => theme.fontSizes[7]};
-    height: ${({ theme }) => theme.fontSizes[7]};
-  `;
-}
-
 const DayForecastContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 const DailyForecast = ({ daily = [], hasAlerts }: DailyForecastProps) => {
-  const StyledIcon = withIconStyles(CalendarDays);
   const minTemp = Math.min(...daily.map((day) => day.temp.min));
   const maxTemp = Math.max(...daily.map((day) => day.temp.max));
 
   return (
     <Container $hasAlerts={hasAlerts}>
-      <TitleContainer>
-        <StyledIcon />
-        <Title>Daily Forecast</Title>
-      </TitleContainer>
+      <WeatherItemTitle Icon={CalendarDays} title="Daily Forecast" />
       <DayForecastContainer>
         {daily.map((day, index) => (
           <DayForecast

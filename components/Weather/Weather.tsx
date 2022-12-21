@@ -23,6 +23,9 @@ type WeatherProps = {
 };
 
 const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     ${fadeIn};

@@ -40,6 +40,21 @@ function withIconStyles<T>(Component: React.ComponentType<T>) {
   `;
 }
 
+type WeatherItemTitleProps = {
+  title: string;
+  Icon: LucideIcon;
+};
+
+export const WeatherItemTitle = ({ title, Icon }: WeatherItemTitleProps) => {
+  const StyledIcon = withIconStyles(Icon);
+  return (
+    <TitleContainer>
+      <StyledIcon />
+      <Title>{title}</Title>
+    </TitleContainer>
+  );
+};
+
 type WeatherItemProps = {
   title: string;
   children: ReactNode;
@@ -52,17 +67,11 @@ const WeatherItem = ({
   Icon,
   children,
   $animationDelay,
-}: WeatherItemProps) => {
-  const StyledIcon = withIconStyles(Icon);
-  return (
-    <Container $animationDelay={$animationDelay}>
-      <TitleContainer>
-        <StyledIcon />
-        <Title>{title}</Title>
-      </TitleContainer>
-      {children}
-    </Container>
-  );
-};
+}: WeatherItemProps) => (
+  <Container $animationDelay={$animationDelay}>
+    <WeatherItemTitle Icon={Icon} title={title} />
+    {children}
+  </Container>
+);
 
 export default WeatherItem;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
 
 import { fadeIn } from "../../lib/constants/animations";
+import { WeatherItemTitle } from "./WeatherItem";
 
 type AlertsProps = {
   alerts: Alert[];
@@ -38,32 +39,12 @@ const Container = styled.div`
   }
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Title = styled.div`
-  text-align: start;
-  font-size: ${({ theme }) => theme.fontSizes[7]};
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-`;
-
 const Sender = styled.div`
   text-align: start;
   font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
-function withIconStyles<T>(Component: React.ComponentType<T>) {
-  return styled(Component)`
-    margin-right: 6px;
-    width: ${({ theme }) => theme.fontSizes[7]};
-    height: ${({ theme }) => theme.fontSizes[7]};
-  `;
-}
-
-const ChildrenContainer = styled.p`
+const Alert = styled.p`
   text-align: start;
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
@@ -81,18 +62,14 @@ const Alerts = ({ alerts = [] }: AlertsProps) => {
 
   if (alerts.length === 0) return null;
 
-  const StyledIcon = withIconStyles(AlertTriangle);
   const alert = alerts[alertIndex];
 
   return (
     <Container>
-      <TitleContainer>
-        <StyledIcon />
-        <Title>{alert.event}</Title>
-      </TitleContainer>
-      <ChildrenContainer>
+      <WeatherItemTitle Icon={AlertTriangle} title={alert.event} />
+      <Alert>
         {alert.event} until {alert.end}.
-      </ChildrenContainer>
+      </Alert>
       <Sender>{alert.senderName}</Sender>
       {alerts.length > 1 && (
         <Pagination
