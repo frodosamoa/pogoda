@@ -26,6 +26,29 @@ const Container = styled.div<ContainerProps>`
   border-radius: 6px;
   transition: background-color 150ms ease-in-out;
   font-size: 18px;
+  max-width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    grid-column: 1 / 4;
+    max-width: 350px;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    grid-column: 1 / 3;
+    max-width: 250px;
+  }
+`;
+
+const AdministrativeName = styled.span`
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    display: none;
+  }
 `;
 
 const City = ({ city, isSelected, setLatLon, setCity }: CityProps) => (
@@ -36,7 +59,10 @@ const City = ({ city, isSelected, setLatLon, setCity }: CityProps) => (
       setCity(city);
     }}
   >
-    {city.name}, {city.administrativeName ? `${city.administrativeName}, ` : ""}{" "}
+    {city.name},{" "}
+    <AdministrativeName>
+      {city.administrativeName ? `${city.administrativeName}, ` : ""}
+    </AdministrativeName>{" "}
     {city.countryName}
   </Container>
 );

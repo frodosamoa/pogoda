@@ -20,7 +20,10 @@ const App = ({ Component, pageProps }: AppProps) => {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link
+          rel="shortcut icon"
+          href={theme === "light" ? "/sun-light.svg" : "/sun-dark.svg"}
+        />
         <title>Pogoda - Weather Dashboard</title>
       </Head>
       <ThemeProvider theme={providedTheme}>

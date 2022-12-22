@@ -27,6 +27,18 @@ const Container = styled.div`
   opacity: 0;
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
     ${fadeIn};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    grid-column: 1 / 4;
+    width: 350px;
+  }
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    grid-column: 1 / 3;
+    width: 250px;
+  }
 `;
 
 const CitiesList = ({
