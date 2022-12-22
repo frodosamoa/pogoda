@@ -12,7 +12,7 @@ const Value = styled.div`
 `;
 
 const Visibility = ({ visibility }: VisibilityProps) => (
-  <WeatherItem Icon={Eye} title="Visibility" $animationDelay={600}>
+  <WeatherItem Icon={Eye} title="Visibility" $animationDelay={400}>
     <Value>{visibility}</Value>
   </WeatherItem>
 );

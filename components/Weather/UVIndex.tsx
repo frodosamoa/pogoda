@@ -19,7 +19,7 @@ const Label = styled.p`
 `;
 
 const UVIndex = ({ uvIndex, uvLabel }: UVIndexProps) => (
-  <WeatherItem Icon={Sun} title="UV Index" $animationDelay={1200}>
+  <WeatherItem Icon={Sun} title="UV Index" $animationDelay={400}>
     <Index>{uvIndex}</Index>
     <Label>{uvLabel}</Label>
   </WeatherItem>

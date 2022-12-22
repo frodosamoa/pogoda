@@ -12,7 +12,7 @@ const Value = styled.div`
 `;
 
 const Humidity = ({ humidity }: HumidityProps) => (
-  <WeatherItem Icon={Droplets} title="Humidity" $animationDelay={800}>
+  <WeatherItem Icon={Droplets} title="Humidity" $animationDelay={400}>
     <Value>{humidity}%</Value>
   </WeatherItem>
 );

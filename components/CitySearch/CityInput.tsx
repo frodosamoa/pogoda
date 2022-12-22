@@ -1,6 +1,4 @@
 import {
-  useEffect,
-  useMemo,
   KeyboardEventHandler,
   ChangeEventHandler,
   Dispatch,
@@ -8,7 +6,6 @@ import {
   useCallback,
   forwardRef,
 } from "react";
-import debounce from "lodash.debounce";
 import chroma from "chroma-js";
 import styled from "styled-components";
 
@@ -16,10 +13,11 @@ import { fadeIn } from "../../lib/constants/animations";
 
 type CityInputProps = {
   cities: City[] | [];
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
   cityIndex: number;
   isLoading: boolean;
   isInputEmptyString: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
   setCity: Dispatch<SetStateAction<City>>;
   setCities: Dispatch<SetStateAction<[] | City[]>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
@@ -31,12 +29,10 @@ const StyledInput = styled.input`
   width: 500px;
   background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   color: ${({ theme: { themes, theme } }) =>
-    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+    theme === "light" ? themes.dark : themes.light};
   border-width: 2px;
   border-color: ${({ theme: { theme, colors } }) =>
-    theme === "yellow" || theme === "light"
-      ? colors.greyDark
-      : colors.whiteTer};
+    theme === "light" ? colors.greyDark : colors.whiteTer};
 
   opacity: 0;
   animation: 300ms ease-in-out 0ms 1 normal forwards running ${fadeIn};
@@ -46,33 +42,27 @@ const StyledInput = styled.input`
 
   &:focus {
     border-color: ${({ theme: { theme, colors } }) =>
-      theme === "yellow" || theme === "light"
-        ? colors.greyDark
-        : colors.whiteTer};
+      theme === "light" ? colors.greyDark : colors.whiteTer};
     box-shadow: 0px 0px 0px 2px
       ${({ theme: { theme, colors } }) =>
-        theme === "yellow" || theme === "light"
+        theme === "light"
           ? chroma(colors.greyDark).alpha(0.5).css()
           : chroma(colors.whiteTer).alpha(0.5).css()};
   }
 
   &:hover {
     border-color: ${({ theme: { theme, colors } }) =>
-      theme === "yellow" || theme === "light"
-        ? colors.greyDark
-        : colors.whiteTer};
+      theme === "light" ? colors.greyDark : colors.whiteTer};
     box-shadow: 0px 0px 0px 2px
       ${({ theme: { theme, colors } }) =>
-        theme === "yellow" || theme === "light"
+        theme === "light"
           ? chroma(colors.greyDark).alpha(0.5).css()
           : chroma(colors.whiteTer).alpha(0.5).css()};
   }
 
   &::placeholder {
     color: ${({ theme: { theme, colors } }) =>
-      theme === "yellow" || theme === "light"
-        ? colors.greyDark
-        : colors.whiteTer};
+      theme === "light" ? colors.greyDark : colors.whiteTer};
     opacity: 0.5;
     transition: color 150ms ease-in-out;
   }
@@ -94,32 +84,17 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
   (
     {
       cities,
+      inputValue,
+      setInputValue,
       cityIndex,
       isInputEmptyString,
       setCityIndex,
       setCity,
       setCities,
       setLatLon,
-      setIsLoading,
     },
     ref
   ) => {
-    const getCities = useCallback(
-      (city: string) => {
-        if (city !== "") {
-          fetch(`${window.location.href}/api/cities?query=${city}`)
-            .then((res) => res.json())
-            .then((json) => {
-              setCities(json);
-              setIsLoading(false);
-            });
-        } else {
-          setCities([]);
-        }
-      },
-      [setCities, setIsLoading]
-    );
-
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === "ArrowUp") {
         e.preventDefault();
@@ -141,37 +116,26 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
       (e) => {
-        // remove non-word characters
-        const query = e.target.value.replace(/[^\w\s]/g, "");
+        const query = e.target.value;
 
         if (query !== "") {
-          setIsLoading(true);
-          getCities(query);
+          setInputValue(query);
           setCityIndex(0);
         } else {
+          setInputValue("");
           setCities([]);
         }
       },
-      [getCities, setCityIndex, setCities, setIsLoading]
+      [setInputValue, setCityIndex, setCities]
     );
-
-    const debouncedHandleChange = useMemo(
-      () => debounce(handleChange, 200),
-      [handleChange]
-    );
-
-    useEffect(() => {
-      return () => {
-        debouncedHandleChange.cancel();
-      };
-    }, [debouncedHandleChange]);
 
     return (
       <StyledInput
         ref={ref}
+        value={inputValue}
         placeholder="Search for a city..."
         className={"input is-large is-rounded"}
-        onChange={debouncedHandleChange}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
       />

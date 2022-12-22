@@ -21,11 +21,14 @@ const Container = styled.div<ContainerProps>`
   transform: translateX(
     ${({ $isSettingsOpen }) => ($isSettingsOpen ? -WIDTH : 0)}px
   );
-  transition: transform 400ms ease-out;
   padding: 24px;
   text-align: center;
-  color: ${({ theme: { themes } }) => themes.light};
-  background-color: ${({ theme }) => theme.colors.blackTer};
+  color: ${({ theme: { theme, themes } }) =>
+    theme === "dark" ? themes.light : themes.dark};
+  background-color: ${({ theme: { theme, colors } }) =>
+    theme === "dark" ? colors.blackTer : colors.greyLighter};
+  transition: transform 400ms ease-out, background-color 150ms ease-in-out,
+    color 150ms ease-in-out;
 `;
 
 const ChildrenContainer = styled.div`

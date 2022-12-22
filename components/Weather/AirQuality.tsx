@@ -12,7 +12,7 @@ const Value = styled.div`
 `;
 
 const AirQuality = ({ airQuality }: AirQualityProps) => (
-  <WeatherItem Icon={Component} title="Air Quality" $animationDelay={1400}>
+  <WeatherItem Icon={Component} title="Air Quality" $animationDelay={400}>
     <Value>{airQuality}</Value>
   </WeatherItem>
 );

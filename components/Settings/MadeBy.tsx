@@ -12,7 +12,10 @@ const Paragraph = styled.p`
 
 const Link = styled.a`
   text-decoration: underline;
-  color: ${({ theme }) => theme.themes.light};
+  color: ${({ theme: { theme, themes } }) =>
+    theme === "light" ? themes.dark : themes.light};
+
+  transition: color 150ms ease-in-out;
 
   &:hover {
     color: ${({ theme }) => theme.colors.grey};

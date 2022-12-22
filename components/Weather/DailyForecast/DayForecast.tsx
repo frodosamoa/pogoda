@@ -18,7 +18,7 @@ const Container = styled.div`
   &:not(:last-child) {
     border-bottom: 1px solid
       ${({ theme: { theme, colors } }) =>
-        theme === "yellow" || theme === "light"
+        theme === "light"
           ? chroma(colors.greyDark).alpha(0.3).css()
           : chroma(colors.whiteTer).alpha(0.3).css()};
   }

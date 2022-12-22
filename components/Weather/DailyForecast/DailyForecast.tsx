@@ -25,7 +25,7 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
     theme === "dark"
       ? chroma(colors.whiteTer).alpha(0.3).css()
       : chroma(colors.greyDark).alpha(0.2).css()};
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 600ms 1 normal forwards running
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
     ${fadeIn};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>

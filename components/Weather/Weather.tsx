@@ -13,6 +13,7 @@ import FeelsLike from "./FeelsLike";
 import UVIndex from "./UVIndex";
 import Pressure from "./Pressure";
 import AirQuality from "./AirQuality";
+import Snowfall from "./Snowfall";
 
 type WeatherProps = {
   city?: City;
@@ -54,11 +55,12 @@ const Weather = ({ weather, city }: WeatherProps) => {
     airQuality,
     feelsLike,
     humidity,
-    isDay,
     pressure,
     rain,
-    sunrise,
-    sunset,
+    rainLabel,
+    snow,
+    snowLabel,
+    sunrisesSunsets,
     uvIndex,
     uvLabel,
     visibility,
@@ -81,15 +83,16 @@ const Weather = ({ weather, city }: WeatherProps) => {
             daily={weather.daily}
             hasAlerts={weather?.alerts?.length > 0}
           />
-          <SunriseSunset sunrise={sunrise} sunset={sunset} isDay={isDay} />
-          <Visibility visibility={visibility} />
-          <Humidity humidity={humidity} />
-          <Wind windDegree={windDegree} windSpeed={windSpeed} />
-          <Rainfall rain={rain} />
-          <FeelsLike feelsLike={feelsLike} />
-          <UVIndex uvIndex={uvIndex} uvLabel={uvLabel} />
-          <Pressure pressure={pressure} />
           <AirQuality airQuality={airQuality} />
+          <UVIndex uvIndex={uvIndex} uvLabel={uvLabel} />
+          <SunriseSunset sunrisesSunsets={sunrisesSunsets} />
+          <Wind windDegree={windDegree} windSpeed={windSpeed} />
+          {snow === 0 && <Rainfall rain={rain} rainLabel={rainLabel} />}
+          {snow > 0 && <Snowfall snow={snow} snowLabel={snowLabel} />}
+          <FeelsLike feelsLike={feelsLike} />
+          <Humidity humidity={humidity} />
+          <Visibility visibility={visibility} />
+          <Pressure pressure={pressure} />
         </WeatherItems>
       </WeatherItemsContainer>
     </>

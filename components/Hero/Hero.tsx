@@ -19,7 +19,7 @@ const Container = styled.div`
   transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
   background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   color: ${({ theme: { themes, theme } }) =>
-    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+    theme === "light" ? themes.dark : themes.light};
 `;
 
 const Hero = ({

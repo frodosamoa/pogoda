@@ -1,14 +1,14 @@
-type Theme =
-  | "light"
-  | "dark"
-  | "red"
-  | "orange"
-  | "yellow"
-  | "green"
-  | "turquoise"
-  | "cyan"
-  | "blue"
-  | "purple";
+type Theme = "light" | "dark";
+
+// consider adding colored themes later
+// | "red"
+// | "orange"
+// | "yellow"
+// | "green"
+// | "turquoise"
+// | "cyan"
+// | "blue"
+// | "purple";
 
 type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
@@ -41,7 +41,8 @@ type CurrentWeatherResponse = {
   uvi: number;
   pressure: number;
   weather: WeatherCondition[];
-  rain: number | { "1h": number };
+  rain?: { "1h": number };
+  snow?: { "1h": number };
 };
 
 type DailyForecastResponse = {
@@ -52,6 +53,7 @@ type DailyForecastResponse = {
   wind_deg: number;
   pop: number;
   rain: number;
+  snow: number;
   weather: WeatherCondition[];
   temp: { min: number; max: number; day: number };
 };
@@ -62,7 +64,8 @@ type HourlyForecastResponse = {
   wind_deg: number;
   pop: number;
   temp: number;
-  rain: number;
+  rain?: { "1h": number };
+  snow?: { "1h": number };
   weather: WeatherCondition[];
 };
 
@@ -91,17 +94,24 @@ type WeatherResponse = {
   alerts: AlertResponse[];
 };
 
+type SunriseSunset = {
+  date: string;
+  dt: Date;
+  type: string;
+};
+
 type CurrentWeather = {
   airQuality: string;
   feelsLike: number;
   humidity: number;
   iconId: number;
-  isDay: boolean;
   label: string;
   pressure: number;
-  rain: string;
-  sunrise: string;
-  sunset: string;
+  rain: number;
+  rainLabel: string;
+  snow: number;
+  snowLabel: string;
+  sunrisesSunsets: SunriseSunset[];
   temp: number;
   uvIndex: number;
   uvLabel: string;
@@ -141,7 +151,7 @@ type Alert = {
 type Weather = {
   timezone: string;
   daily: DailyForecast[];
-  hourly: HourlyForecast[];
+  hourly: (HourlyForecast | SunriseSunset)[];
   current: CurrentWeather;
   alerts: Alert[];
 };

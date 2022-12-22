@@ -1,21 +1,22 @@
 import styled from "styled-components";
+import { Sunrise, Sunset } from "lucide-react";
 
-const Container = styled.div`
+const Container = styled.div<{ $wider: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
   height: 100%;
-  flex: 0 0 8.33%;
+  flex: ${({ $wider }) => ($wider ? "0 0 11.1%" : "0 0 8.33%")};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
-    flex: 0 0 11.11%;
+    flex: ${({ $wider }) => ($wider ? "0 0 16.66%" : "0 0 11.1%")};
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
-    flex: 0 0 16.66%;
+    flex: ${({ $wider }) => ($wider ? "0 0 25%" : "0 0 16.6%")};
   }
 `;
 
@@ -36,13 +37,16 @@ const PercentChance = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
+const SunriseSunset = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes[7]};
+`;
+
 type HourForecastProps = {
-  hour: HourlyForecast;
+  hour: HourlyForecast | SunriseSunset;
 };
 
-const HourForecast = ({ hour }: HourForecastProps) => (
-  <Container>
-    <Date>{hour.date}</Date>
+const Hour = ({ hour }: { hour: HourlyForecast }) => (
+  <>
     <div>
       <Icon title={hour.label} className={hour.iconClassName} />
       {hour.precipitationChance > 0 && (
@@ -50,6 +54,27 @@ const HourForecast = ({ hour }: HourForecastProps) => (
       )}
     </div>
     <Temp>{hour.temp}°</Temp>
+  </>
+);
+
+const SunriseSunsetComponent = ({ hour }: { hour: SunriseSunset }) => (
+  <>
+    <div>
+      {hour.type === "Sunrise" && <Sunrise size={24} />}
+      {hour.type === "Sunset" && <Sunset />}
+    </div>
+    <SunriseSunset>{hour.type}</SunriseSunset>
+  </>
+);
+
+const HourForecast = ({ hour }: HourForecastProps) => (
+  <Container $wider={Boolean((hour as SunriseSunset).type)}>
+    <Date>{hour.date}</Date>
+    {!(hour as SunriseSunset).type ? (
+      <Hour hour={hour as HourlyForecast} />
+    ) : (
+      <SunriseSunsetComponent hour={hour as SunriseSunset} />
+    )}
   </Container>
 );
 

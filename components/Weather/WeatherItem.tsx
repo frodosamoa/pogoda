@@ -9,6 +9,7 @@ const Container = styled.div<{ $animationDelay: number }>`
   padding: 8px;
   border-radius: 8px;
   opacity: 0;
+  position: relative;
 
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "dark"

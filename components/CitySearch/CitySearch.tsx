@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
+import useCities from "../../lib/hooks/useCities";
+import useDebounce from "../../lib/hooks/useDebounce";
+
 import CitiesList from "./CitiesList";
 import CityInput from "./CityInput";
 
@@ -16,24 +19,35 @@ const Container = styled.div`
 `;
 
 const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [cities, setCities] = useState<City[] | []>([]);
   const [cityIndex, setCityIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const isInputEmptyString = (inputRef?.current?.value || "") === "";
+  const [inputValue, setInputValue] = useState("");
+  const debouncedInputValue = useDebounce(inputValue, 300);
+  const {
+    data: cities,
+    isLoading,
+    error,
+    mutate: setCities,
+  } = useCities(debouncedInputValue);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef?.current?.focus();
   }, []);
+
+  const onError = () => {
+    setCities([]);
+    setInputValue("");
+    inputRef?.current?.focus();
+  };
 
   return (
     <Container>
       <CityInput
         ref={inputRef}
+        inputValue={inputValue}
         isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        isInputEmptyString={isInputEmptyString}
+        setInputValue={setInputValue}
+        isInputEmptyString={inputValue === ""}
         cities={cities}
         cityIndex={cityIndex}
         setCityIndex={setCityIndex}
@@ -43,7 +57,9 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
       />
       <CitiesList
         cities={cities}
-        isInputEmptyString={isInputEmptyString}
+        error={error}
+        onError={onError}
+        isInputEmptyString={inputValue === ""}
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCity={setCity}

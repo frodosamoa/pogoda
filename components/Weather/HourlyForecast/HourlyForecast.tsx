@@ -8,7 +8,7 @@ import { WeatherItemTitle } from "../WeatherItem";
 import HourForecast from "./HourForecast";
 
 type HourlyForecastProps = {
-  hourly: HourlyForecast[];
+  hourly: (HourlyForecast | SunriseSunset)[];
   hasAlerts: boolean;
 };
 

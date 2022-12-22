@@ -4,24 +4,32 @@ import styled from "styled-components";
 import WeatherItem from "./WeatherItem";
 
 type SunrisePropsSunset = {
-  sunset: string;
-  sunrise: string;
-  isDay: boolean;
+  sunrisesSunsets: SunriseSunset[];
 };
 
-const Value = styled.div`
+const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 
-const SunriseSunset = ({ sunrise, sunset, isDay }: SunrisePropsSunset) =>
-  sunrise &&
-  sunset && (
+const Subtitle = styled.div`
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: ${({ theme }) => theme.fontSizes[7]};
+`;
+
+const SunriseSunset = ({ sunrisesSunsets }: SunrisePropsSunset) =>
+  sunrisesSunsets.length > 2 && (
     <WeatherItem
-      Icon={isDay ? Sunset : Sunrise}
-      title={isDay ? "Sunset" : "Sunrise"}
-      $animationDelay={600}
+      Icon={sunrisesSunsets[0].type === "sunset" ? Sunset : Sunrise}
+      title={sunrisesSunsets[0].type === "sunset" ? "Sunset" : "Sunrise"}
+      $animationDelay={400}
     >
-      <Value>{isDay ? sunset : sunrise}</Value>
+      <Title>{sunrisesSunsets[0].date}</Title>
+      <Subtitle>
+        {sunrisesSunsets[1].type === "sunrise" ? "Sunrise" : "Sunset"}:{" "}
+        {sunrisesSunsets[1].date}
+      </Subtitle>
     </WeatherItem>
   );
 

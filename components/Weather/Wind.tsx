@@ -8,7 +8,7 @@ type WindProps = {
 };
 
 const Wind = ({ windDegree, windSpeed }: WindProps) => (
-  <WeatherItem Icon={WindIcon} title="Wind" $animationDelay={800}>
+  <WeatherItem Icon={WindIcon} title="Wind" $animationDelay={400}>
     {windSpeed} {windDegree}
   </WeatherItem>
 );

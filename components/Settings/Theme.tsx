@@ -37,7 +37,7 @@ type StyledCheckIconProps = {
 
 const StyledCheckIcon = styled(CheckIcon)<StyledCheckIconProps>`
   color: ${({ theme: { themes, theme } }) =>
-    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+    theme === "light" ? themes.dark : themes.light};
   opacity: ${({ theme: { theme }, $iconTheme }) =>
     theme === $iconTheme ? 1 : 0};
   transition: opacity 150ms ease-in-out;

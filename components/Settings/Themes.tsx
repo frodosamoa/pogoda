@@ -18,7 +18,9 @@ const Themes = ({ setTheme }: ThemesProps) => {
   return (
     <>
       <Title>theme</Title>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
         {Object.keys(theme.themes).map((theme) => (
           <Theme key={theme} theme={theme as Theme} setTheme={setTheme} />
         ))}

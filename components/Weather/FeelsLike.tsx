@@ -12,7 +12,7 @@ const Value = styled.div`
 `;
 
 const FeelsLike = ({ feelsLike }: FeelsLikeProps) => (
-  <WeatherItem Icon={Thermometer} title="Feels Like" $animationDelay={1000}>
+  <WeatherItem Icon={Thermometer} title="Feels Like" $animationDelay={400}>
     <Value>{feelsLike}°</Value>
   </WeatherItem>
 );

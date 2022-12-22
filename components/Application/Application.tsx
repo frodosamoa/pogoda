@@ -9,7 +9,7 @@ import AppTitle from "./AppTitle";
 const Container = styled.div`
   transition: color 150ms ease-in-out;
   color: ${({ theme: { themes, theme } }) =>
-    theme === "yellow" || theme === "light" ? themes.dark : themes.light};
+    theme === "light" ? themes.dark : themes.light};
 `;
 
 type ApplicationProps = {

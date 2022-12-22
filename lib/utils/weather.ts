@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { formatInTimeZone } from "date-fns-tz";
+import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 
 import weatherIcons from "../constants/weatherIcons";
 import {
@@ -83,23 +83,8 @@ const getWeatherLabel = (weather: WeatherCondition[]) => {
   return null;
 };
 
-const getRainString = (
-  rain: number | { "1h": number },
-  isMetric: boolean
-): string | number => {
-  let rainStr;
-  if (typeof rain === "number") {
-    rainStr = rain;
-  }
-
-  if (typeof rain === "object") {
-    rainStr = rain["1h"] || 0;
-  }
-
-  rainStr = isMetric ? rainStr : rainStr * MM_TO_INCHES;
-  rainStr = rainStr.toFixed(1);
-
-  return rainStr === "0.0" ? 0 : rainStr;
+const getLength = (length: number, isMetric: boolean) => {
+  return +(isMetric ? length : length * MM_TO_INCHES).toFixed(2);
 };
 
 const getAirQualityLabel = (airQuality: number): string => {
@@ -115,7 +100,6 @@ const getAirQualityLabel = (airQuality: number): string => {
     return "Very Poor";
   }
 
-  return "Very Poor";
   return "Hazardous";
 };
 
@@ -136,6 +120,123 @@ const getUVLabel = (airQuality: number): string => {
 const getTemp = (temp: number, isMetric: boolean) =>
   isMetric ? kelvinToCelcius(temp) : kelvinToFahrenheit(temp);
 
+const formatAlerts = (alerts: AlertResponse[], timezone: string) =>
+  alerts?.map(({ sender_name: senderName, event, end }) => ({
+    senderName,
+    event,
+    end: formatInTimeZone(
+      new Date(end * 1000),
+      timezone,
+      "HH:mm, eeee, MMMM dd"
+    ),
+  }));
+
+const formatHourly = (
+  hourly: HourlyForecastResponse[],
+  timezone: string,
+  isMetric: boolean,
+  sunrisesSunsets: SunriseSunset[]
+): (HourlyForecast | SunriseSunset)[] =>
+  [
+    ...hourly?.map(({ dt, temp, weather, pop }, index: number) => ({
+      date:
+        index === 0
+          ? "Now"
+          : formatInTimeZone(new Date(dt * 1000), timezone, "HH"),
+      dt: utcToZonedTime(new Date(dt * 1000), timezone),
+      temp: getTemp(temp, isMetric),
+      label: getWeatherLabel(weather),
+      iconClassName: weatherToIcon(getWeatherIconId(weather), false),
+      precipitationChance: Math.round(pop * 100),
+    })),
+    ...sunrisesSunsets,
+  ].sort((a, b) => (a.dt < b.dt ? -1 : 1));
+
+const formatDaily = (daily: DailyForecastResponse[], isMetric: boolean) =>
+  daily?.map(({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
+    sunrise,
+    sunset,
+    fullDate: format(new Date(dt * 1000), "PP"),
+    date: index === 0 ? "Today" : format(new Date(dt * 1000), "ccc"),
+    temp: {
+      min: getTemp(temp.min, isMetric),
+      max: getTemp(temp.max, isMetric),
+    },
+    label: getWeatherLabel(weather),
+    iconClassName: weatherToIcon(getWeatherIconId(weather), true),
+    precipitationChance: Math.round(pop * 100),
+  }));
+
+const formatCurrent = (
+  current: CurrentWeatherResponse,
+  airPollution: AirPollutionResponse,
+  isMetric: boolean,
+  sunrisesSunsets: SunriseSunset[]
+) => ({
+  sunrisesSunsets,
+  humidity: current.humidity,
+  temp: getTemp(current.temp, isMetric),
+  label: getWeatherLabel(current.weather),
+  visibility: isMetric
+    ? `${Math.round(current.visibility / 1000)} km`
+    : `${Math.round(current.visibility * METERS_TO_MILES)} miles`,
+  iconId: getWeatherIconId(current.weather),
+  feelsLike: getTemp(current.feels_like, isMetric),
+  pressure: current.pressure,
+  rain: getLength(current.rain ? current.rain["1h"] : 0, isMetric),
+  rainLabel: isMetric ? "mm" : '"',
+  snow: getLength(current.snow ? current.snow["1h"] : 0, isMetric),
+  snowLabel: isMetric ? "mm" : '"',
+  uvIndex: Math.floor(current.uvi),
+  uvLabel: getUVLabel(current.uvi),
+  windSpeed: isMetric
+    ? `${current.wind_speed.toFixed(1)} m/s`
+    : `${(current.wind_speed * MPS_TO_MPH).toFixed(1)} mph`,
+  windDegree: degreeToCompass(current.wind_deg),
+  airQuality: `${Math.round(
+    airPollution.list[0].components.pm2_5
+  )} - ${getAirQualityLabel(airPollution.list[0].components.pm2_5)}`,
+});
+
+const getSunrisesSunsets = (
+  current: CurrentWeatherResponse,
+  daily: DailyForecastResponse[],
+  timezone: string
+): SunriseSunset[] => {
+  const now = utcToZonedTime(new Date(Date.now()), timezone);
+
+  let sunriseDate = utcToZonedTime(new Date(current.sunrise * 1000), timezone);
+  let sunsetDate = utcToZonedTime(new Date(current.sunset * 1000), timezone);
+
+  return [
+    { dt: sunriseDate, type: "Sunrise" },
+    { dt: sunsetDate, type: "Sunset" },
+    {
+      dt: utcToZonedTime(new Date(daily[1].sunrise * 1000), timezone),
+      type: "Sunrise",
+    },
+    {
+      dt: utcToZonedTime(new Date(daily[1].sunset * 1000), timezone),
+      type: "Sunset",
+    },
+    {
+      dt: utcToZonedTime(new Date(daily[2].sunrise * 1000), timezone),
+      type: "Sunrise",
+    },
+    {
+      dt: utcToZonedTime(new Date(daily[2].sunset * 1000), timezone),
+      type: "Sunset",
+    },
+  ]
+    .filter((s) => now < s.dt)
+    .slice(0, 4)
+    .map(({ dt, type }) => ({
+      dt,
+      type,
+      date: format(dt, "HH:mm"),
+    }));
+};
+
 export const formatWeather = (
   weather: WeatherResponse,
   isMetric: boolean
@@ -143,74 +244,15 @@ export const formatWeather = (
   if (!weather) return null;
 
   const { timezone, current, daily, hourly, airPollution, alerts } = weather;
-  const now = Date.now();
 
+  const sunrisesSunsets = getSunrisesSunsets(current, daily, timezone);
+
+  console.log(sunrisesSunsets);
   return {
     timezone,
-    alerts: alerts?.map(({ sender_name: senderName, event, end }) => ({
-      senderName,
-      event,
-      end: formatInTimeZone(
-        new Date(end * 1000),
-        timezone,
-        "HH:mm, eeee, MMMM dd"
-      ),
-    })),
-    current: {
-      sunrise: current.sunrise
-        ? formatInTimeZone(new Date(current.sunrise * 1000), timezone, "HH:mm")
-        : null,
-      sunset: current.sunrise
-        ? formatInTimeZone(new Date(current.sunset * 1000), timezone, "HH:mm")
-        : null,
-      humidity: current.humidity,
-      temp: getTemp(current.temp, isMetric),
-      label: getWeatherLabel(current.weather),
-      visibility: isMetric
-        ? `${Math.round(current.visibility / 1000)} km`
-        : `${Math.round(current.visibility * METERS_TO_MILES)} miles`,
-      iconId: getWeatherIconId(current.weather),
-      isDay: now > current.sunrise && now < current.sunset,
-      feelsLike: getTemp(current.feels_like, isMetric),
-      pressure: current.pressure,
-      rain: `${getRainString(current.rain || 0, isMetric)} ${
-        isMetric ? "mm" : "inches"
-      }`,
-      uvIndex: Math.floor(current.uvi),
-      uvLabel: getUVLabel(current.uvi),
-      windSpeed: isMetric
-        ? `${current.wind_speed.toFixed(1)} m/s`
-        : `${(current.wind_speed * MPS_TO_MPH).toFixed(1)} mph`,
-      windDegree: degreeToCompass(current.wind_deg),
-      airQuality: `${Math.round(
-        airPollution.list[0].components.pm2_5
-      )} - ${getAirQualityLabel(airPollution.list[0].components.pm2_5)}`,
-    },
-    hourly: hourly?.map(({ dt, temp, weather, pop }, index: number) => ({
-      date:
-        index === 0
-          ? "Now"
-          : formatInTimeZone(new Date(dt * 1000), timezone, "HH"),
-
-      temp: getTemp(temp, isMetric),
-      label: getWeatherLabel(weather),
-      iconClassName: weatherToIcon(getWeatherIconId(weather), false),
-      precipitationChance: Math.round(pop * 100),
-    })),
-    daily: daily?.map(
-      ({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
-        sunrise,
-        sunset,
-        fullDate: format(new Date(dt * 1000), "PP"),
-        date: index === 0 ? "Today" : format(new Date(dt * 1000), "ccc"),
-        temp: {
-          min: getTemp(temp.min, isMetric),
-          max: getTemp(temp.max, isMetric),
-        },
-        label: getWeatherLabel(weather),
-        iconClassName: weatherToIcon(getWeatherIconId(weather), true),
-        precipitationChance: Math.round(pop * 100),
-      })
-    ),
+    alerts: formatAlerts(alerts, timezone),
+    current: formatCurrent(current, airPollution, isMetric, sunrisesSunsets),
+    hourly: formatHourly(hourly, timezone, isMetric, sunrisesSunsets),
+    daily: formatDaily(daily, isMetric),
   };
 };

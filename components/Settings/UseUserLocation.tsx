@@ -1,5 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import useGeoPosition from "../../lib/hooks/useGeoPosition";
 
@@ -37,11 +37,17 @@ const UserResponse = ({
   setLatLon,
   setWeather,
 }: UserResponseProps) => {
+  const { theme } = useTheme();
+
   if (!latitude && !longitude) {
     return (
       <>
         <button
-          className="button is-black"
+          className={`button is-${theme === "dark" ? "light" : "dark"}`}
+          style={{
+            transition:
+              "background-color 150ms ease-in-out, color 150ms ease-in-out",
+          }}
           onClick={() => {
             if (fetchGeo) {
               setLatLon([longitude, latitude]);
@@ -113,7 +119,7 @@ const UseUserLocation = ({
       style={{
         flex: error ? 0 : 1,
         opacity: error ? 0 : 1,
-        transition: "all 300ms ease-in-out",
+        transition: "flex 300ms ease-in-out, opacity 300ms ease-in-out",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

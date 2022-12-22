@@ -25,9 +25,9 @@ const Container = styled.div`
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
     ${fadeIn};
   background-color: ${({ theme: { theme, colors } }) =>
-    theme === "yellow" || theme === "light"
-      ? chroma(colors.greyDark).alpha(0.3).css()
-      : chroma(colors.whiteTer).alpha(0.3).css()};
+    theme === "dark"
+      ? chroma(colors.whiteTer).alpha(0.3).css()
+      : chroma(colors.greyDark).alpha(0.2).css()};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {

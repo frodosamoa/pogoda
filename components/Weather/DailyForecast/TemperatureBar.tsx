@@ -37,11 +37,7 @@ const InnerBar = styled.div<{ $start: string; $end: string }>`
   z-index: 100;
   transition: background-color 150ms ease-in-out;
 
-  background-color: ${({ theme: { theme, themes, colors } }) => {
-    if (theme === "dark") return themes["dark"];
-    if (theme === "light") return themes["light"];
-    return colors["greyLighter"];
-  }};
+  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   left: ${({ $start }) => $start}%;
   right: ${({ $end }) => $end}%;
 `;

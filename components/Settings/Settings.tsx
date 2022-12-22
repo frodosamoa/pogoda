@@ -49,13 +49,19 @@ const Settings = ({
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div className={"buttons has-addons"}>
               <button
-                className={classNames("button", !isMetric && "is-black")}
+                className={classNames(
+                  "button",
+                  !isMetric ? "is-dark" : "is-light"
+                )}
                 onClick={() => setIsMetric(true)}
               >
                 °C, m/s
               </button>
               <button
-                className={classNames("button", isMetric && "is-black")}
+                className={classNames(
+                  "button",
+                  isMetric ? "is-dark" : "is-light"
+                )}
                 onClick={() => setIsMetric(false)}
               >
                 °F, mph

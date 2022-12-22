@@ -2,17 +2,18 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 import { fadeIn } from "../../lib/constants/animations";
-import Loader from "../Loader";
 
-import City from "./City";
+import CitiesListContent from "./CitiesListContent";
 
 type CitiesListProps = {
   cityIndex: number;
   cities: City[];
+  error: Error;
   isInputEmptyString: boolean;
   isLoading: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
+  onError: () => void;
 };
 
 const Container = styled.div`
@@ -23,48 +24,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const LoaderContainer = styled.div`
-  margin-top: ${({ theme }) => theme.units.lg}px;
   opacity: 0;
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
     ${fadeIn};
-`;
-
-const NoResults = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 
 const CitiesList = ({
   cities,
+  error,
   isInputEmptyString,
   cityIndex,
   isLoading,
   setLatLon,
   setCity,
+  onError,
 }: CitiesListProps) => (
   <Container>
-    {isLoading ? (
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-    ) : (
-      <>
-        {cities.map((city, index) => (
-          <City
-            key={city.cityId}
-            city={city}
-            isSelected={index === cityIndex}
-            setLatLon={setLatLon}
-            setCity={setCity}
-          />
-        ))}
-        {cities.length === 0 && !isInputEmptyString && (
-          <NoResults>no results</NoResults>
-        )}
-      </>
-    )}
+    <CitiesListContent
+      cities={cities}
+      cityIndex={cityIndex}
+      isLoading={isLoading}
+      error={error}
+      setCity={setCity}
+      setLatLon={setLatLon}
+      onError={onError}
+      isInputEmptyString={isInputEmptyString}
+    />
   </Container>
 );
 

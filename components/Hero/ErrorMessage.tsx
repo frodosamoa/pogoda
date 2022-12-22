@@ -32,7 +32,7 @@ const ErrorMessage = ({ setLatLon, setWeather }: ErrorMessageProps) => {
   return (
     <Container>
       <AlertCircle size={36} />
-      <Message>Something went wrong fetching the weather.</Message>
+      <Message>something went wrong fetching the weather</Message>
       <div>
         <button
           className={"button is-black"}
@@ -41,7 +41,7 @@ const ErrorMessage = ({ setLatLon, setWeather }: ErrorMessageProps) => {
             setWeather(null);
           }}
         >
-          Try again
+          try again
         </button>
       </div>
     </Container>
