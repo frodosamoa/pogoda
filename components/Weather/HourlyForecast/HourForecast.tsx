@@ -34,7 +34,7 @@ const Temp = styled.div`
 `;
 
 const PercentChance = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes[8]};
+  font-size: ${({ theme }) => theme.fontSizes[9]};
 `;
 
 const SunriseSunset = styled.p`

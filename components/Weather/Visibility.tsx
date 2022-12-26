@@ -4,16 +4,19 @@ import styled from "styled-components";
 import WeatherItem from "./WeatherItem";
 
 type VisibilityProps = {
-  visibility: string;
+  visibility: number;
+  visibilityUnit: string;
 };
 
 const Value = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 
-const Visibility = ({ visibility }: VisibilityProps) => (
+const Visibility = ({ visibility, visibilityUnit }: VisibilityProps) => (
   <WeatherItem Icon={Eye} title="Visibility" $animationDelay={400}>
-    <Value>{visibility}</Value>
+    <Value>
+      {visibility} {visibilityUnit}
+    </Value>
   </WeatherItem>
 );
 

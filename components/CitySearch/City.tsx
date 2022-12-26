@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import chroma from "chroma-js";
 import styled from "styled-components";
 
+import { fadeIn } from "../../lib/constants/animations";
+
 type CityProps = {
   city: City;
   isSelected: boolean;
@@ -30,6 +32,9 @@ const Container = styled.div<ContainerProps>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0;
+  animation: 100ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
+    ${fadeIn};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {

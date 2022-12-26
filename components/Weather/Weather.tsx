@@ -28,31 +28,39 @@ const WeatherItemsContainer = styled.div`
 const WeatherItems = styled.div`
   display: grid;
   margin-bottom: 16px;
-  grid-template-columns: repeat(6, 120px);
-  grid-template-rows: repeat(4, 120px);
+  grid-template-columns: repeat(6, 125px);
+  // grid-template-rows: repeat(4, 125px);
   gap: 16px;
-  grid-auto-rows: 120px;
-  grid-auto-columns: 120px;
+  grid-auto-rows: 125px;
+  grid-auto-columns: 125px;
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.container}px) {
-    grid-template-columns: repeat(4, 120px);
+    grid-template-columns: repeat(4, 125px);
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
-    grid-template-columns: repeat(3, 120px);
+    grid-template-columns: repeat(3, 125px);
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
-    grid-template-columns: repeat(2, 120px);
+    grid-template-columns: repeat(2, 125px);
   }
+
+  // esample of selecting a specific child
+  // & > div:nth-child(-n + 6) {
+  //   // background-color: blue;
+  // }
 `;
 
 const Weather = ({ weather, city }: WeatherProps) => {
   const {
     airQuality,
+    airQualityLabel,
+    airQualityMessage,
+    dewPoint,
     feelsLike,
     humidity,
     pressure,
@@ -63,14 +71,22 @@ const Weather = ({ weather, city }: WeatherProps) => {
     sunrisesSunsets,
     uvIndex,
     uvLabel,
+    uvMessage,
     visibility,
-    windDegree,
+    visibilityUnit,
+    windDirection,
     windSpeed,
+    windLabel,
   } = weather.current;
 
   return (
     <>
-      <City city={city} current={weather.current} />
+      <City
+        city={city}
+        current={weather.current}
+        min={weather.daily[0].temp.min}
+        max={weather.daily[0].temp.max}
+      />
 
       <WeatherItemsContainer>
         <WeatherItems>
@@ -83,15 +99,24 @@ const Weather = ({ weather, city }: WeatherProps) => {
             daily={weather.daily}
             hasAlerts={weather?.alerts?.length > 0}
           />
-          <AirQuality airQuality={airQuality} />
-          <UVIndex uvIndex={uvIndex} uvLabel={uvLabel} />
+          <AirQuality
+            airQuality={airQuality}
+            airQualityLabel={airQualityLabel}
+            airQualityMessage={airQualityMessage}
+            hasAlerts={weather?.alerts?.length > 0}
+          />
+          <UVIndex uvIndex={uvIndex} uvLabel={uvLabel} uvMessage={uvMessage} />
           <SunriseSunset sunrisesSunsets={sunrisesSunsets} />
-          <Wind windDegree={windDegree} windSpeed={windSpeed} />
+          <Wind
+            windDirection={windDirection}
+            windSpeed={windSpeed}
+            windLabel={windLabel}
+          />
           {snow === 0 && <Rainfall rain={rain} rainLabel={rainLabel} />}
           {snow > 0 && <Snowfall snow={snow} snowLabel={snowLabel} />}
           <FeelsLike feelsLike={feelsLike} />
-          <Humidity humidity={humidity} />
-          <Visibility visibility={visibility} />
+          <Humidity humidity={humidity} dewPoint={dewPoint} />
+          <Visibility visibility={visibility} visibilityUnit={visibilityUnit} />
           <Pressure pressure={pressure} />
         </WeatherItems>
       </WeatherItemsContainer>

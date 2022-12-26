@@ -1,6 +1,4 @@
 type Theme = "light" | "dark";
-
-// consider adding colored themes later
 // | "red"
 // | "orange"
 // | "yellow"
@@ -8,7 +6,7 @@ type Theme = "light" | "dark";
 // | "turquoise"
 // | "cyan"
 // | "blue"
-// | "purple";
+// | "purple"
 
 type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
@@ -40,6 +38,7 @@ type CurrentWeatherResponse = {
   feels_like: number;
   uvi: number;
   pressure: number;
+  dew_point: number;
   weather: WeatherCondition[];
   rain?: { "1h": number };
   snow?: { "1h": number };
@@ -63,6 +62,7 @@ type HourlyForecastResponse = {
   wind_speed: number;
   wind_deg: number;
   pop: number;
+  uvi: number;
   temp: number;
   rain?: { "1h": number };
   snow?: { "1h": number };
@@ -101,13 +101,16 @@ type SunriseSunset = {
 };
 
 type CurrentWeather = {
-  airQuality: string;
+  airQuality: number;
+  airQualityLabel: string;
+  airQualityMessage: string;
   feelsLike: number;
   humidity: number;
   iconId: number;
   label: string;
   pressure: number;
   rain: number;
+  dewPoint: number;
   rainLabel: string;
   snow: number;
   snowLabel: string;
@@ -115,9 +118,12 @@ type CurrentWeather = {
   temp: number;
   uvIndex: number;
   uvLabel: string;
-  visibility: string;
-  windDegree: string;
+  uvMessage: string;
+  visibility: number;
+  visibilityUnit: string;
+  windDirection: string;
   windSpeed: string;
+  windLabel: string;
 };
 
 type DailyForecast = {

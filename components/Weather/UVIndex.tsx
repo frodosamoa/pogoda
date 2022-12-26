@@ -6,6 +6,7 @@ import WeatherItem from "./WeatherItem";
 type UVIndexProps = {
   uvIndex: number;
   uvLabel: string;
+  uvMessage: string;
 };
 
 const Index = styled.p`
@@ -18,10 +19,19 @@ const Label = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
 
-const UVIndex = ({ uvIndex, uvLabel }: UVIndexProps) => (
+const Subtitle = styled.div`
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  line-height: 1.2;
+  font-size: ${({ theme }) => theme.fontSizes[8]};
+`;
+
+const UVIndex = ({ uvIndex, uvLabel, uvMessage }: UVIndexProps) => (
   <WeatherItem Icon={Sun} title="UV Index" $animationDelay={400}>
     <Index>{uvIndex}</Index>
     <Label>{uvLabel}</Label>
+    <Subtitle>{uvMessage}</Subtitle>
   </WeatherItem>
 );
 

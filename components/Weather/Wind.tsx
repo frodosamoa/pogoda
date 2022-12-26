@@ -4,12 +4,13 @@ import WeatherItem from "./WeatherItem";
 
 type WindProps = {
   windSpeed: string;
-  windDegree: string;
+  windDirection: string;
+  windLabel: string;
 };
 
-const Wind = ({ windDegree, windSpeed }: WindProps) => (
+const Wind = ({ windDirection, windSpeed, windLabel }: WindProps) => (
   <WeatherItem Icon={WindIcon} title="Wind" $animationDelay={400}>
-    {windSpeed} {windDegree}
+    {windSpeed} {windLabel} {windDirection}
   </WeatherItem>
 );
 

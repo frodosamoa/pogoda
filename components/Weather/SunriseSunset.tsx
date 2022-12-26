@@ -15,6 +15,7 @@ const Subtitle = styled.div`
   position: absolute;
   bottom: 8px;
   left: 8px;
+  line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
 

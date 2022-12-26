@@ -16,6 +16,9 @@ const LoaderContainer = styled.div`
 
 const NoResults = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[4]};
+  opacity: 0;
+  animation: 200ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
+    ${fadeIn};
 `;
 
 type CitiesListContentProps = {

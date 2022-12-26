@@ -30,6 +30,7 @@ const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
 `;

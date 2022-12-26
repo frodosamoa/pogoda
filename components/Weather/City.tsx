@@ -28,12 +28,20 @@ const Name = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[3]};
 `;
 
+const HL = styled.div`
+  margin-top: 4px;
+  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+`;
+
 type CityProps = {
   city?: City;
   current: CurrentWeather;
+  min: number;
+  max: number;
 };
 
-const City = ({ city, current }: CityProps) => {
+const City = ({ city, current, min, max }: CityProps) => {
   if (!city) return null;
 
   return (
@@ -41,6 +49,9 @@ const City = ({ city, current }: CityProps) => {
       <Name>{city.name}</Name>
       <Temperature>{current.temp}°</Temperature>
       <Label>{current.label}</Label>
+      <HL>
+        H:{max}° L:{min}°
+      </HL>
     </Container>
   );
 };

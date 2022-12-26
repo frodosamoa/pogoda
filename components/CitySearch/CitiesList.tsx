@@ -24,9 +24,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0;
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
-    ${fadeIn};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {

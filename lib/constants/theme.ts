@@ -6,7 +6,7 @@ export const THEMES: { [K in Theme]: string } = {
   // yellow: "hsl(44, 100%, 77%)",
   // green: "hsl(153, 53%, 53%)",
   // turquoise: "hsl(171, 100%, 41%)",
-  // cyan: "hsl(207, 61%, 53%)",
+  cyan: "hsl(207, 61%, 53%)",
   // blue: "hsl(229, 53%, 53%)",
   // purple: "hsl(271, 100%, 71%)",
 };
@@ -44,7 +44,8 @@ export const FONT_SIZES = {
   5: "1.25rem",
   6: "1rem",
   7: "0.75rem",
-  8: "0.5rem",
+  8: "0.66rem",
+  9: "0.5rem",
 };
 
 export const BREAKPOINTS = {

@@ -42,7 +42,7 @@ const Container = styled.div`
 
 const Sender = styled.div`
   text-align: start;
-  font-size: ${({ theme }) => theme.fontSizes[8]};
+  font-size: ${({ theme }) => theme.fontSizes[9]};
 `;
 
 const Alert = styled.p`

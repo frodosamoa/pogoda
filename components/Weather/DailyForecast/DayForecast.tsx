@@ -52,7 +52,7 @@ const Icon = styled.i`
 
 const PercentChance = styled.p`
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSizes[8]};
+  font-size: ${({ theme }) => theme.fontSizes[9]};
 `;
 
 const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
