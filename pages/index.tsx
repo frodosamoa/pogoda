@@ -4,12 +4,16 @@ import Application from "../components/Application";
 import Hero from "../components/Hero";
 import useWeather from "../lib/hooks/useWeather";
 
-type IndexProps = { setTheme: Dispatch<SetStateAction<Theme>> };
+type IndexProps = {
+  setTheme: Dispatch<SetStateAction<Theme>>;
+  isMetric: boolean;
+  setIsMetric: Dispatch<SetStateAction<boolean>>;
+};
 
-const Index = ({ setTheme }: IndexProps) => {
+const Index = ({ setTheme, isMetric, setIsMetric }: IndexProps) => {
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
-  const [isMetric, setIsMetric] = useState(true);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const {
     data: weather,

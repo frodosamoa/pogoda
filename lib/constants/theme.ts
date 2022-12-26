@@ -26,7 +26,7 @@ export const COLORS = {
   white: "hsl(0, 0%, 100%)",
 };
 
-export const UNITS: { [K in Sizes]: number } = {
+export const UNITS: { [K in UnitSizes]: number } = {
   xs: 2,
   sm: 4,
   md: 8,

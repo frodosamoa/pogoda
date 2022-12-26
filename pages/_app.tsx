@@ -4,12 +4,14 @@ import { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
 import { DEFAULT_THEME } from "../lib/constants/theme";
-import usePrefersDarkMode from "../lib/hooks/usePrefersDarkMode";
+import useLocalStorage from "../lib/hooks/useLocalStorage";
+
 import "../styles/styles.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");
-  usePrefersDarkMode({ setTheme });
+  const [isMetric, setIsMetric] = useState(true);
+  useLocalStorage({ setTheme, theme, isMetric, setIsMetric });
 
   const providedTheme: DefaultTheme = {
     theme,
@@ -27,7 +29,12 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>Pogoda - Weather Dashboard</title>
       </Head>
       <ThemeProvider theme={providedTheme}>
-        <Component {...pageProps} setTheme={setTheme} />
+        <Component
+          {...pageProps}
+          setTheme={setTheme}
+          isMetric={isMetric}
+          setIsMetric={setIsMetric}
+        />
       </ThemeProvider>
     </>
   );

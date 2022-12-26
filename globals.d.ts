@@ -8,7 +8,7 @@ type Theme = "light" | "dark";
 // | "blue"
 // | "purple"
 
-type Sizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+type UnitSizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 type City = {
   cityId: string;
