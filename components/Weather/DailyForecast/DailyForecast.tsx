@@ -47,6 +47,7 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
 const DayForecastContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const DailyForecast = ({ daily = [], hasAlerts }: DailyForecastProps) => {

@@ -98,6 +98,7 @@ type SunriseSunset = {
   date: string;
   dt: Date;
   type: string;
+  label: string;
 };
 
 type CurrentWeather = {

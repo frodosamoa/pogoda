@@ -60,10 +60,10 @@ const Hour = ({ hour }: { hour: HourlyForecast }) => (
 const SunriseSunsetComponent = ({ hour }: { hour: SunriseSunset }) => (
   <>
     <div>
-      {hour.type === "Sunrise" && <Sunrise size={24} />}
-      {hour.type === "Sunset" && <Sunset />}
+      {hour.type === "sunrise" && <Sunrise size={24} />}
+      {hour.type === "sunset" && <Sunset />}
     </div>
-    <SunriseSunset>{hour.type}</SunriseSunset>
+    <SunriseSunset>{hour.label}</SunriseSunset>
   </>
 );
 

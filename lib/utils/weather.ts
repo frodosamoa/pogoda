@@ -29,9 +29,12 @@ const formatHourly = (
   timezone: string,
   isMetric: boolean,
   sunrisesSunsets: SunriseSunset[]
-): (HourlyForecast | SunriseSunset)[] =>
-  [
-    ...hourly?.map(({ dt, temp, weather, pop }, index: number) => ({
+): (HourlyForecast | SunriseSunset)[] => {
+  let sunriseSunsetIndex = 0;
+  let isDay = sunrisesSunsets[sunriseSunsetIndex].type !== "sunrise";
+
+  return hourly?.reduce((hours, { dt, temp, weather, pop }, index: number) => {
+    const hour = {
       date:
         index === 0
           ? "Now"
@@ -39,11 +42,21 @@ const formatHourly = (
       dt: utcToZonedTime(new Date(dt * 1000), timezone),
       temp: formatTemp(temp, isMetric),
       label: getWeatherLabel(weather),
-      iconClassName: weatherToIcon(getWeatherIconId(weather), false),
+      iconClassName: weatherToIcon(getWeatherIconId(weather), isDay),
       precipitationChance: Math.round(pop * 100),
-    })),
-    ...sunrisesSunsets,
-  ].sort((a, b) => (a.dt < b.dt ? -1 : 1));
+    };
+
+    if (sunrisesSunsets[sunriseSunsetIndex].dt < hour.dt) {
+      let sunriseSunset = sunrisesSunsets[sunriseSunsetIndex];
+      sunriseSunsetIndex++;
+      isDay = !isDay;
+      hour.iconClassName = weatherToIcon(getWeatherIconId(weather), isDay);
+      return [...hours, sunriseSunset, hour];
+    }
+
+    return [...hours, hour];
+  }, []);
+};
 
 const formatDaily = (daily: DailyForecastResponse[], isMetric: boolean) =>
   daily?.map(({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
@@ -96,41 +109,34 @@ const formatCurrent = (
 });
 
 const getSunrisesSunsets = (
-  current: CurrentWeatherResponse,
   daily: DailyForecastResponse[],
   timezone: string
 ): SunriseSunset[] => {
   const now = utcToZonedTime(new Date(Date.now()), timezone);
 
-  let sunriseDate = utcToZonedTime(new Date(current.sunrise * 1000), timezone);
-  let sunsetDate = utcToZonedTime(new Date(current.sunset * 1000), timezone);
-
-  return [
-    { dt: sunriseDate, type: "Sunrise" },
-    { dt: sunsetDate, type: "Sunset" },
-    {
-      dt: utcToZonedTime(new Date(daily[1].sunrise * 1000), timezone),
-      type: "Sunrise",
-    },
-    {
-      dt: utcToZonedTime(new Date(daily[1].sunset * 1000), timezone),
-      type: "Sunset",
-    },
-    {
-      dt: utcToZonedTime(new Date(daily[2].sunrise * 1000), timezone),
-      type: "Sunrise",
-    },
-    {
-      dt: utcToZonedTime(new Date(daily[2].sunset * 1000), timezone),
-      type: "Sunset",
-    },
-  ]
-    .filter((s) => now < s.dt)
-    .map(({ dt, type }) => ({
-      dt,
-      type,
-      date: format(dt, "HH:mm"),
-    }));
+  return daily
+    .reduce(
+      (sunrisesSunsets, day) => [
+        ...sunrisesSunsets,
+        {
+          dt: day.sunrise,
+          type: "sunrise",
+          label: "Sunrise",
+        },
+        {
+          dt: day.sunset,
+          type: "sunset",
+          label: "Sunset",
+        },
+      ],
+      []
+    )
+    .map(({ dt, ...s }) => ({
+      ...s,
+      dt: utcToZonedTime(new Date(dt * 1000), timezone),
+      date: formatInTimeZone(new Date(dt * 1000), timezone, "HH:mm"),
+    }))
+    .filter((s) => now < s.dt);
 };
 
 export const formatWeather = (
@@ -141,7 +147,7 @@ export const formatWeather = (
 
   const { timezone, current, daily, hourly, airPollution, alerts } = weather;
 
-  const sunrisesSunsets = getSunrisesSunsets(current, daily, timezone);
+  const sunrisesSunsets = getSunrisesSunsets(daily, timezone);
 
   return {
     timezone,

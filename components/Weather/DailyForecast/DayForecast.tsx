@@ -14,6 +14,7 @@ const Container = styled.div`
   justify-content: space-between;
   height: 45px;
   align-items: center;
+  flex: 0 0 12.5%;
 
   &:not(:last-child) {
     border-bottom: 1px solid

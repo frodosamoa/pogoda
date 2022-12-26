@@ -21,18 +21,22 @@ export const getUVMessage = (
   hourly: HourlyForecastResponse[],
   timezone: string
 ) => {
+  const todaysDate = utcToZonedTime(hourly[0].dt * 1000, timezone).getDate();
+
   const hours = hourly
-    .slice(0, 24)
-    .filter((hour) => utcToZonedTime(hour.dt, timezone).getHours() > 0)
+    .filter(
+      (hour) =>
+        utcToZonedTime(hour.dt * 1000, timezone).getDate() === todaysDate
+    )
     .filter((hour) => hour.uvi >= 3);
 
   if (hours.length === 0) {
-    return "Low levels all day.";
+    return "Low levels rest of the day.";
   } else if (hours.length === 1) {
     return `Use sun protection around ${formatHourForUV(
       hours[0].dt,
       timezone
-    )}`;
+    )}.`;
   }
 
   return `Use sun protection:\n${formatHourForUV(
