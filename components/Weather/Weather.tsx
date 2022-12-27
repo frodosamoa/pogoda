@@ -14,6 +14,7 @@ import UVIndex from "./UVIndex";
 import Pressure from "./Pressure";
 import AirQuality from "./AirQuality";
 import Snowfall from "./Snowfall";
+import MoonPhase from "./MoonPhase";
 
 type WeatherProps = {
   city?: City;
@@ -66,6 +67,8 @@ const Weather = ({ weather, city }: WeatherProps) => {
     pressure,
     rain,
     rainLabel,
+    rainMessage,
+    moonPhase,
     snow,
     snowLabel,
     sunrisesSunsets,
@@ -112,12 +115,19 @@ const Weather = ({ weather, city }: WeatherProps) => {
             windSpeed={windSpeed}
             windLabel={windLabel}
           />
-          {snow === 0 && <Rainfall rain={rain} rainLabel={rainLabel} />}
+          {snow === 0 && (
+            <Rainfall
+              rain={rain}
+              rainLabel={rainLabel}
+              rainMessage={rainMessage}
+            />
+          )}
           {snow > 0 && <Snowfall snow={snow} snowLabel={snowLabel} />}
           <FeelsLike feelsLike={feelsLike} />
           <Humidity humidity={humidity} dewPoint={dewPoint} />
           <Visibility visibility={visibility} visibilityUnit={visibilityUnit} />
           <Pressure pressure={pressure} />
+          <MoonPhase moonPhase={moonPhase} />
         </WeatherItems>
       </WeatherItemsContainer>
     </>

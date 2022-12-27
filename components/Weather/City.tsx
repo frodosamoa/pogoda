@@ -41,19 +41,15 @@ type CityProps = {
   max: number;
 };
 
-const City = ({ city, current, min, max }: CityProps) => {
-  if (!city) return null;
-
-  return (
-    <Container>
-      <Name>{city.name}</Name>
-      <Temperature>{current.temp}°</Temperature>
-      <Label>{current.label}</Label>
-      <HL>
-        H:{max}° L:{min}°
-      </HL>
-    </Container>
-  );
-};
+const City = ({ city, current, min, max }: CityProps) => (
+  <Container>
+    {city?.name && <Name>{city.name}</Name>}
+    <Temperature>{current.temp}°</Temperature>
+    <Label>{current.label}</Label>
+    <HL>
+      H:{max}° L:{min}°
+    </HL>
+  </Container>
+);
 
 export default City;

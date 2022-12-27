@@ -17,7 +17,7 @@ const Subtitle = styled.div`
   bottom: 8px;
   left: 8px;
   line-height: 1.2;
-  font-size: ${({ theme }) => theme.fontSizes[7]};
+  font-size: ${({ theme }) => theme.fontSizes[8]};
 `;
 
 const Humidity = ({ humidity, dewPoint }: HumidityProps) => (

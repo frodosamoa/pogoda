@@ -9,7 +9,11 @@ import {
 import { formatTemp } from "./temperature";
 import { getUVLabel, getUVMessage } from "./uv";
 import { getAirQualityLabel, getAirQualityMessage } from "./airQuality";
-import { getPrecipitation, getPrecipitationLabel } from "./precipitation";
+import {
+  getPrecipitation,
+  getPrecipitationLabel,
+  getPrecipitationMessage,
+} from "./precipitation";
 import { getWindSpeed, getWindLabel, getWindDirection } from "./wind";
 import { getVisibility, getVisibilityUnit } from "./visibility";
 
@@ -31,7 +35,7 @@ const formatHourly = (
   sunrisesSunsets: SunriseSunset[]
 ): (HourlyForecast | SunriseSunset)[] => {
   let sunriseSunsetIndex = 0;
-  let isDay = sunrisesSunsets[sunriseSunsetIndex].type !== "sunrise";
+  let isDay = sunrisesSunsets[sunriseSunsetIndex]?.type !== "sunrise";
 
   return hourly?.reduce((hours, { dt, temp, weather, pop }, index: number) => {
     const hour = {
@@ -46,7 +50,7 @@ const formatHourly = (
       precipitationChance: Math.round(pop * 100),
     };
 
-    if (sunrisesSunsets[sunriseSunsetIndex].dt < hour.dt) {
+    if (sunrisesSunsets[sunriseSunsetIndex]?.dt < hour.dt) {
       let sunriseSunset = sunrisesSunsets[sunriseSunsetIndex];
       sunriseSunsetIndex++;
       isDay = !isDay;
@@ -79,6 +83,7 @@ const formatCurrent = (
   isMetric: boolean,
   sunrisesSunsets: SunriseSunset[],
   hourly: HourlyForecastResponse[],
+  daily: DailyForecastResponse[],
   timezone: string
 ): CurrentWeather => ({
   sunrisesSunsets,
@@ -93,6 +98,7 @@ const formatCurrent = (
   pressure: current.pressure,
   rain: getPrecipitation(current.rain ? current.rain["1h"] : 0, isMetric),
   rainLabel: getPrecipitationLabel(isMetric),
+  rainMessage: getPrecipitationMessage(hourly, daily, isMetric, timezone),
   snow: getPrecipitation(current.snow ? current.snow["1h"] : 0, isMetric),
   snowLabel: getPrecipitationLabel(isMetric),
   uvIndex: Math.floor(current.uvi),
@@ -106,6 +112,7 @@ const formatCurrent = (
   airQualityMessage: getAirQualityMessage(
     airPollution.list[0].components.pm2_5
   ),
+  moonPhase: daily[0].moon_phase,
 });
 
 const getSunrisesSunsets = (
@@ -158,6 +165,7 @@ export const formatWeather = (
       isMetric,
       sunrisesSunsets,
       hourly,
+      daily,
       timezone
     ),
     hourly: formatHourly(hourly, timezone, isMetric, sunrisesSunsets),

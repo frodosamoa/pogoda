@@ -11,62 +11,72 @@ type Theme = "light" | "dark";
 type UnitSizes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 type City = {
+  administrativeName: string;
   cityId: string;
-  name: string;
+  countryName: string;
   latitude: number;
   longitude: number;
-  countryName: string;
-  administrativeName: string;
+  name: string;
 };
 
 type WeatherCondition = {
-  id: number;
-  main: string;
   description: string;
   icon: string;
+  id: number;
+  main: string;
 };
 
 type CurrentWeatherResponse = {
-  dt: number;
-  sunset: number;
-  sunrise: number;
-  visibility: number;
-  humidity: number;
-  wind_speed: number;
-  wind_deg: number;
-  temp: number;
-  feels_like: number;
-  uvi: number;
-  pressure: number;
+  cloudis: number;
   dew_point: number;
-  weather: WeatherCondition[];
+  dt: number;
+  feels_like: number;
+  humidity: number;
+  moon_phase: number;
+  pressure: number;
   rain?: { "1h": number };
   snow?: { "1h": number };
+  sunrise: number;
+  sunset: number;
+  temp: number;
+  uvi: number;
+  visibility: number;
+  weather: WeatherCondition[];
+  wind_deg: number;
+  wind_gust?: number;
+  wind_speed: number;
 };
 
 type DailyForecastResponse = {
   dt: number;
-  sunset: number;
-  sunrise: number;
-  wind_speed: number;
-  wind_deg: number;
   pop: number;
   rain: number;
   snow: number;
+  moon_phase: number;
+  sunrise: number;
+  sunset: number;
+  temp: {
+    day: number;
+    max: number;
+    min: number;
+  };
   weather: WeatherCondition[];
-  temp: { min: number; max: number; day: number };
+  wind_deg: number;
+  wind_gust?: number;
+  wind_speed: number;
 };
 
 type HourlyForecastResponse = {
   dt: number;
-  wind_speed: number;
-  wind_deg: number;
   pop: number;
-  uvi: number;
-  temp: number;
   rain?: { "1h": number };
   snow?: { "1h": number };
+  temp: number;
+  uvi: number;
   weather: WeatherCondition[];
+  wind_deg: number;
+  wind_gust?: number;
+  wind_speed: number;
 };
 
 type AirPollution = {
@@ -80,39 +90,41 @@ type AirPollutionResponse = {
 };
 
 type AlertResponse = {
-  sender_name: string;
-  event: string;
   end: number;
+  event: string;
+  sender_name: string;
 };
 
 type WeatherResponse = {
-  timezone: string;
-  daily: DailyForecastResponse[];
-  hourly: HourlyForecastResponse[];
-  current: CurrentWeatherResponse;
   airPollution: AirPollutionResponse;
   alerts: AlertResponse[];
+  current: CurrentWeatherResponse;
+  daily: DailyForecastResponse[];
+  hourly: HourlyForecastResponse[];
+  timezone: string;
 };
 
 type SunriseSunset = {
   date: string;
   dt: Date;
-  type: string;
   label: string;
+  type: string;
 };
 
 type CurrentWeather = {
   airQuality: number;
   airQualityLabel: string;
   airQualityMessage: string;
+  dewPoint: number;
   feelsLike: number;
   humidity: number;
   iconId: number;
   label: string;
+  moonPhase: number;
   pressure: number;
   rain: number;
-  dewPoint: number;
   rainLabel: string;
+  rainMessage: string;
   snow: number;
   snowLabel: string;
   sunrisesSunsets: SunriseSunset[];
@@ -123,42 +135,44 @@ type CurrentWeather = {
   visibility: number;
   visibilityUnit: string;
   windDirection: string;
-  windSpeed: string;
   windLabel: string;
+  windSpeed: string;
 };
 
 type DailyForecast = {
-  fullDate: string;
-  sunset: number;
-  sunrise: number;
   date: string;
-  temp: {
-    min: number;
-    max: number;
-  };
-  label: string;
+  fullDate: string;
   iconClassName: string;
+  label: string;
   precipitationChance: number;
+  sunrise: number;
+  sunset: number;
+  temp: {
+    max: number;
+    min: number;
+  };
 };
 
 type HourlyForecast = {
   date: string;
-  temp: number;
-  label: string;
   iconClassName: string;
+  label: string;
   precipitationChance: number;
+  temp: number;
 };
 
 type Alert = {
-  senderName: string;
-  event: string;
   end: string;
+  event: string;
+  senderName: string;
 };
 
 type Weather = {
-  timezone: string;
+  alerts: Alert[];
+  current: CurrentWeather;
   daily: DailyForecast[];
   hourly: (HourlyForecast | SunriseSunset)[];
-  current: CurrentWeather;
-  alerts: Alert[];
+  timezone: string;
 };
+
+declare module "react-moon" {}

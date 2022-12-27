@@ -25,6 +25,8 @@ const Subtitle = styled.div`
   left: 8px;
   line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSizes[8]};
+  white-space: break-spaces;
+  width: 110px;
 `;
 
 const UVIndex = ({ uvIndex, uvLabel, uvMessage }: UVIndexProps) => (
