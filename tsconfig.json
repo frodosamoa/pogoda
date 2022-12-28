@@ -16,13 +16,7 @@
     "jsx": "preserve",
     "noImplicitAny": true
   },
-  "include": [
-    "next-env.d.ts",
-    "globals.d.ts",
-    "styled.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["./types/*.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

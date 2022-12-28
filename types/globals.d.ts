@@ -174,5 +174,3 @@ type Weather = {
   hourly: (HourlyForecast | SunriseSunset)[];
   timezone: string;
 };
-
-declare module "react-moon" {}
