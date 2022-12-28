@@ -10,12 +10,12 @@ type UVIndexProps = {
 };
 
 const Index = styled.p`
-  line-height: 1;
+  line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 
 const Label = styled.p`
-  line-height: 1;
+  line-height: 0.8;
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
 

@@ -8,6 +8,7 @@ type PressureProps = {
 };
 
 const Value = styled.div`
+  line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 

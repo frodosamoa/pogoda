@@ -14,12 +14,17 @@ const Value = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[4]};
 `;
 
+const Label = styled.p`
+  line-height: 0.8;
+  font-size: ${({ theme }) => theme.fontSizes[5]};
+`;
+
 const Wind = ({ windDirection, windSpeed, windLabel }: WindProps) => (
   <WeatherItem Icon={WindIcon} title="Wind">
     <Value>
       {windSpeed} {windLabel}
     </Value>
-    <Value>{windDirection}</Value>
+    <Label>{windDirection}</Label>
   </WeatherItem>
 );
 

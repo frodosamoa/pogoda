@@ -15,6 +15,7 @@ export const getPrecipitationMessage = (
   timezone: string
 ) => {
   const precipitaitonLabel = getPrecipitationLabel(isMetric);
+
   const precipitationInNext24Hours = hourly
     .slice(0, 23)
     .reduce(
@@ -29,14 +30,14 @@ export const getPrecipitationMessage = (
     )}${precipitaitonLabel} expected in next 24hr.`;
   }
 
-  const nextPrecipitaion = daily.find((day) => day.rain > 0);
+  const nextPrecipitation = daily.slice(1).find((day) => day.rain > 0);
 
-  if (nextPrecipitaion) {
+  if (nextPrecipitation) {
     return `Next expected is ${getPrecipitation(
-      nextPrecipitaion.rain,
+      nextPrecipitation.rain,
       isMetric
     )}${precipitaitonLabel} ${formatInTimeZone(
-      new Date(nextPrecipitaion.dt * 1000),
+      new Date(nextPrecipitation.dt * 1000),
       timezone,
       "eee d"
     )}.`;

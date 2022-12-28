@@ -42,8 +42,10 @@ type AirQualityProps = {
 };
 
 const Value = styled.div`
+  line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSizes[6]};
 `;
+
 const Message = styled.div`
   font-size: ${({ theme }) => theme.fontSizes[7]};
 `;
