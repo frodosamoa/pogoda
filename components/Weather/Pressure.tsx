@@ -1,4 +1,4 @@
-import { Ruler } from "lucide-react";
+import { Target } from "lucide-react";
 import styled from "styled-components";
 
 import WeatherItem from "./WeatherItem";
@@ -12,7 +12,7 @@ const Value = styled.div`
 `;
 
 const Pressure = ({ pressure }: PressureProps) => (
-  <WeatherItem Icon={Ruler} title="Pressure" $animationDelay={400}>
+  <WeatherItem Icon={Target} title="Pressure">
     <Value>{pressure} hPa</Value>
   </WeatherItem>
 );

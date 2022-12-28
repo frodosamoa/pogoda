@@ -18,7 +18,7 @@ const Label = styled.p`
 `;
 
 const Snowfall = ({ snow, snowLabel }: SnowfallProps) => (
-  <WeatherItem Icon={Snowflake} title="Snowfall" $animationDelay={400}>
+  <WeatherItem Icon={Snowflake} title="Snowfall">
     <Value>
       {snow}
       {snowLabel}

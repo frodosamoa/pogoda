@@ -24,7 +24,6 @@ const SunriseSunset = ({ sunrisesSunsets }: SunrisePropsSunset) =>
     <WeatherItem
       Icon={sunrisesSunsets[0].type === "sunset" ? Sunset : Sunrise}
       title={sunrisesSunsets[0].type === "sunset" ? "Sunset" : "Sunrise"}
-      $animationDelay={400}
     >
       <Title>{sunrisesSunsets[0].date}</Title>
       <Subtitle>

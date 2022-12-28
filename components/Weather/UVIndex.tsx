@@ -30,7 +30,7 @@ const Subtitle = styled.div`
 `;
 
 const UVIndex = ({ uvIndex, uvLabel, uvMessage }: UVIndexProps) => (
-  <WeatherItem Icon={Sun} title="UV Index" $animationDelay={400}>
+  <WeatherItem Icon={Sun} title="UV Index">
     <Index>{uvIndex}</Index>
     <Label>{uvLabel}</Label>
     <Subtitle>{uvMessage}</Subtitle>

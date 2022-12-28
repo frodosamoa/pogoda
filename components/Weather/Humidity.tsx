@@ -21,7 +21,7 @@ const Subtitle = styled.div`
 `;
 
 const Humidity = ({ humidity, dewPoint }: HumidityProps) => (
-  <WeatherItem Icon={Droplets} title="Humidity" $animationDelay={400}>
+  <WeatherItem Icon={Droplets} title="Humidity">
     <Value>{humidity}%</Value>
     <Subtitle>Dew point: {dewPoint}°</Subtitle>
   </WeatherItem>

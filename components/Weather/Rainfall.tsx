@@ -29,7 +29,7 @@ const Subtitle = styled.div`
 `;
 
 const Rainfall = ({ rain, rainLabel, rainMessage }: RainfallProps) => (
-  <WeatherItem Icon={Umbrella} title="Rainfall" $animationDelay={400}>
+  <WeatherItem Icon={Umbrella} title="Rainfall">
     <Value>
       {rain}
       {rainLabel}

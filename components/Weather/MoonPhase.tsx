@@ -3,8 +3,6 @@ import styled, { useTheme } from "styled-components";
 import Moon from "react-moon";
 import chroma from "chroma-js";
 
-import { fadeIn } from "../../lib/constants/animations";
-
 import { WeatherItemTitle } from "./WeatherItem";
 
 type MoonPhaseProps = {
@@ -15,12 +13,9 @@ const Container = styled.div`
   padding: 8px;
   border-radius: 8px;
   overflow: scroll;
-  opacity: 0;
   display: flex;
   flex-direction: column;
 
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
-    ${fadeIn};
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "dark"
       ? chroma(colors.whiteTer).alpha(0.3).css()

@@ -19,14 +19,11 @@ const Container = styled.div<{ $hasAlerts: boolean }>`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  opacity: 0;
 
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "dark"
       ? chroma(colors.whiteTer).alpha(0.3).css()
       : chroma(colors.greyDark).alpha(0.2).css()};
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
-    ${fadeIn};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.container}px) {

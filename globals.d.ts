@@ -36,8 +36,8 @@ type CurrentWeatherResponse = {
   pressure: number;
   rain?: { "1h": number };
   snow?: { "1h": number };
-  sunrise: number;
-  sunset: number;
+  sunrise?: number;
+  sunset?: number;
   temp: number;
   uvi: number;
   visibility: number;

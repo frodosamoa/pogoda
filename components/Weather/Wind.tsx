@@ -15,7 +15,7 @@ const Value = styled.div`
 `;
 
 const Wind = ({ windDirection, windSpeed, windLabel }: WindProps) => (
-  <WeatherItem Icon={WindIcon} title="Wind" $animationDelay={400}>
+  <WeatherItem Icon={WindIcon} title="Wind">
     <Value>
       {windSpeed} {windLabel}
     </Value>

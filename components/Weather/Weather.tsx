@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { fadeIn } from "../../lib/constants/animations";
+
 import City from "./City";
 import Alerts from "./Alerts";
 import DailyForecast from "./DailyForecast";
@@ -34,6 +36,10 @@ const WeatherItems = styled.div`
   gap: 16px;
   grid-auto-rows: 125px;
   grid-auto-columns: 125px;
+  opacity: 0;
+
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
+    ${fadeIn};
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.container}px) {

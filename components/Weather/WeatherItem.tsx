@@ -3,21 +3,15 @@ import styled from "styled-components";
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 
-import { fadeIn } from "../../lib/constants/animations";
-
-const Container = styled.div<{ $animationDelay: number }>`
+const Container = styled.div`
   padding: 8px;
   border-radius: 8px;
-  opacity: 0;
   position: relative;
 
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "dark"
       ? chroma(colors.whiteTer).alpha(0.3).css()
       : chroma(colors.greyDark).alpha(0.2).css()};
-  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
-    ${fadeIn};
-  animation-delay: ${({ $animationDelay = 200 }) => $animationDelay}ms;
 `;
 
 const TitleContainer = styled.div`
@@ -62,16 +56,10 @@ type WeatherItemProps = {
   title: string;
   children: ReactNode;
   Icon: LucideIcon;
-  $animationDelay: number;
 };
 
-const WeatherItem = ({
-  title,
-  Icon,
-  children,
-  $animationDelay,
-}: WeatherItemProps) => (
-  <Container $animationDelay={$animationDelay}>
+const WeatherItem = ({ title, Icon, children }: WeatherItemProps) => (
+  <Container>
     <WeatherItemTitle Icon={Icon} title={title} />
     {children}
   </Container>
