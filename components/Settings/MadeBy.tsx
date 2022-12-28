@@ -24,7 +24,7 @@ const Link = styled.a`
 
 const MadeBy = () => (
   <Container>
-    <Paragraph>
+    {/* <Paragraph>
       code available on{" "}
       <Link
         target="_blank"
@@ -33,7 +33,7 @@ const MadeBy = () => (
       >
         GitHub
       </Link>
-    </Paragraph>
+    </Paragraph> */}
     <Paragraph>
       made by{" "}
       <Link
