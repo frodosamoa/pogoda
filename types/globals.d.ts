@@ -118,7 +118,6 @@ type CurrentWeather = {
   dewPoint: number;
   feelsLike: number;
   humidity: number;
-  iconId: number;
   label: string;
   moonPhase: number;
   pressure: number;

@@ -6,8 +6,9 @@
 # testing
 /coverage
 
-# next.js, production, build files
+# next.js, swc, production, build files
 /.next
+/.swc
 /.vercel
 /build
 # production

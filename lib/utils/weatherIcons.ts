@@ -31,14 +31,6 @@ export const weatherToIcon = (code: number, isDay: boolean) => {
   return prefix + icon;
 };
 
-export const getWeatherIconId = (weather: WeatherCondition[]) => {
-  if (weather) {
-    return weather[0].id;
-  }
-
-  return null;
-};
-
 export const getWeatherLabel = (weather: WeatherCondition[]) => {
   if (weather) {
     const label = getWeatherCodeIconInfo(weather[0].id).label;
@@ -46,4 +38,14 @@ export const getWeatherLabel = (weather: WeatherCondition[]) => {
   }
 
   return null;
+};
+
+export const getWeatherIconInfo = (
+  weather: WeatherCondition[],
+  isDay: boolean
+) => {
+  return {
+    iconClassName: weatherToIcon(weather[0]?.id, isDay),
+    label: getWeatherLabel(weather),
+  };
 };

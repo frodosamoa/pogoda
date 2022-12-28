@@ -1,8 +1,5 @@
 import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 
-const formatHourForUV = (dt: number, timezone: string) =>
-  formatInTimeZone(new Date(dt * 1000), timezone, "HH:mm");
-
 export const getUVLabel = (airQuality: number): string => {
   if (airQuality <= 2) {
     return "Low";
@@ -16,6 +13,9 @@ export const getUVLabel = (airQuality: number): string => {
 
   return "Extreme";
 };
+
+const formatHourForUV = (dt: number, timezone: string) =>
+  formatInTimeZone(new Date(dt * 1000), timezone, "HH:mm");
 
 export const getUVMessage = (
   hourly: HourlyForecastResponse[],

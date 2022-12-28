@@ -1,11 +1,7 @@
 import { format } from "date-fns";
 import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 
-import {
-  weatherToIcon,
-  getWeatherIconId,
-  getWeatherLabel,
-} from "./weatherIcons";
+import { getWeatherIconInfo } from "./weatherIcons";
 import { formatTemp } from "./temperature";
 import { getUVLabel, getUVMessage } from "./uv";
 import { getAirQualityLabel, getAirQualityMessage } from "./airQuality";
@@ -38,23 +34,25 @@ const formatHourly = (
   let isDay = sunrisesSunsets[sunriseSunsetIndex]?.type !== "sunrise";
 
   return hourly?.reduce((hours, { dt, temp, weather, pop }, index: number) => {
-    const hour = {
+    let hour = {
       date:
         index === 0
           ? "Now"
           : formatInTimeZone(new Date(dt * 1000), timezone, "HH"),
       dt: utcToZonedTime(new Date(dt * 1000), timezone),
       temp: formatTemp(temp, isMetric),
-      label: getWeatherLabel(weather),
-      iconClassName: weatherToIcon(getWeatherIconId(weather), isDay),
       precipitationChance: Math.round(pop * 100),
+      ...getWeatherIconInfo(weather, isDay),
     };
 
     if (sunrisesSunsets[sunriseSunsetIndex]?.dt < hour.dt) {
       let sunriseSunset = sunrisesSunsets[sunriseSunsetIndex];
       sunriseSunsetIndex++;
       isDay = !isDay;
-      hour.iconClassName = weatherToIcon(getWeatherIconId(weather), isDay);
+      hour = {
+        ...hour,
+        ...getWeatherIconInfo(weather, isDay),
+      };
       return [...hours, sunriseSunset, hour];
     }
 
@@ -72,9 +70,8 @@ const formatDaily = (daily: DailyForecastResponse[], isMetric: boolean) =>
       min: formatTemp(temp.min, isMetric),
       max: formatTemp(temp.max, isMetric),
     },
-    label: getWeatherLabel(weather),
-    iconClassName: weatherToIcon(getWeatherIconId(weather), true),
     precipitationChance: Math.round(pop * 100),
+    ...getWeatherIconInfo(weather, true),
   }));
 
 const formatCurrent = (
@@ -89,11 +86,9 @@ const formatCurrent = (
   sunrisesSunsets,
   humidity: current.humidity,
   temp: formatTemp(current.temp, isMetric),
-  label: getWeatherLabel(current.weather),
   dewPoint: formatTemp(current.dew_point, isMetric),
   visibility: getVisibility(current.visibility, isMetric),
   visibilityUnit: getVisibilityUnit(isMetric),
-  iconId: getWeatherIconId(current.weather),
   feelsLike: formatTemp(current.feels_like, isMetric),
   pressure: current.pressure,
   rain: getPrecipitation(current.rain ? current.rain["1h"] : 0, isMetric),
@@ -113,6 +108,7 @@ const formatCurrent = (
     airPollution.list[0].components.pm2_5
   ),
   moonPhase: daily[0].moon_phase,
+  ...getWeatherIconInfo(current.weather, true),
 });
 
 const getSunrisesSunsets = (
