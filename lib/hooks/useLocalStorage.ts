@@ -1,6 +1,6 @@
 import { useEffect, Dispatch, SetStateAction } from "react";
 
-import { THEMES } from "../constants/theme";
+import { THEMES } from "@/lib/constants/theme";
 
 const useLocalStorage = ({
   setTheme,

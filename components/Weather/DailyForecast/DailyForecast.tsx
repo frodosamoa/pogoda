@@ -2,10 +2,9 @@ import styled from "styled-components";
 import { CalendarDays } from "lucide-react";
 import chroma from "chroma-js";
 
-import { fadeIn } from "../../../lib/constants/animations";
-import { WeatherItemTitle } from "../WeatherItem";
-
 import DayForecast from "./DayForecast";
+
+import { WeatherItemTitle } from "@/components/Weather/WeatherItem";
 
 type DailyForecastProps = {
   daily: DailyForecast[];

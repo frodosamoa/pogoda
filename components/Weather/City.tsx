@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { fadeUp } from "../../lib/constants/animations";
+import { fadeUp } from "@/lib/constants/animations";
 
 const Container = styled.div`
   padding-bottom: 24px;

@@ -1,7 +1,7 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import styled, { useTheme } from "styled-components";
 
-import useGeoPosition from "../../lib/hooks/useGeoPosition";
+import useGeoPosition from "@/lib/hooks/useGeoPosition";
 
 type UserResponseProps = {
   latitude: number;

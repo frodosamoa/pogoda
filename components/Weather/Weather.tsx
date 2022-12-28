@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { fadeIn } from "../../lib/constants/animations";
-
 import City from "./City";
 import Alerts from "./Alerts";
 import DailyForecast from "./DailyForecast";
@@ -17,6 +15,8 @@ import Pressure from "./Pressure";
 import AirQuality from "./AirQuality";
 import Snowfall from "./Snowfall";
 import MoonPhase from "./MoonPhase";
+
+import { fadeIn } from "@/lib/constants/animations";
 
 type WeatherProps = {
   city?: City;

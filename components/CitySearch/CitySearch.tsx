@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-import useCities from "../../lib/hooks/useCities";
-import useDebounce from "../../lib/hooks/useDebounce";
-
 import CitiesList from "./CitiesList";
 import CityInput from "./CityInput";
+
+import useCities from "@/lib/hooks/useCities";
+import useDebounce from "@/lib/hooks/useDebounce";
 
 type CitySearchProps = {
   setLatLon: Dispatch<SetStateAction<[number, number]>>;

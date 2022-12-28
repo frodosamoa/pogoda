@@ -2,10 +2,9 @@ import styled from "styled-components";
 import chroma from "chroma-js";
 import { Clock } from "lucide-react";
 
-import { fadeIn } from "../../../lib/constants/animations";
-import { WeatherItemTitle } from "../WeatherItem";
-
 import HourForecast from "./HourForecast";
+
+import { WeatherItemTitle } from "@/components/Weather/WeatherItem";
 
 type HourlyForecastProps = {
   hourly: (HourlyForecast | SunriseSunset)[];

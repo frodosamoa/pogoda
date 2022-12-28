@@ -1,6 +1,5 @@
-import weatherIcons from "../constants/weatherIcons";
-
-import { capitalize } from "./string";
+import weatherIcons from "@/lib/constants/weatherIcons";
+import { capitalize } from "@/lib/utils/string";
 
 interface weatherIcon {
   [id: string]: {

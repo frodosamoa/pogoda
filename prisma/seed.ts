@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import cities from "all-the-cities";
 
-import { normalizeString } from "../lib/utils/string";
-
 import COUNTRIES from "./seeds/countries";
 import ADMIN_CODES from "./seeds/adminCodes";
+
+import { normalizeString } from "@/lib/utils/string";
 
 const prisma = new PrismaClient();
 

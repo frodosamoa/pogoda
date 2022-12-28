@@ -1,8 +1,8 @@
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
-import Application from "../components/Application";
-import Hero from "../components/Hero";
-import useWeather from "../lib/hooks/useWeather";
+import Application from "@/components/Application";
+import Hero from "@/components/Hero";
+import useWeather from "@/lib/hooks/useWeather";
 
 type IndexProps = {
   setTheme: Dispatch<SetStateAction<Theme>>;

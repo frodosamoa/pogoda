@@ -1,4 +1,4 @@
-import { getWindLabel } from "./wind";
+import { getWindLabel } from "@/lib/utils/wind";
 
 test("getWindLabel", () => {
   expect(getWindLabel(true)).toBe("m/s");

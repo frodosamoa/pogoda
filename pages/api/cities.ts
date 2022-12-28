@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import queryString from "query-string";
 
-import prisma from "../../lib/prisma";
-import { normalizeString } from "../../lib/utils/string";
+import prisma from "@/lib/prisma";
+import { normalizeString } from "@/lib/utils/string";
 
 const COLUMNS_TO_SEARCH = [
   "normalizedName",

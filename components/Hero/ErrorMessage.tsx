@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { KeyedMutator } from "swr";
 import { AlertCircle } from "lucide-react";
 
-import { fadeIn } from "../../lib/constants/animations";
+import { fadeIn } from "@/lib/constants/animations";
 
 const Container = styled.div`
   display: flex;

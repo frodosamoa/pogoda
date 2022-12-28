@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import queryString from "query-string";
 
-import {
-  getCurrentWeatherData,
-  getAirPollutionData,
-} from "../../lib/utils/api";
+import { getCurrentWeatherData, getAirPollutionData } from "@/lib/utils/api";
 
 module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, url } = req;

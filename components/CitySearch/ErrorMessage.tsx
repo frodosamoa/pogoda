@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AlertCircle } from "lucide-react";
 
-import { fadeIn } from "../../lib/constants/animations";
+import { fadeIn } from "@/lib/constants/animations";
 
 const Container = styled.div`
   display: flex;

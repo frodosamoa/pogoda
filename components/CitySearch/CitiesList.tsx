@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-import { fadeIn } from "../../lib/constants/animations";
-
 import CitiesListContent from "./CitiesListContent";
 
 type CitiesListProps = {

@@ -1,4 +1,4 @@
-import { getVisibilityUnit } from "./visibility";
+import { getVisibilityUnit } from "@/lib/utils/visibility";
 
 test("getVisibilityUnit", () => {
   expect(getVisibilityUnit(true)).toBe("km");

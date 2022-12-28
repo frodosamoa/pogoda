@@ -1,4 +1,4 @@
-import { MPS_TO_MPH } from "../constants/conversion";
+import { MPS_TO_MPH } from "@/lib/constants/conversion";
 
 const COMPASS_LOOKUP = [
   "N",

@@ -9,7 +9,7 @@ import {
 import chroma from "chroma-js";
 import styled from "styled-components";
 
-import { fadeIn } from "../../lib/constants/animations";
+import { fadeIn } from "@/lib/constants/animations";
 
 type CityInputProps = {
   cities: City[] | [];

@@ -1,4 +1,4 @@
-import { getAirQualityLabel } from "./airQuality";
+import { getAirQualityLabel } from "@/lib/utils/airQuality";
 
 test("getAirQualityLabel", () => {
   expect(getAirQualityLabel(0)).toBe("Very Good");

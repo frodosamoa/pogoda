@@ -3,8 +3,8 @@ import type { AppProps } from "next/app";
 import { useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
-import { DEFAULT_THEME } from "../lib/constants/theme";
-import useLocalStorage from "../lib/hooks/useLocalStorage";
+import { DEFAULT_THEME } from "@/lib/constants/theme";
+import useLocalStorage from "@/lib/hooks/useLocalStorage";
 
 import "../styles/styles.css";
 

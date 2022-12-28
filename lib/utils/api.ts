@@ -4,7 +4,7 @@ import queryString from "query-string";
 import {
   AIR_POLLUTION_DATA_URL,
   CURRENT_WEATHER_DATA_URL,
-} from "../constants/api";
+} from "@/lib/constants/api";
 
 export const getCurrentWeatherData = async ({
   latitude,

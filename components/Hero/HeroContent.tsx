@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { KeyedMutator } from "swr";
 
-import Weather from "../../components/Weather";
-import { fadeIn } from "../../lib/constants/animations";
-import CitySearch from "../CitySearch";
-import Loader from "../Loader";
-
 import ErrorMessage from "./ErrorMessage";
+
+import CitySearch from "@/components/CitySearch";
+import Loader from "@/components/Loader";
+import Weather from "@/components/Weather";
+import { fadeIn } from "@/lib/constants/animations";
 
 const LoaderContainer = styled.div`
   display: flex;

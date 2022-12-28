@@ -1,6 +1,6 @@
 import { formatInTimeZone } from "date-fns-tz";
 
-import { MM_TO_INCHES } from "../constants/conversion";
+import { MM_TO_INCHES } from "@/lib/constants/conversion";
 
 export const getPrecipitation = (length: number, isMetric: boolean) =>
   +(isMetric ? length : length * MM_TO_INCHES).toFixed(2);

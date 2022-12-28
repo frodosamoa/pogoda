@@ -1,17 +1,20 @@
 import { format } from "date-fns";
 import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 
-import { getWeatherIconInfo } from "./weatherIcons";
-import { formatTemp } from "./temperature";
-import { getUVLabel, getUVMessage } from "./uv";
-import { getAirQualityLabel, getAirQualityMessage } from "./airQuality";
+import { getWeatherIconInfo } from "@/lib/utils/weatherIcons";
+import { formatTemp } from "@/lib/utils/temperature";
+import { getUVLabel, getUVMessage } from "@/lib/utils/uv";
+import {
+  getAirQualityLabel,
+  getAirQualityMessage,
+} from "@/lib/utils/airQuality";
 import {
   getPrecipitation,
   getPrecipitationLabel,
   getPrecipitationMessage,
-} from "./precipitation";
-import { getWindSpeed, getWindLabel, getWindDirection } from "./wind";
-import { getVisibility, getVisibilityUnit } from "./visibility";
+} from "@/lib/utils/precipitation";
+import { getWindSpeed, getWindLabel, getWindDirection } from "@/lib/utils/wind";
+import { getVisibility, getVisibilityUnit } from "@/lib/utils/visibility";
 
 const formatAlerts = (alerts: AlertResponse[], timezone: string) =>
   alerts?.map(({ sender_name: senderName, event, end }) => ({

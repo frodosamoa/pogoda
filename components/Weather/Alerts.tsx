@@ -3,8 +3,6 @@ import chroma from "chroma-js";
 import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
 
-import { fadeIn } from "../../lib/constants/animations";
-
 import { WeatherItemTitle } from "./WeatherItem";
 
 type AlertsProps = {

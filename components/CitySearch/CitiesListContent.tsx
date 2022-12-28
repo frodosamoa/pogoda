@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-import { fadeIn } from "../../lib/constants/animations";
-import Loader from "../Loader";
-
 import City from "./City";
 import ErrorMessage from "./ErrorMessage";
+
+import Loader from "@/components/Loader";
+import { fadeIn } from "@/lib/constants/animations";
 
 const LoaderContainer = styled.div`
   margin-top: ${({ theme }) => theme.units.lg}px;

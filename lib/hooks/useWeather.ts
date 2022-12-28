@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { formatWeather } from "../utils/weather";
+import { formatWeather } from "@/lib/utils/weather";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

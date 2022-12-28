@@ -1,4 +1,4 @@
-import { getUVLabel } from "./uv";
+import { getUVLabel } from "@/lib/utils/uv";
 
 test("getUVLabel", () => {
   expect(getUVLabel(0)).toBe("Low");
