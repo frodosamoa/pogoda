@@ -16,6 +16,20 @@ const Container = styled.div`
     theme === "light" ? themes.dark : themes.light};
 `;
 
+const HeroBody = styled.div`
+  height: 100vh;
+  padding-top: 100px;
+
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+`;
+
+const ComponentContainer = styled.div`
+  height: 100%;
+  position: relative;
+`;
+
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");
   const [isMetric, setIsMetric] = useState(true);
@@ -41,17 +55,8 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
       <ThemeProvider theme={providedTheme}>
         <Container className="hero">
-          <div
-            className="hero-body"
-            style={{ height: "100vh", paddingTop: 100 }}
-          >
-            <div
-              className="container is-max-desktop"
-              style={{
-                height: "100%",
-                position: "relative",
-              }}
-            >
+          <HeroBody className="hero-body">
+            <ComponentContainer className="container is-max-desktop">
               <Component
                 {...pageProps}
                 setTheme={setTheme}
@@ -66,8 +71,8 @@ const App = ({ Component, pageProps }: AppProps) => {
                 setCity={setCity}
                 latLon={latLon}
               />
-            </div>
-          </div>
+            </ComponentContainer>
+          </HeroBody>
         </Container>
       </ThemeProvider>
     </>
