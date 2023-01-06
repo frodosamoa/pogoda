@@ -49,7 +49,7 @@ const BottomBoxShadow = styled.div<{ $show: boolean }>`
   position: absolute;
   height: 32px;
   width: 100%;
-  bottom: 0;
+  bottom: -2px;
   opacity: ${({ $show }) => ($show ? 1 : 0)};
   box-shadow: inset 0px -32px 16px -16px
     ${({ theme: { theme, themes } }) => themes[theme]};
