@@ -20,6 +20,11 @@ const Container = styled(Div100vh)`
 const HeroBody = styled.div`
   height: 100%;
   padding-top: 100px;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    padding-top: 70px;
+  }
 `;
 
 const ComponentContainer = styled.div`

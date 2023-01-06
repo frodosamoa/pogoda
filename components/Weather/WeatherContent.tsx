@@ -32,6 +32,11 @@ const WeatherItemsContainer = styled.div`
   justify-content: center;
   height: calc(100% - 200px);
   overflow: scroll;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    height: calc(100% - 160px);
+  }
 `;
 
 const TopBoxShadow = styled.div<{ $show: boolean }>`
@@ -43,6 +48,11 @@ const TopBoxShadow = styled.div<{ $show: boolean }>`
   opacity: ${({ $show }) => ($show ? 1 : 0)};
   box-shadow: inset 0px 32px 16px -16px ${({ theme: { theme, themes } }) => themes[theme]};
   transition: opacity ease-in-out 150ms, box-shadow ease-in-out 150ms;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    top: 160px;
+  }
 `;
 
 const BottomBoxShadow = styled.div<{ $show: boolean }>`
