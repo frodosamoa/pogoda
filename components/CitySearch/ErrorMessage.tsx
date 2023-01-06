@@ -1,3 +1,4 @@
+import { KeyedMutator } from "swr";
 import styled from "styled-components";
 import { AlertCircle } from "lucide-react";
 
@@ -22,15 +23,18 @@ const Message = styled.div`
 `;
 
 type ErrorMessageProps = {
-  onError: () => void;
+  setCities: KeyedMutator<City[]>;
 };
 
-const ErrorMessage = ({ onError }: ErrorMessageProps) => (
+const ErrorMessage = ({ setCities }: ErrorMessageProps) => (
   <Container>
     <AlertCircle size={24} />
     <Message>something went wrong searching for cities</Message>
     <div>
-      <button className={"button is-black is-small"} onClick={() => onError()}>
+      <button
+        className={"button is-black is-small"}
+        onClick={() => setCities()}
+      >
         try again
       </button>
     </div>

@@ -14,6 +14,7 @@ type City = {
   administrativeName: string;
   cityId: string;
   countryName: string;
+  countryCode: string;
   latitude: number;
   longitude: number;
   name: string;
@@ -27,12 +28,12 @@ type WeatherCondition = {
 };
 
 type CurrentWeatherResponse = {
-  cloudis: number;
+  clouds: number;
   dew_point: number;
   dt: number;
   feels_like: number;
   humidity: number;
-  moon_phase: number;
+  moon_phase?: number;
   pressure: number;
   rain?: { "1h": number };
   snow?: { "1h": number };
@@ -50,8 +51,8 @@ type CurrentWeatherResponse = {
 type DailyForecastResponse = {
   dt: number;
   pop: number;
-  rain: number;
-  snow: number;
+  rain?: number;
+  snow?: number;
   moon_phase: number;
   sunrise: number;
   sunset: number;
@@ -97,7 +98,7 @@ type AlertResponse = {
 
 type WeatherResponse = {
   airPollution: AirPollutionResponse;
-  alerts: AlertResponse[];
+  alerts?: AlertResponse[];
   current: CurrentWeatherResponse;
   daily: DailyForecastResponse[];
   hourly: HourlyForecastResponse[];

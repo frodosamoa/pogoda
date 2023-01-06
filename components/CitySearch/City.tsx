@@ -9,6 +9,8 @@ type CityProps = {
   isSelected: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
+  setInputValue: Dispatch<SetStateAction<string>>;
+  setCities: Dispatch<SetStateAction<[] | City[]>>;
 };
 
 type ContainerProps = {
@@ -26,18 +28,19 @@ const Container = styled.div<ContainerProps>`
   padding: 4px 6px;
   margin-bottom: 2px;
   border-radius: 6px;
-  transition: background-color 150ms ease-in-out;
   font-size: 18px;
-  max-width: 500px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0;
+  width: 100%;
   animation: 100ms cubic-bezier(0, 0, 0.16, 1) 0ms 1 normal forwards running
     ${fadeIn};
+  ${({ $isSelected }) =>
+    $isSelected ? "transition: background-color 150ms ease-in-out;" : ""}
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.tablet}px) {
+    breakpoints.tablet}px) {
     grid-column: 1 / 4;
     max-width: 350px;
   }
@@ -56,10 +59,34 @@ const AdministrativeName = styled.span`
   }
 `;
 
-const City = ({ city, isSelected, setLatLon, setCity }: CityProps) => (
+const CountryName = styled.span`
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    display: none;
+  }
+`;
+
+const CountryCode = styled.span`
+  @media screen and (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}px) {
+    display: none;
+  }
+`;
+
+const City = ({
+  city,
+  isSelected,
+  setLatLon,
+  setCity,
+  setInputValue,
+}: CityProps) => (
   <Container
+    title={`${city.name}, ${
+      city.administrativeName ? `${city.administrativeName}, ` : ""
+    }${city.countryName}`}
     $isSelected={isSelected}
     onClick={() => {
+      setInputValue("");
       setLatLon([city.latitude, city.longitude]);
       setCity(city);
     }}
@@ -68,7 +95,8 @@ const City = ({ city, isSelected, setLatLon, setCity }: CityProps) => (
     <AdministrativeName>
       {city.administrativeName ? `${city.administrativeName}, ` : ""}
     </AdministrativeName>{" "}
-    {city.countryName}
+    <CountryName>{city.countryName}</CountryName>
+    <CountryCode>{city.countryCode}</CountryCode>
   </Container>
 );
 

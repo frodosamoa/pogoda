@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { KeyedMutator } from "swr";
 import { AlertCircle } from "lucide-react";
@@ -10,6 +9,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
   opacity: 0;
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     ${fadeIn};
@@ -24,28 +24,24 @@ const Message = styled.div`
 `;
 
 type ErrorMessageProps = {
-  setLatLon: Dispatch<SetStateAction<[number, number]>>;
-  setWeather: KeyedMutator<WeatherResponse>;
+  setWeather: KeyedMutator<WeatherResponse | string>;
 };
 
-const ErrorMessage = ({ setLatLon, setWeather }: ErrorMessageProps) => {
-  return (
-    <Container>
-      <AlertCircle size={36} />
-      <Message>something went wrong fetching the weather</Message>
-      <div>
-        <button
-          className={"button is-black"}
-          onClick={() => {
-            setLatLon(null);
-            setWeather(null);
-          }}
-        >
-          try again
-        </button>
-      </div>
-    </Container>
-  );
-};
+const ErrorMessage = ({ setWeather }: ErrorMessageProps) => (
+  <Container>
+    <AlertCircle size={36} />
+    <Message>something went wrong fetching the weather</Message>
+    <div>
+      <button
+        className={"button is-black"}
+        onClick={() => {
+          setWeather();
+        }}
+      >
+        try again
+      </button>
+    </div>
+  </Container>
+);
 
 export default ErrorMessage;

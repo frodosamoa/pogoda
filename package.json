@@ -32,6 +32,7 @@
     "react-dom": "^18.2.0",
     "react-moon": "^2.0.2",
     "react-transition-group": "^4.4.5",
+    "react-use": "^17.4.0",
     "styled-components": "^5.3.6",
     "swr": "^2.0.0",
     "weathericons": "^2.1.0"

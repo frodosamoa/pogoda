@@ -8,6 +8,7 @@ import {
 } from "react";
 import chroma from "chroma-js";
 import styled from "styled-components";
+import { XCircle } from "lucide-react";
 
 import { fadeIn } from "@/lib/constants/animations";
 
@@ -17,16 +18,14 @@ type CityInputProps = {
   setInputValue: Dispatch<SetStateAction<string>>;
   cityIndex: number;
   isLoading: boolean;
-  isInputEmptyString: boolean;
   setCity: Dispatch<SetStateAction<City>>;
-  setCities: Dispatch<SetStateAction<[] | City[]>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityIndex: Dispatch<SetStateAction<number>>;
 };
 
 const StyledInput = styled.input`
   box-shadow: none;
-  width: 500px;
+  width: 400px;
   background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   color: ${({ theme: { themes, theme } }) =>
     theme === "light" ? themes.dark : themes.light};
@@ -70,14 +69,32 @@ const StyledInput = styled.input`
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}px) {
     grid-column: 1 / 4;
-    width: 350px;
+    width: 250px;
   }
 
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
     grid-column: 1 / 3;
-    width: 250px;
+    width: 175px;
   }
+`;
+
+const StyledXCircleIcon = styled(XCircle)`
+  position: absolute;
+  cursor: pointer;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 8px;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    display: none;
+  }
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
 
 const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
@@ -87,10 +104,8 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
       inputValue,
       setInputValue,
       cityIndex,
-      isInputEmptyString,
       setCityIndex,
       setCity,
-      setCities,
       setLatLon,
     },
     ref
@@ -106,7 +121,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     };
 
     const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
-      if (e.key === "Enter" && !isInputEmptyString) {
+      if (e.key === "Enter" && cities?.length > 0) {
         const city = cities[cityIndex];
         setLatLon([city.latitude, city.longitude]);
         setCity(city);
@@ -123,22 +138,26 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
           setCityIndex(0);
         } else {
           setInputValue("");
-          setCities([]);
         }
       },
-      [setInputValue, setCityIndex, setCities]
+      [setInputValue, setCityIndex]
     );
 
     return (
-      <StyledInput
-        ref={ref}
-        value={inputValue}
-        placeholder="Search for a city..."
-        className={"input is-large is-rounded"}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
-      />
+      <Container>
+        <StyledInput
+          ref={ref}
+          value={inputValue}
+          placeholder="Search for a city..."
+          className={"input"}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
+        />
+        {inputValue !== "" && (
+          <StyledXCircleIcon size={18} onClick={() => setInputValue("")} />
+        )}
+      </Container>
     );
   }
 );

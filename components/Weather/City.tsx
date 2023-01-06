@@ -3,11 +3,14 @@ import styled from "styled-components";
 import { fadeUp } from "@/lib/constants/animations";
 
 const Container = styled.div`
-  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   opacity: 0;
+  height: 200px;
+  background-color: ${({ theme: { theme, themes } }) => themes[theme]};
+  transition: background-color 150ms ease-in-out;
 
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     ${fadeUp};

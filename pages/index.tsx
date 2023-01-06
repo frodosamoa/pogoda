@@ -1,20 +1,17 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-import Application from "@/components/Application";
-import Hero from "@/components/Hero";
+import Weather from "@/components/Weather";
 import useWeather from "@/lib/hooks/useWeather";
 
 type IndexProps = {
   setTheme: Dispatch<SetStateAction<Theme>>;
   isMetric: boolean;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
+  latLon: [number, number];
+  city?: City;
 };
 
-const Index = ({ setTheme, isMetric, setIsMetric }: IndexProps) => {
-  const [latLon, setLatLon] = useState<[number, number] | null>(null);
-  const [city, setCity] = useState<City | null>(null);
-
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
   const {
     data: weather,
     error,
@@ -26,30 +23,15 @@ const Index = ({ setTheme, isMetric, setIsMetric }: IndexProps) => {
   });
 
   return (
-    <>
-      <Hero
-        setLatLon={setLatLon}
-        setCity={setCity}
-        setIsSettingsOpen={setIsSettingsOpen}
-        city={city}
-        weather={weather}
-        error={error}
-        isLoading={isLoading}
-        setWeather={setWeather}
-      />
-      <Application
-        isSettingsOpen={isSettingsOpen}
-        setIsSettingsOpen={setIsSettingsOpen}
-        isMetric={isMetric}
-        setIsMetric={setIsMetric}
-        setTheme={setTheme}
-        latLon={latLon}
-        setLatLon={setLatLon}
-        setCity={setCity}
-        setWeather={setWeather}
-        weather={weather}
-      />
-    </>
+    <Weather
+      city={city}
+      weather={weather}
+      error={error}
+      isLoading={isLoading}
+      setWeather={setWeather}
+      isMetric={isMetric}
+      setIsMetric={setIsMetric}
+    />
   );
 };
 

@@ -34,12 +34,6 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
     inputRef?.current?.focus();
   }, []);
 
-  const onError = () => {
-    setCities([]);
-    setInputValue("");
-    inputRef?.current?.focus();
-  };
-
   return (
     <Container>
       <CityInput
@@ -47,23 +41,21 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
         inputValue={inputValue}
         isLoading={isLoading}
         setInputValue={setInputValue}
-        isInputEmptyString={inputValue === ""}
         cities={cities}
         cityIndex={cityIndex}
         setCityIndex={setCityIndex}
-        setCities={setCities}
         setCity={setCity}
         setLatLon={setLatLon}
       />
       <CitiesList
         cities={cities}
         error={error}
-        onError={onError}
-        isInputEmptyString={inputValue === ""}
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCity={setCity}
         isLoading={isLoading}
+        setCities={setCities}
+        setInputValue={setInputValue}
       />
     </Container>
   );
