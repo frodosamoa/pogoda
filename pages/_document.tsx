@@ -1,18 +1,5 @@
-import Document, {
-  DocumentContext,
-  DocumentInitialProps,
-  Html,
-  Head,
-  Main,
-  NextScript,
-} from "next/document";
-import styled, { ServerStyleSheet } from "styled-components";
-
-const StyledBody = styled.body`
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
-`;
+import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
   static async getInitialProps(
@@ -41,17 +28,5 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
-  }
-
-  render() {
-    return (
-      <Html>
-        <Head />
-        <StyledBody>
-          <Main />
-          <NextScript />
-        </StyledBody>
-      </Html>
-    );
   }
 }

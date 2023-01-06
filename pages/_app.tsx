@@ -1,6 +1,7 @@
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { useState } from "react";
+import Div100vh from "react-div-100vh";
 import styled, { ThemeProvider, DefaultTheme } from "styled-components";
 
 import { DEFAULT_THEME } from "@/lib/constants/theme";
@@ -9,7 +10,7 @@ import MenuBar from "@/components/MenuBar";
 
 import "../styles/styles.css";
 
-const Container = styled.div`
+const Container = styled(Div100vh)`
   transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
   background-color: ${({ theme: { theme, themes } }) => themes[theme]};
   color: ${({ theme: { themes, theme } }) =>
@@ -17,12 +18,8 @@ const Container = styled.div`
 `;
 
 const HeroBody = styled.div`
-  height: 100vh;
+  height: 100%;
   padding-top: 100px;
-
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available;
-  }
 `;
 
 const ComponentContainer = styled.div`
