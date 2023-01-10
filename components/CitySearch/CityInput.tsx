@@ -17,7 +17,6 @@ type CityInputProps = {
   inputValue: string;
   setInputValue: Dispatch<SetStateAction<string>>;
   cityIndex: number;
-  isLoading: boolean;
   setCity: Dispatch<SetStateAction<City>>;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCityIndex: Dispatch<SetStateAction<number>>;

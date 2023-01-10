@@ -25,7 +25,7 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
   const debouncedInputValue = useDebounce(inputValue, 300);
   const {
     data: cities,
-    isLoading,
+    isValidating,
     error,
     mutate: setCities,
   } = useCities(debouncedInputValue);
@@ -39,7 +39,6 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
       <CityInput
         ref={inputRef}
         inputValue={inputValue}
-        isLoading={isLoading}
         setInputValue={setInputValue}
         cities={cities}
         cityIndex={cityIndex}
@@ -53,7 +52,7 @@ const CitySearch = ({ setLatLon, setCity }: CitySearchProps) => {
         cityIndex={cityIndex}
         setLatLon={setLatLon}
         setCity={setCity}
-        isLoading={isLoading}
+        isValidating={isValidating}
         setCities={setCities}
         setInputValue={setInputValue}
       />

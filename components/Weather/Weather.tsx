@@ -23,7 +23,7 @@ type WeatherProps = {
   city?: City;
   weather: Weather;
   error: Error;
-  isLoading: boolean;
+  isValidating: boolean;
   setWeather: KeyedMutator<WeatherResponse>;
   isMetric: boolean;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
@@ -34,11 +34,11 @@ const Weather = ({
   weather,
   error,
   setWeather,
-  isLoading,
+  isValidating,
   isMetric,
   setIsMetric,
 }: WeatherProps) => {
-  if (isLoading) {
+  if (isValidating) {
     return (
       <LoaderContainer>
         <Loader />

@@ -12,13 +12,14 @@ const useWeather = ({
   isMetric: boolean;
 }) => {
   const shouldFetch = latLon?.length > 0;
-  const { data, error, isLoading, mutate } = useSWR<WeatherResponse, Error>(
+  const { data, error, isValidating, mutate } = useSWR<WeatherResponse, Error>(
     shouldFetch
       ? `/api/weather?latitude=${latLon[1]}&longitude=${latLon[0]}&exclude=minutely`
       : null,
     fetcher,
     {
       shouldRetryOnError: false,
+      revalidateIfStale: false,
       revalidateOnReconnect: false,
       revalidateOnFocus: false,
     }
@@ -27,7 +28,7 @@ const useWeather = ({
   return {
     data: formatWeather(data, isMetric),
     error,
-    isLoading,
+    isValidating,
     mutate,
   };
 };

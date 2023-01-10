@@ -15,7 +15,7 @@ const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
   const {
     data: weather,
     error,
-    isLoading,
+    isValidating,
     mutate: setWeather,
   } = useWeather({
     latLon,
@@ -27,7 +27,7 @@ const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
       city={city}
       weather={weather}
       error={error}
-      isLoading={isLoading}
+      isValidating={isValidating}
       setWeather={setWeather}
       isMetric={isMetric}
       setIsMetric={setIsMetric}

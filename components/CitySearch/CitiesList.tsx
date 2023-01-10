@@ -47,7 +47,7 @@ type CitiesListProps = {
   cityIndex: number;
   error: Error;
   cities: City[];
-  isLoading: boolean;
+  isValidating: boolean;
   setLatLon: Dispatch<SetStateAction<[number, number]>>;
   setCity: Dispatch<SetStateAction<City>>;
   setInputValue: Dispatch<SetStateAction<string>>;
@@ -55,7 +55,7 @@ type CitiesListProps = {
 };
 
 const CitiesList = ({
-  isLoading,
+  isValidating,
   error,
   cities,
   setCity,
@@ -64,7 +64,7 @@ const CitiesList = ({
   setCities,
   setInputValue,
 }: CitiesListProps) => {
-  if (isLoading) {
+  if (isValidating) {
     return (
       <Container>
         <Loader />
