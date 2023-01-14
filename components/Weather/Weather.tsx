@@ -27,6 +27,8 @@ type WeatherProps = {
   setWeather: KeyedMutator<WeatherResponse>;
   isMetric: boolean;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
+  is24hr: boolean;
+  setIs24hr: Dispatch<SetStateAction<boolean>>;
 };
 
 const Weather = ({
@@ -37,6 +39,8 @@ const Weather = ({
   isValidating,
   isMetric,
   setIsMetric,
+  is24hr,
+  setIs24hr,
 }: WeatherProps) => {
   if (isValidating) {
     return (
@@ -57,6 +61,8 @@ const Weather = ({
         weather={weather}
         isMetric={isMetric}
         setIsMetric={setIsMetric}
+        is24hr={is24hr}
+        setIs24hr={setIs24hr}
       />
     );
   }

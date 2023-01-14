@@ -16,23 +16,38 @@ import {
 import { getWindSpeed, getWindLabel, getWindDirection } from "@/lib/utils/wind";
 import { getVisibility, getVisibilityUnit } from "@/lib/utils/visibility";
 
-const formatAlerts = (alerts: AlertResponse[], timezone: string) =>
+const formatAlerts = ({
+  alerts,
+  timezone,
+  is24hr,
+}: {
+  alerts: AlertResponse[];
+  timezone: string;
+  is24hr: boolean;
+}) =>
   alerts?.map(({ sender_name: senderName, event, end }) => ({
     senderName,
     event,
     end: formatInTimeZone(
       new Date(end * 1000),
       timezone,
-      "HH:mm, eeee, MMMM dd"
+      is24hr ? "HH:mm, eeee, MMMM dd" : "h:mma, eeee, MMMM dd"
     ),
   }));
 
-const formatHourly = (
-  hourly: HourlyForecastResponse[],
-  timezone: string,
-  isMetric: boolean,
-  sunrisesSunsets: SunriseSunset[]
-): (HourlyForecast | SunriseSunset)[] => {
+const formatHourly = ({
+  hourly,
+  timezone,
+  isMetric,
+  sunrisesSunsets,
+  is24hr,
+}: {
+  hourly: HourlyForecastResponse[];
+  timezone: string;
+  isMetric: boolean;
+  sunrisesSunsets: SunriseSunset[];
+  is24hr: boolean;
+}): (HourlyForecast | SunriseSunset)[] => {
   let sunriseSunsetIndex = 0;
   let isDay = sunrisesSunsets[sunriseSunsetIndex]?.type !== "sunrise";
 
@@ -41,7 +56,11 @@ const formatHourly = (
       date:
         index === 0
           ? "Now"
-          : formatInTimeZone(new Date(dt * 1000), timezone, "HH"),
+          : formatInTimeZone(
+              new Date(dt * 1000),
+              timezone,
+              is24hr ? "HH" : "ha"
+            ),
       dt: utcToZonedTime(new Date(dt * 1000), timezone),
       temp: formatTemp(temp, isMetric),
       precipitationChance: Math.round(pop * 100),
@@ -63,7 +82,13 @@ const formatHourly = (
   }, []);
 };
 
-const formatDaily = (daily: DailyForecastResponse[], isMetric: boolean) =>
+const formatDaily = ({
+  daily,
+  isMetric,
+}: {
+  daily: DailyForecastResponse[];
+  isMetric: boolean;
+}) =>
   daily?.map(({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
     sunrise,
     sunset,
@@ -77,15 +102,23 @@ const formatDaily = (daily: DailyForecastResponse[], isMetric: boolean) =>
     ...getWeatherIconInfo(weather, true),
   }));
 
-const formatCurrent = (
-  current: CurrentWeatherResponse,
-  airPollution: AirPollutionResponse,
-  isMetric: boolean,
-  sunrisesSunsets: SunriseSunset[],
-  hourly: HourlyForecastResponse[],
-  daily: DailyForecastResponse[],
-  timezone: string
-): CurrentWeather => ({
+const formatCurrent = ({
+  current,
+  airPollution,
+  isMetric,
+  sunrisesSunsets,
+  hourly,
+  daily,
+  timezone,
+}: {
+  current: CurrentWeatherResponse;
+  airPollution: AirPollutionResponse;
+  isMetric: boolean;
+  sunrisesSunsets: SunriseSunset[];
+  hourly: HourlyForecastResponse[];
+  daily: DailyForecastResponse[];
+  timezone: string;
+}): CurrentWeather => ({
   sunrisesSunsets,
   humidity: current.humidity,
   temp: formatTemp(current.temp, isMetric),
@@ -114,10 +147,15 @@ const formatCurrent = (
   ...getWeatherIconInfo(current.weather, true),
 });
 
-const getSunrisesSunsets = (
-  daily: DailyForecastResponse[],
-  timezone: string
-): SunriseSunset[] => {
+const getSunrisesSunsets = ({
+  daily,
+  timezone,
+  is24hr,
+}: {
+  daily: DailyForecastResponse[];
+  timezone: string;
+  is24hr: boolean;
+}): SunriseSunset[] => {
   const now = utcToZonedTime(new Date(Date.now()), timezone);
 
   return daily
@@ -140,34 +178,49 @@ const getSunrisesSunsets = (
     .map(({ dt, ...s }) => ({
       ...s,
       dt: utcToZonedTime(new Date(dt * 1000), timezone),
-      date: formatInTimeZone(new Date(dt * 1000), timezone, "HH:mm"),
+      date: formatInTimeZone(
+        new Date(dt * 1000),
+        timezone,
+        is24hr ? "HH:mm" : "h:mma"
+      ),
     }))
     .filter((s) => now < s.dt);
 };
 
-export const formatWeather = (
-  weather: WeatherResponse,
-  isMetric: boolean
-): Weather => {
-  if (!weather) return null;
+export const formatWeather = ({
+  data,
+  isMetric,
+  is24hr,
+}: {
+  data: WeatherResponse;
+  isMetric: boolean;
+  is24hr: boolean;
+}): Weather => {
+  if (!data) return null;
 
-  const { timezone, current, daily, hourly, airPollution, alerts } = weather;
+  const { timezone, current, daily, hourly, airPollution, alerts } = data;
 
-  const sunrisesSunsets = getSunrisesSunsets(daily, timezone);
+  const sunrisesSunsets = getSunrisesSunsets({ daily, timezone, is24hr });
 
   return {
     timezone,
-    alerts: formatAlerts(alerts, timezone),
-    current: formatCurrent(
+    alerts: formatAlerts({ alerts, timezone, is24hr }),
+    current: formatCurrent({
       current,
       airPollution,
       isMetric,
       sunrisesSunsets,
       hourly,
       daily,
-      timezone
-    ),
-    hourly: formatHourly(hourly, timezone, isMetric, sunrisesSunsets),
-    daily: formatDaily(daily, isMetric),
+      timezone,
+    }),
+    hourly: formatHourly({
+      hourly,
+      timezone,
+      isMetric,
+      sunrisesSunsets,
+      is24hr,
+    }),
+    daily: formatDaily({ daily, isMetric }),
   };
 };

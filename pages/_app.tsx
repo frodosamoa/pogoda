@@ -35,7 +35,15 @@ const ComponentContainer = styled.div`
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");
   const [isMetric, setIsMetric] = useState(true);
-  useLocalStorage({ setTheme, theme, isMetric, setIsMetric });
+  const [is24hr, setIs24hr] = useState(false);
+  useLocalStorage({
+    setTheme,
+    theme,
+    isMetric,
+    setIsMetric,
+    is24hr,
+    setIs24hr,
+  });
 
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
@@ -64,6 +72,8 @@ const App = ({ Component, pageProps }: AppProps) => {
                 setTheme={setTheme}
                 isMetric={isMetric}
                 setIsMetric={setIsMetric}
+                is24hr={is24hr}
+                setIs24hr={setIs24hr}
                 latLon={latLon}
                 city={city}
               />

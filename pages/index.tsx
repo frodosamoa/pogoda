@@ -9,9 +9,18 @@ type IndexProps = {
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   latLon: [number, number];
   city?: City;
+  is24hr: boolean;
+  setIs24hr: Dispatch<SetStateAction<boolean>>;
 };
 
-const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
+const Index = ({
+  latLon,
+  city,
+  isMetric,
+  setIsMetric,
+  is24hr,
+  setIs24hr,
+}: IndexProps) => {
   const {
     data: weather,
     error,
@@ -20,6 +29,7 @@ const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
   } = useWeather({
     latLon,
     isMetric,
+    is24hr,
   });
 
   return (
@@ -31,6 +41,8 @@ const Index = ({ latLon, city, isMetric, setIsMetric }: IndexProps) => {
       setWeather={setWeather}
       isMetric={isMetric}
       setIsMetric={setIsMetric}
+      is24hr={is24hr}
+      setIs24hr={setIs24hr}
     />
   );
 };

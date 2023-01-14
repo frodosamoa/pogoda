@@ -28,21 +28,21 @@ const Unit = styled.div<{ $isSelected: boolean }>`
   transition: background-color 150ms ease-in-out;
 `;
 
-type UnitsProps = {
-  isMetric: boolean;
-  setIsMetric: Dispatch<SetStateAction<boolean>>;
+type TimeProps = {
+  is24hr: boolean;
+  setIs24hr: Dispatch<SetStateAction<boolean>>;
 };
 
-const Units = ({ isMetric, setIsMetric }: UnitsProps) => (
-  <Container onClick={() => setIsMetric(!isMetric)}>
-    <Unit $isSelected={isMetric} title="Metric">
-      C°, m/s
+const Time = ({ is24hr, setIs24hr }: TimeProps) => (
+  <Container onClick={() => setIs24hr(!is24hr)}>
+    <Unit $isSelected={is24hr} title="24h">
+      24h
     </Unit>
     <Divider />
-    <Unit $isSelected={!isMetric} title="Imperial">
-      F°, mph
+    <Unit $isSelected={!is24hr} title="12h">
+      12h
     </Unit>
   </Container>
 );
 
-export default Units;
+export default Time;

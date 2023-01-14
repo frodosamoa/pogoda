@@ -7,11 +7,15 @@ const useLocalStorage = ({
   setIsMetric,
   isMetric,
   theme,
+  is24hr,
+  setIs24hr,
 }: {
   setTheme: Dispatch<SetStateAction<Theme>>;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   isMetric: boolean;
   theme: Theme;
+  is24hr: boolean;
+  setIs24hr: Dispatch<SetStateAction<boolean>>;
 }) => {
   useEffect(() => {
     if (window) {
@@ -39,11 +43,16 @@ const useLocalStorage = ({
         setIsMetric(!isMetric);
       }
 
+      if (preferences?.is24hr !== is24hr) {
+        setIs24hr(!is24hr);
+      }
+
       localStorage.setItem(
         window.location.origin,
         JSON.stringify({
           isMetric,
           theme,
+          is24hr,
         })
       );
     }
@@ -56,10 +65,11 @@ const useLocalStorage = ({
         JSON.stringify({
           isMetric,
           theme,
+          is24hr,
         })
       );
     }
-  }, [isMetric, theme]);
+  }, [isMetric, theme, is24hr]);
 };
 
 export default useLocalStorage;

@@ -7,9 +7,11 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const useWeather = ({
   latLon,
   isMetric,
+  is24hr,
 }: {
   latLon: [number, number];
   isMetric: boolean;
+  is24hr: boolean;
 }) => {
   const shouldFetch = latLon?.length > 0;
   const { data, error, isValidating, mutate } = useSWR<WeatherResponse, Error>(
@@ -26,7 +28,7 @@ const useWeather = ({
   );
 
   return {
-    data: formatWeather(data, isMetric),
+    data: formatWeather({ data, isMetric, is24hr }),
     error,
     isValidating,
     mutate,

@@ -17,6 +17,7 @@ import AirQuality from "./AirQuality";
 import Snowfall from "./Snowfall";
 import MoonPhase from "./MoonPhase";
 import Units from "./Units";
+import Time from "./Time";
 
 import { fadeIn } from "@/lib/constants/animations";
 
@@ -25,6 +26,8 @@ type WeatherContentProps = {
   weather: Weather;
   isMetric: boolean;
   setIsMetric: Dispatch<SetStateAction<boolean>>;
+  is24hr: boolean;
+  setIs24hr: Dispatch<SetStateAction<boolean>>;
 };
 
 const WeatherItemsContainer = styled.div`
@@ -95,11 +98,29 @@ const WeatherItems = styled.div`
   }
 `;
 
+const Settings = styled.div`
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  bottom: -36px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  opacity: 0;
+
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
+    ${fadeIn};
+`;
+
 const WeatherContent = ({
   weather,
   city,
   isMetric,
   setIsMetric,
+  is24hr,
+  setIs24hr,
 }: WeatherContentProps) => {
   const {
     airQuality,
@@ -186,7 +207,10 @@ const WeatherContent = ({
         </WeatherItems>
         <BottomBoxShadow $show={showBottomShadow} />
       </WeatherItemsContainer>
-      <Units setIsMetric={setIsMetric} isMetric={isMetric} />
+      <Settings>
+        <Units setIsMetric={setIsMetric} isMetric={isMetric} />
+        <Time setIs24hr={setIs24hr} is24hr={is24hr} />
+      </Settings>
     </>
   );
 };

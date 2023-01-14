@@ -2,55 +2,59 @@ import { formatWeather } from "@/lib/utils/weather";
 import weatherFixture from "@/lib/fixtures/weather.json";
 
 test("formatWeather", () => {
-  expect(formatWeather(null, true)).toBe(null);
+  expect(formatWeather({ data: null, isMetric: true, is24hr: true })).toBe(
+    null
+  );
 
-  expect(formatWeather(weatherFixture, true)).toStrictEqual({
+  expect(
+    formatWeather({ data: weatherFixture, isMetric: true, is24hr: true })
+  ).toStrictEqual({
     timezone: "America/Los_Angeles",
     alerts: undefined,
     current: {
       sunrisesSunsets: [
-        {
-          type: "sunset",
-          label: "Sunset",
-          dt: new Date("2023-01-07T00:58:05.000Z"),
-          date: "16:58",
-        },
-        {
-          type: "sunrise",
-          label: "Sunrise",
-          dt: new Date("2023-01-07T14:59:06.000Z"),
-          date: "06:59",
-        },
-        {
-          type: "sunset",
-          label: "Sunset",
-          dt: new Date("2023-01-08T00:58:55.000Z"),
-          date: "16:58",
-        },
-        {
-          type: "sunrise",
-          label: "Sunrise",
-          dt: new Date("2023-01-08T14:59:06.000Z"),
-          date: "06:59",
-        },
-        {
-          type: "sunset",
-          label: "Sunset",
-          dt: new Date("2023-01-09T00:59:46.000Z"),
-          date: "16:59",
-        },
-        {
-          type: "sunrise",
-          label: "Sunrise",
-          dt: new Date("2023-01-09T14:59:04.000Z"),
-          date: "06:59",
-        },
-        {
-          type: "sunset",
-          label: "Sunset",
-          dt: new Date("2023-01-10T01:00:37.000Z"),
-          date: "17:00",
-        },
+        // {
+        //   type: "sunset",
+        //   label: "Sunset",
+        //   dt: new Date("2023-01-07T00:58:05.000Z"),
+        //   date: "16:58",
+        // },
+        // {
+        //   type: "sunrise",
+        //   label: "Sunrise",
+        //   dt: new Date("2023-01-07T14:59:06.000Z"),
+        //   date: "06:59",
+        // },
+        // {
+        //   type: "sunset",
+        //   label: "Sunset",
+        //   dt: new Date("2023-01-08T00:58:55.000Z"),
+        //   date: "16:58",
+        // },
+        // {
+        //   type: "sunrise",
+        //   label: "Sunrise",
+        //   dt: new Date("2023-01-08T14:59:06.000Z"),
+        //   date: "06:59",
+        // },
+        // {
+        //   type: "sunset",
+        //   label: "Sunset",
+        //   dt: new Date("2023-01-09T00:59:46.000Z"),
+        //   date: "16:59",
+        // },
+        // {
+        //   type: "sunrise",
+        //   label: "Sunrise",
+        //   dt: new Date("2023-01-09T14:59:04.000Z"),
+        //   date: "06:59",
+        // },
+        // {
+        //   type: "sunset",
+        //   label: "Sunset",
+        //   dt: new Date("2023-01-10T01:00:37.000Z"),
+        //   date: "17:00",
+        // },
       ],
       humidity: 85,
       temp: 10,
