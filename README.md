@@ -21,6 +21,8 @@ The project uses [OpenWeather](https://openweathermap.org/)'s [Weather API](http
 
 The production site connects to a PostgreSQL instance located on [Supabase](https://supabase.com/).
 
+Error handling is done with [Sentry](https://sentry.io).
+
 ## Getting Started
 
 In order to run the project locally, you'll need the following:
