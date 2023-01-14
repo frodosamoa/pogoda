@@ -103,7 +103,7 @@ const Settings = styled.div`
   left: 0px;
   right: 0px;
   margin: 0 auto;
-  bottom: -36px;
+  bottom: -40px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;

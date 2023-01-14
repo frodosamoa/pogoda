@@ -6,6 +6,7 @@ import styled, { ThemeProvider, DefaultTheme } from "styled-components";
 
 import { DEFAULT_THEME } from "@/lib/constants/theme";
 import useLocalStorage from "@/lib/hooks/useLocalStorage";
+import useGreeting from "@/lib/hooks/useGreeting";
 import MenuBar from "@/components/MenuBar";
 
 import "../styles/styles.css";
@@ -47,6 +48,8 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
+
+  useGreeting();
 
   const providedTheme: DefaultTheme = {
     theme,
