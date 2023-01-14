@@ -7,6 +7,7 @@ import styled, { ThemeProvider, DefaultTheme } from "styled-components";
 import { DEFAULT_THEME } from "@/lib/constants/theme";
 import useLocalStorage from "@/lib/hooks/useLocalStorage";
 import useGreeting from "@/lib/hooks/useGreeting";
+import useWeather from "@/lib/hooks/useWeather";
 import MenuBar from "@/components/MenuBar";
 
 import "../styles/styles.css";
@@ -33,6 +34,22 @@ const ComponentContainer = styled.div`
   position: relative;
 `;
 
+const getAppTitle = ({ city, weather }: { city?: City; weather?: Weather }) => {
+  if (weather?.current) {
+    const { temp, label } = weather?.current;
+
+    if (city) {
+      const { name } = city;
+
+      return `${name} ${temp}° | ${label}`;
+    } else {
+      return `${temp}° | ${label}`;
+    }
+  }
+
+  return "Pogoda - Weather Dashboard";
+};
+
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");
   const [isMetric, setIsMetric] = useState(true);
@@ -49,6 +66,17 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [latLon, setLatLon] = useState<[number, number] | null>(null);
   const [city, setCity] = useState<City | null>(null);
 
+  const {
+    data: weather,
+    error,
+    isValidating,
+    mutate: setWeather,
+  } = useWeather({
+    latLon,
+    isMetric,
+    is24hr,
+  });
+
   useGreeting();
 
   const providedTheme: DefaultTheme = {
@@ -64,7 +92,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           rel="shortcut icon"
           href={theme === "light" ? "/sun-light.svg" : "/sun-dark.svg"}
         />
-        <title>Pogoda - Weather Dashboard</title>
+        <title>{getAppTitle({ city, weather })}</title>
       </Head>
       <ThemeProvider theme={providedTheme}>
         <Container className="hero">
@@ -79,6 +107,10 @@ const App = ({ Component, pageProps }: AppProps) => {
                 setIs24hr={setIs24hr}
                 latLon={latLon}
                 city={city}
+                weather={weather}
+                setWeather={setWeather}
+                isValidating={isValidating}
+                error={error}
               />
               <MenuBar
                 setTheme={setTheme}

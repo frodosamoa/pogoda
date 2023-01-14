@@ -11,6 +11,10 @@ import { fadeIn } from "@/lib/constants/animations";
 const NoResults = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[5]};
   align-self: center;
+
+  opacity: 0;
+  animation: 400ms cubic-bezier(0, 0, 0.16, 1) 100ms 1 normal forwards running
+    ${fadeIn};
 `;
 
 const Container = styled.div`
