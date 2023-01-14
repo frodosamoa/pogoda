@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Dispatch, SetStateAction } from "react";
 
+import { fadeIn } from "@/lib/constants/animations";
+
 const Container = styled.div`
   position: absolute;
   left: 0px;
@@ -12,6 +14,10 @@ const Container = styled.div`
   align-items: center;
   cursor: pointer;
   user-select: none;
+  opacity: 0;
+
+  animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
+    ${fadeIn};
 `;
 
 const Divider = styled.div`
