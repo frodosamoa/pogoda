@@ -91,6 +91,7 @@ type AirPollutionResponse = {
 };
 
 type AlertResponse = {
+  description: string;
   end: number;
   event: string;
   sender_name: string;
@@ -164,6 +165,7 @@ type HourlyForecast = {
 };
 
 type Alert = {
+  description: string;
   end: string;
   event: string;
   senderName: string;

@@ -174,9 +174,16 @@ const InfoModal = ({ isModalOpen, setIsModalOpen }: InfoModalProps) => (
           <Link target="_blank" rel="noreferrer" href="https://supabase.com/">
             Supabase
           </Link>
-          . the dataset comes from an npm packacge which contains a list of
-          138,938 cities in the world with a population of at least 1000
-          inhabitants.
+          . the dataset comes from the{" "}
+          <Link
+            target="_blank"
+            rel="noreferrer"
+            href="https://www.npmjs.com/package/all-the-cities"
+          >
+            following npm package
+          </Link>{" "}
+          which contains a list of 138,938 cities in the world with a population
+          of at least 1000 inhabitants.
         </p>
         <br />
         <p style={{ marginBottom: 48 }}>

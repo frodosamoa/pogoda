@@ -25,9 +25,10 @@ const formatAlerts = ({
   timezone: string;
   is24hr: boolean;
 }) =>
-  alerts?.map(({ sender_name: senderName, event, end }) => ({
+  alerts?.map(({ sender_name: senderName, event, end, description }) => ({
     senderName,
     event,
+    description,
     end: formatInTimeZone(
       new Date(end * 1000),
       timezone,

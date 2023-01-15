@@ -34,21 +34,15 @@ const ComponentContainer = styled.div`
   position: relative;
 `;
 
-const getAppTitle = ({ city, weather }: { city?: City; weather?: Weather }) => {
-  if (weather?.current) {
-    const { temp, label } = weather?.current;
-
-    if (city) {
-      const { name } = city;
-
-      return `${name} ${temp}° | ${label}`;
-    } else {
-      return `${temp}° | ${label}`;
-    }
-  }
-
-  return "Pogoda - Weather Dashboard";
-};
+const getAppTitle = ({ city, weather }: { city?: City; weather?: Weather }) =>
+  [
+    weather?.current && `${weather.current.temp}°`,
+    weather?.current && city && `${city.name}, ${city.countryName}`,
+    weather?.current?.label,
+    "Pogoda - Weather Dashboard",
+  ]
+    .filter(Boolean)
+    .join(" - ");
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");

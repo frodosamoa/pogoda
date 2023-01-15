@@ -19,6 +19,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  user-select: none;
 
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "dark"
