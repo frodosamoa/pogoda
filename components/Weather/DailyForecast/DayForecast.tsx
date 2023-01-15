@@ -5,8 +5,6 @@ import TemperatureBar from "./TemperatureBar";
 
 type DayForecastProps = {
   day: DailyForecast;
-  minTemp: number;
-  maxTemp: number;
 };
 
 const Container = styled.div`
@@ -56,7 +54,7 @@ const PercentChance = styled.p`
   font-size: ${({ theme }) => theme.fontSizes[9]};
 `;
 
-const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
+const DayForecast = ({ day }: DayForecastProps) => (
   <Container>
     <TitleContainer>
       <Title title={day.fullDate}>{day.date}</Title>
@@ -69,12 +67,7 @@ const DayForecast = ({ day, minTemp, maxTemp }: DayForecastProps) => (
       )}
     </IconContainer>
 
-    <TemperatureBar
-      minTemp={minTemp}
-      maxTemp={maxTemp}
-      dayMin={day.temp.min}
-      dayMax={day.temp.max}
-    />
+    <TemperatureBar day={day} />
   </Container>
 );
 

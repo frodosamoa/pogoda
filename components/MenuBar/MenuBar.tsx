@@ -51,6 +51,11 @@ const Bar = styled.div`
     theme === "light" ? themes.dark : themes.light};
   background-color: ${({ theme: { theme, colors } }) =>
     theme === "light" ? colors.greyLighter : colors.blackTer};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.desktop}px) {
+    border-radius: 0;
+  }
 `;
 
 const MenuIcons = styled.div`

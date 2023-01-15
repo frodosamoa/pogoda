@@ -46,25 +46,15 @@ const DayForecastContainer = styled.div`
   height: 100%;
 `;
 
-const DailyForecast = ({ daily = [], hasAlerts }: DailyForecastProps) => {
-  const minTemp = Math.min(...daily.map((day) => day.temp.min));
-  const maxTemp = Math.max(...daily.map((day) => day.temp.max));
-
-  return (
-    <Container $hasAlerts={hasAlerts}>
-      <WeatherItemTitle Icon={CalendarDays} title="Daily Forecast" />
-      <DayForecastContainer>
-        {daily.map((day, index) => (
-          <DayForecast
-            key={index}
-            day={day}
-            minTemp={minTemp}
-            maxTemp={maxTemp}
-          />
-        ))}
-      </DayForecastContainer>
-    </Container>
-  );
-};
+const DailyForecast = ({ daily = [], hasAlerts }: DailyForecastProps) => (
+  <Container $hasAlerts={hasAlerts}>
+    <WeatherItemTitle Icon={CalendarDays} title="Daily Forecast" />
+    <DayForecastContainer>
+      {daily.map((day, index) => (
+        <DayForecast key={index} day={day} />
+      ))}
+    </DayForecastContainer>
+  </Container>
+);
 
 export default DailyForecast;

@@ -88,19 +88,28 @@ const formatDaily = ({
 }: {
   daily: DailyForecastResponse[];
   isMetric: boolean;
-}) =>
-  daily?.map(({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
-    sunrise,
-    sunset,
-    fullDate: format(new Date(dt * 1000), "PP"),
-    date: index === 0 ? "Today" : format(new Date(dt * 1000), "ccc"),
-    temp: {
-      min: formatTemp(temp.min, isMetric),
-      max: formatTemp(temp.max, isMetric),
-    },
-    precipitationChance: Math.round(pop * 100),
-    ...getWeatherIconInfo(weather, true),
-  }));
+}): DailyForecast[] => {
+  const minTemp = Math.min(...daily.map((day) => day.temp.min, isMetric));
+  const maxTemp = Math.max(...daily.map((day) => day.temp.max, isMetric));
+  const barWidth = maxTemp - minTemp;
+
+  return daily?.map(
+    ({ dt, temp, weather, sunrise, sunset, pop }, index: number) => ({
+      sunrise,
+      sunset,
+      fullDate: format(new Date(dt * 1000), "PP"),
+      date: index === 0 ? "Today" : format(new Date(dt * 1000), "ccc"),
+      temp: {
+        min: formatTemp(temp.min, isMetric),
+        max: formatTemp(temp.max, isMetric),
+      },
+      barStart: (((temp.min - minTemp) / barWidth) * 100).toFixed(2),
+      barEnd: (((maxTemp - temp.max) / barWidth) * 100).toFixed(2),
+      precipitationChance: Math.round(pop * 100),
+      ...getWeatherIconInfo(weather, true),
+    })
+  );
+};
 
 const formatCurrent = ({
   current,

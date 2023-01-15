@@ -43,31 +43,17 @@ const InnerBar = styled.div<{ $start: string; $end: string }>`
 `;
 
 type TemperatureBarProps = {
-  dayMin: number;
-  dayMax: number;
-  maxTemp: number;
-  minTemp: number;
+  day: DailyForecast;
 };
 
-const TemperatureBar = ({
-  dayMin,
-  dayMax,
-  maxTemp,
-  minTemp,
-}: TemperatureBarProps) => {
-  const barWidth = maxTemp - minTemp;
-  const innerBarStart = (((dayMin - minTemp) / barWidth) * 100).toFixed(2);
-  const innerBarEnd = (((maxTemp - dayMax) / barWidth) * 100).toFixed(2);
-
-  return (
-    <Container>
-      <Temp>{dayMin}°</Temp>
-      <Bar>
-        <InnerBar $start={innerBarStart} $end={innerBarEnd} />
-      </Bar>
-      <Temp>{dayMax}°</Temp>
-    </Container>
-  );
-};
+const TemperatureBar = ({ day }: TemperatureBarProps) => (
+  <Container>
+    <Temp>{day.temp.min}°</Temp>
+    <Bar>
+      <InnerBar $start={day.barStart} $end={day.barEnd} />
+    </Bar>
+    <Temp>{day.temp.max}°</Temp>
+  </Container>
+);
 
 export default TemperatureBar;

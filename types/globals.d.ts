@@ -147,6 +147,8 @@ type DailyForecast = {
   precipitationChance: number;
   sunrise: number;
   sunset: number;
+  barStart: string;
+  barEnd: string;
   temp: {
     max: number;
     min: number;
