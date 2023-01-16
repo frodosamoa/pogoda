@@ -62,6 +62,11 @@ const MenuIcons = styled.div`
   display: flex;
   position: relative;
   gap: 12px;
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    gap: 8px;
+  }
 `;
 
 type MenuBarProps = {

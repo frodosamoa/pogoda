@@ -29,6 +29,8 @@ type WeatherProps = {
   setIsMetric: Dispatch<SetStateAction<boolean>>;
   is24hr: boolean;
   setIs24hr: Dispatch<SetStateAction<boolean>>;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
 const Weather = ({
@@ -41,6 +43,8 @@ const Weather = ({
   setIsMetric,
   is24hr,
   setIs24hr,
+  setLatLon,
+  setCity,
 }: WeatherProps) => {
   if (isValidating) {
     return (
@@ -67,7 +71,7 @@ const Weather = ({
     );
   }
 
-  return <WelcomeMessage />;
+  return <WelcomeMessage setLatLon={setLatLon} setCity={setCity} />;
 };
 
 export default Weather;

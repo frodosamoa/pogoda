@@ -112,6 +112,11 @@ const Settings = styled.div`
 
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 400ms 1 normal forwards running
     ${fadeIn};
+
+  @media screen and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}px) {
+    justify-content: space-between;
+  }
 `;
 
 const WeatherContent = ({

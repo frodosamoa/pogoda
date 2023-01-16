@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import { Dispatch, SetStateAction } from "react";
+
+import RandomCities from "./RandomCities";
 
 import { fadeIn } from "@/lib/constants/animations";
 
 const Container = styled.div`
-  height: 66%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,7 +42,12 @@ const Message = styled.div`
   margin-top: 16px;
 `;
 
-const WelcomeMessage = () => (
+type WelcomeMessageProps = {
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCity: Dispatch<SetStateAction<City>>;
+};
+
+const WelcomeMessage = ({ setLatLon, setCity }: WelcomeMessageProps) => (
   <Container>
     <Title>
       welcome to <AppName>pogoda</AppName>
@@ -49,6 +57,7 @@ const WelcomeMessage = () => (
       dashboard
     </Subtitle>
     <Message>to get started, search for a city above</Message>
+    <RandomCities setLatLon={setLatLon} setCity={setCity} />
   </Container>
 );
 

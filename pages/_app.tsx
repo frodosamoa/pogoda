@@ -26,6 +26,9 @@ const HeroBody = styled.div`
   @media screen and (max-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}px) {
     padding-top: 70px;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 `;
 
@@ -105,6 +108,8 @@ const App = ({ Component, pageProps }: AppProps) => {
                 setWeather={setWeather}
                 isValidating={isValidating}
                 error={error}
+                setCity={setCity}
+                setLatLon={setLatLon}
               />
               <MenuBar
                 setTheme={setTheme}

@@ -14,6 +14,8 @@ type IndexProps = {
   isValidating: boolean;
   setWeather: KeyedMutator<WeatherResponse>;
   error: Error;
+  setLatLon: Dispatch<SetStateAction<[number, number]>>;
+  setCity: Dispatch<SetStateAction<City>>;
 };
 
 const Index = ({
@@ -26,6 +28,8 @@ const Index = ({
   setWeather,
   isValidating,
   error,
+  setLatLon,
+  setCity,
 }: IndexProps) => (
   <Weather
     city={city}
@@ -37,6 +41,8 @@ const Index = ({
     setIsMetric={setIsMetric}
     is24hr={is24hr}
     setIs24hr={setIs24hr}
+    setCity={setCity}
+    setLatLon={setLatLon}
   />
 );
 
