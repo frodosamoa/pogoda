@@ -129,31 +129,44 @@ const formatCurrent = ({
   daily: DailyForecastResponse[];
   timezone: string;
 }): CurrentWeather => ({
-  sunrisesSunsets,
+  airQuality: Math.round(airPollution.list[0].components.pm2_5),
+  airQualityLabel: getAirQualityLabel(airPollution.list[0].components.pm2_5),
+  airQualityMessage: getAirQualityMessage(
+    airPollution.list[0].components.pm2_5
+  ),
   humidity: current.humidity,
   temp: formatTemp(current.temp, isMetric),
   dewPoint: formatTemp(current.dew_point, isMetric),
   visibility: getVisibility(current.visibility, isMetric),
   visibilityUnit: getVisibilityUnit(isMetric),
   feelsLike: formatTemp(current.feels_like, isMetric),
+  moonPhase: daily[0].moon_phase,
   pressure: current.pressure,
   rain: getPrecipitation(current.rain ? current.rain["1h"] : 0, isMetric),
   rainLabel: getPrecipitationLabel(isMetric),
-  rainMessage: getPrecipitationMessage(hourly, daily, isMetric, timezone),
+  rainMessage: getPrecipitationMessage({
+    hourly,
+    daily,
+    isMetric,
+    timezone,
+    type: "rain",
+  }),
   snow: getPrecipitation(current.snow ? current.snow["1h"] : 0, isMetric),
   snowLabel: getPrecipitationLabel(isMetric),
+  snowMessage: getPrecipitationMessage({
+    hourly,
+    daily,
+    isMetric,
+    timezone,
+    type: "snow",
+  }),
+  sunrisesSunsets,
   uvIndex: Math.floor(current.uvi),
   uvLabel: getUVLabel(current.uvi),
   uvMessage: getUVMessage(hourly, timezone),
   windSpeed: getWindSpeed(current.wind_speed, isMetric),
   windLabel: getWindLabel(isMetric),
   windDirection: getWindDirection(current.wind_deg),
-  airQuality: Math.round(airPollution.list[0].components.pm2_5),
-  airQualityLabel: getAirQualityLabel(airPollution.list[0].components.pm2_5),
-  airQualityMessage: getAirQualityMessage(
-    airPollution.list[0].components.pm2_5
-  ),
-  moonPhase: daily[0].moon_phase,
   ...getWeatherIconInfo(current.weather, true),
 });
 

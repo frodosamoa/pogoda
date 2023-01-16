@@ -9,6 +9,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  user-select: none;
   opacity: 0;
   animation: 500ms cubic-bezier(0, 0, 0.16, 1) 200ms 1 normal forwards running
     ${fadeIn};

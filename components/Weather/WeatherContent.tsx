@@ -136,6 +136,7 @@ const WeatherContent = ({
     moonPhase,
     snow,
     snowLabel,
+    snowMessage,
     sunrisesSunsets,
     uvIndex,
     uvLabel,
@@ -198,7 +199,13 @@ const WeatherContent = ({
               rainMessage={rainMessage}
             />
           )}
-          {snow > 0 && <Snowfall snow={snow} snowLabel={snowLabel} />}
+          {snow > 0 && (
+            <Snowfall
+              snow={snow}
+              snowLabel={snowLabel}
+              snowMessage={snowMessage}
+            />
+          )}
           <FeelsLike feelsLike={feelsLike} />
           <Humidity humidity={humidity} dewPoint={dewPoint} />
           <Visibility visibility={visibility} visibilityUnit={visibilityUnit} />

@@ -128,6 +128,7 @@ type CurrentWeather = {
   rainMessage: string;
   snow: number;
   snowLabel: string;
+  snowMessage: string;
   sunrisesSunsets: SunriseSunset[];
   temp: number;
   uvIndex: number;

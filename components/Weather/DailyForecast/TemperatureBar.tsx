@@ -14,7 +14,7 @@ const Temp = styled.div`
 `;
 
 const Bar = styled.div`
-  flex: 4;
+  flex: 3.5;
   height: 8px;
   padding: 0 4px;
   border-radius: 4px;
