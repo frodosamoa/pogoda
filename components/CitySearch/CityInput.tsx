@@ -122,6 +122,7 @@ const CityInput = forwardRef<HTMLInputElement, CityInputProps>(
     const handleKeyUp: KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === "Enter" && cities?.length > 0) {
         const city = cities[cityIndex];
+        setInputValue("");
         setLatLon([city.latitude, city.longitude]);
         setCity(city);
         setCityIndex(0);
