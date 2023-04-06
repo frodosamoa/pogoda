@@ -37,7 +37,9 @@ type RandomCitiesProps = {
 };
 
 const RandomCities = ({ setLatLon, setCity }: RandomCitiesProps) => {
-  const { data: randomCities } = useRandomCities();
+  const { data: randomCities, error } = useRandomCities();
+
+  if (error) return null;
 
   return (
     <RandomCitiesContainer>
