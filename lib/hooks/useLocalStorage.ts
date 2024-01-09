@@ -22,9 +22,16 @@ const useLocalStorage = ({
       const prefersDarkScheme = window.matchMedia(
         "(prefers-color-scheme: dark)"
       );
-      const preferences = JSON.parse(
-        localStorage.getItem(window.location.origin)
-      );
+
+      let preferences;
+
+      try {
+        preferences = JSON.parse(
+          localStorage.getItem(window.location.origin) || "{}"
+        );
+      } catch (e) {
+        preferences = {};
+      }
 
       if (preferences?.theme) {
         if (
