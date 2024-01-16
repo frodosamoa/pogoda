@@ -68,6 +68,7 @@ test("formatWeather", () => {
       rainMessage: "1.48mm expected in next 24hr.",
       snow: 0,
       snowLabel: "mm",
+      snowMessage: "None expected in next 8 days.",
       uvIndex: 0,
       uvLabel: "Low",
       uvMessage: "Low levels rest of the day.",
@@ -84,7 +85,7 @@ test("formatWeather", () => {
     hourly: [
       {
         date: "Now",
-        dt: new Date("2023-01-03T04:00:00.000Z"),
+        dt: new Date("2023-01-02T19:00:00.000Z"),
         temp: 10,
         precipitationChance: 89,
         iconClassName: "wi wi-day-rain",
@@ -92,7 +93,7 @@ test("formatWeather", () => {
       },
       {
         date: "21",
-        dt: new Date("2023-01-03T05:00:00.000Z"),
+        dt: new Date("2023-01-02T20:00:00.000Z"),
         temp: 10,
         precipitationChance: 73,
         iconClassName: "wi wi-day-cloudy",
@@ -100,7 +101,7 @@ test("formatWeather", () => {
       },
       {
         date: "22",
-        dt: new Date("2023-01-03T06:00:00.000Z"),
+        dt: new Date("2023-01-02T21:00:00.000Z"),
         temp: 10,
         precipitationChance: 70,
         iconClassName: "wi wi-day-cloudy",
@@ -108,7 +109,7 @@ test("formatWeather", () => {
       },
       {
         date: "23",
-        dt: new Date("2023-01-03T07:00:00.000Z"),
+        dt: new Date("2023-01-02T22:00:00.000Z"),
         temp: 10,
         precipitationChance: 72,
         iconClassName: "wi wi-day-rain",
@@ -116,7 +117,7 @@ test("formatWeather", () => {
       },
       {
         date: "00",
-        dt: new Date("2023-01-03T08:00:00.000Z"),
+        dt: new Date("2023-01-02T23:00:00.000Z"),
         temp: 10,
         precipitationChance: 77,
         iconClassName: "wi wi-day-rain",
@@ -124,7 +125,7 @@ test("formatWeather", () => {
       },
       {
         date: "01",
-        dt: new Date("2023-01-03T09:00:00.000Z"),
+        dt: new Date("2023-01-03T00:00:00.000Z"),
         temp: 10,
         precipitationChance: 83,
         iconClassName: "wi wi-day-cloudy",
@@ -132,7 +133,7 @@ test("formatWeather", () => {
       },
       {
         date: "02",
-        dt: new Date("2023-01-03T10:00:00.000Z"),
+        dt: new Date("2023-01-03T01:00:00.000Z"),
         temp: 10,
         precipitationChance: 87,
         iconClassName: "wi wi-day-rain",
@@ -140,7 +141,7 @@ test("formatWeather", () => {
       },
       {
         date: "03",
-        dt: new Date("2023-01-03T11:00:00.000Z"),
+        dt: new Date("2023-01-03T02:00:00.000Z"),
         temp: 10,
         precipitationChance: 86,
         iconClassName: "wi wi-day-cloudy",
@@ -148,7 +149,7 @@ test("formatWeather", () => {
       },
       {
         date: "04",
-        dt: new Date("2023-01-03T12:00:00.000Z"),
+        dt: new Date("2023-01-03T03:00:00.000Z"),
         temp: 11,
         precipitationChance: 82,
         iconClassName: "wi wi-day-cloudy",
@@ -156,7 +157,7 @@ test("formatWeather", () => {
       },
       {
         date: "05",
-        dt: new Date("2023-01-03T13:00:00.000Z"),
+        dt: new Date("2023-01-03T04:00:00.000Z"),
         temp: 11,
         precipitationChance: 32,
         iconClassName: "wi wi-day-cloudy",
@@ -164,7 +165,7 @@ test("formatWeather", () => {
       },
       {
         date: "06",
-        dt: new Date("2023-01-03T14:00:00.000Z"),
+        dt: new Date("2023-01-03T05:00:00.000Z"),
         temp: 11,
         precipitationChance: 32,
         iconClassName: "wi wi-day-cloudy",
@@ -172,7 +173,7 @@ test("formatWeather", () => {
       },
       {
         date: "07",
-        dt: new Date("2023-01-03T15:00:00.000Z"),
+        dt: new Date("2023-01-03T06:00:00.000Z"),
         temp: 11,
         precipitationChance: 32,
         iconClassName: "wi wi-day-cloudy",
@@ -180,7 +181,7 @@ test("formatWeather", () => {
       },
       {
         date: "08",
-        dt: new Date("2023-01-03T16:00:00.000Z"),
+        dt: new Date("2023-01-03T07:00:00.000Z"),
         temp: 11,
         precipitationChance: 28,
         iconClassName: "wi wi-day-cloudy",
@@ -188,7 +189,7 @@ test("formatWeather", () => {
       },
       {
         date: "09",
-        dt: new Date("2023-01-03T17:00:00.000Z"),
+        dt: new Date("2023-01-03T08:00:00.000Z"),
         temp: 11,
         precipitationChance: 28,
         iconClassName: "wi wi-day-cloudy",
@@ -196,7 +197,7 @@ test("formatWeather", () => {
       },
       {
         date: "10",
-        dt: new Date("2023-01-03T18:00:00.000Z"),
+        dt: new Date("2023-01-03T09:00:00.000Z"),
         temp: 12,
         precipitationChance: 28,
         iconClassName: "wi wi-day-cloudy",
@@ -204,7 +205,7 @@ test("formatWeather", () => {
       },
       {
         date: "11",
-        dt: new Date("2023-01-03T19:00:00.000Z"),
+        dt: new Date("2023-01-03T10:00:00.000Z"),
         temp: 12,
         precipitationChance: 3,
         iconClassName: "wi wi-day-cloudy",
@@ -212,7 +213,7 @@ test("formatWeather", () => {
       },
       {
         date: "12",
-        dt: new Date("2023-01-03T20:00:00.000Z"),
+        dt: new Date("2023-01-03T11:00:00.000Z"),
         temp: 13,
         precipitationChance: 6,
         iconClassName: "wi wi-day-cloudy",
@@ -220,7 +221,7 @@ test("formatWeather", () => {
       },
       {
         date: "13",
-        dt: new Date("2023-01-03T21:00:00.000Z"),
+        dt: new Date("2023-01-03T12:00:00.000Z"),
         temp: 14,
         precipitationChance: 3,
         iconClassName: "wi wi-day-cloudy",
@@ -228,7 +229,7 @@ test("formatWeather", () => {
       },
       {
         date: "14",
-        dt: new Date("2023-01-03T22:00:00.000Z"),
+        dt: new Date("2023-01-03T13:00:00.000Z"),
         temp: 14,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -236,7 +237,7 @@ test("formatWeather", () => {
       },
       {
         date: "15",
-        dt: new Date("2023-01-03T23:00:00.000Z"),
+        dt: new Date("2023-01-03T14:00:00.000Z"),
         temp: 14,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -244,7 +245,7 @@ test("formatWeather", () => {
       },
       {
         date: "16",
-        dt: new Date("2023-01-04T00:00:00.000Z"),
+        dt: new Date("2023-01-03T15:00:00.000Z"),
         temp: 14,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -252,7 +253,7 @@ test("formatWeather", () => {
       },
       {
         date: "17",
-        dt: new Date("2023-01-04T01:00:00.000Z"),
+        dt: new Date("2023-01-03T16:00:00.000Z"),
         temp: 14,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -260,7 +261,7 @@ test("formatWeather", () => {
       },
       {
         date: "18",
-        dt: new Date("2023-01-04T02:00:00.000Z"),
+        dt: new Date("2023-01-03T17:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -268,7 +269,7 @@ test("formatWeather", () => {
       },
       {
         date: "19",
-        dt: new Date("2023-01-04T03:00:00.000Z"),
+        dt: new Date("2023-01-03T18:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -276,7 +277,7 @@ test("formatWeather", () => {
       },
       {
         date: "20",
-        dt: new Date("2023-01-04T04:00:00.000Z"),
+        dt: new Date("2023-01-03T19:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -284,7 +285,7 @@ test("formatWeather", () => {
       },
       {
         date: "21",
-        dt: new Date("2023-01-04T05:00:00.000Z"),
+        dt: new Date("2023-01-03T20:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -292,7 +293,7 @@ test("formatWeather", () => {
       },
       {
         date: "22",
-        dt: new Date("2023-01-04T06:00:00.000Z"),
+        dt: new Date("2023-01-03T21:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -300,7 +301,7 @@ test("formatWeather", () => {
       },
       {
         date: "23",
-        dt: new Date("2023-01-04T07:00:00.000Z"),
+        dt: new Date("2023-01-03T22:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -308,7 +309,7 @@ test("formatWeather", () => {
       },
       {
         date: "00",
-        dt: new Date("2023-01-04T08:00:00.000Z"),
+        dt: new Date("2023-01-03T23:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -316,7 +317,7 @@ test("formatWeather", () => {
       },
       {
         date: "01",
-        dt: new Date("2023-01-04T09:00:00.000Z"),
+        dt: new Date("2023-01-04T00:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -324,7 +325,7 @@ test("formatWeather", () => {
       },
       {
         date: "02",
-        dt: new Date("2023-01-04T10:00:00.000Z"),
+        dt: new Date("2023-01-04T01:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -332,7 +333,7 @@ test("formatWeather", () => {
       },
       {
         date: "03",
-        dt: new Date("2023-01-04T11:00:00.000Z"),
+        dt: new Date("2023-01-04T02:00:00.000Z"),
         temp: 13,
         precipitationChance: 0,
         iconClassName: "wi wi-day-cloudy",
@@ -340,7 +341,7 @@ test("formatWeather", () => {
       },
       {
         date: "04",
-        dt: new Date("2023-01-04T12:00:00.000Z"),
+        dt: new Date("2023-01-04T03:00:00.000Z"),
         temp: 13,
         precipitationChance: 6,
         iconClassName: "wi wi-day-cloudy",
@@ -348,7 +349,7 @@ test("formatWeather", () => {
       },
       {
         date: "05",
-        dt: new Date("2023-01-04T13:00:00.000Z"),
+        dt: new Date("2023-01-04T04:00:00.000Z"),
         temp: 13,
         precipitationChance: 14,
         iconClassName: "wi wi-day-cloudy",
@@ -356,7 +357,7 @@ test("formatWeather", () => {
       },
       {
         date: "06",
-        dt: new Date("2023-01-04T14:00:00.000Z"),
+        dt: new Date("2023-01-04T05:00:00.000Z"),
         temp: 13,
         precipitationChance: 6,
         iconClassName: "wi wi-day-cloudy",
@@ -364,7 +365,7 @@ test("formatWeather", () => {
       },
       {
         date: "07",
-        dt: new Date("2023-01-04T15:00:00.000Z"),
+        dt: new Date("2023-01-04T06:00:00.000Z"),
         temp: 14,
         precipitationChance: 2,
         iconClassName: "wi wi-day-cloudy",
@@ -372,7 +373,7 @@ test("formatWeather", () => {
       },
       {
         date: "08",
-        dt: new Date("2023-01-04T16:00:00.000Z"),
+        dt: new Date("2023-01-04T07:00:00.000Z"),
         temp: 14,
         precipitationChance: 9,
         iconClassName: "wi wi-day-cloudy",
@@ -380,7 +381,7 @@ test("formatWeather", () => {
       },
       {
         date: "09",
-        dt: new Date("2023-01-04T17:00:00.000Z"),
+        dt: new Date("2023-01-04T08:00:00.000Z"),
         temp: 14,
         precipitationChance: 19,
         iconClassName: "wi wi-day-cloudy",
@@ -388,7 +389,7 @@ test("formatWeather", () => {
       },
       {
         date: "10",
-        dt: new Date("2023-01-04T18:00:00.000Z"),
+        dt: new Date("2023-01-04T09:00:00.000Z"),
         temp: 14,
         precipitationChance: 48,
         iconClassName: "wi wi-day-rain",
@@ -396,7 +397,7 @@ test("formatWeather", () => {
       },
       {
         date: "11",
-        dt: new Date("2023-01-04T19:00:00.000Z"),
+        dt: new Date("2023-01-04T10:00:00.000Z"),
         temp: 13,
         precipitationChance: 97,
         iconClassName: "wi wi-day-rain",
@@ -404,7 +405,7 @@ test("formatWeather", () => {
       },
       {
         date: "12",
-        dt: new Date("2023-01-04T20:00:00.000Z"),
+        dt: new Date("2023-01-04T11:00:00.000Z"),
         temp: 13,
         precipitationChance: 95,
         iconClassName: "wi wi-day-rain",
@@ -412,7 +413,7 @@ test("formatWeather", () => {
       },
       {
         date: "13",
-        dt: new Date("2023-01-04T21:00:00.000Z"),
+        dt: new Date("2023-01-04T12:00:00.000Z"),
         temp: 13,
         precipitationChance: 96,
         iconClassName: "wi wi-day-rain",
@@ -420,7 +421,7 @@ test("formatWeather", () => {
       },
       {
         date: "14",
-        dt: new Date("2023-01-04T22:00:00.000Z"),
+        dt: new Date("2023-01-04T13:00:00.000Z"),
         temp: 13,
         precipitationChance: 97,
         iconClassName: "wi wi-day-rain",
@@ -428,7 +429,7 @@ test("formatWeather", () => {
       },
       {
         date: "15",
-        dt: new Date("2023-01-04T23:00:00.000Z"),
+        dt: new Date("2023-01-04T14:00:00.000Z"),
         temp: 13,
         precipitationChance: 97,
         iconClassName: "wi wi-day-rain",
@@ -436,7 +437,7 @@ test("formatWeather", () => {
       },
       {
         date: "16",
-        dt: new Date("2023-01-05T00:00:00.000Z"),
+        dt: new Date("2023-01-04T15:00:00.000Z"),
         temp: 13,
         precipitationChance: 97,
         iconClassName: "wi wi-day-rain",
@@ -444,7 +445,7 @@ test("formatWeather", () => {
       },
       {
         date: "17",
-        dt: new Date("2023-01-05T01:00:00.000Z"),
+        dt: new Date("2023-01-04T16:00:00.000Z"),
         temp: 13,
         precipitationChance: 81,
         iconClassName: "wi wi-day-rain",
@@ -452,7 +453,7 @@ test("formatWeather", () => {
       },
       {
         date: "18",
-        dt: new Date("2023-01-05T02:00:00.000Z"),
+        dt: new Date("2023-01-04T17:00:00.000Z"),
         temp: 13,
         precipitationChance: 81,
         iconClassName: "wi wi-day-rain",
@@ -460,7 +461,7 @@ test("formatWeather", () => {
       },
       {
         date: "19",
-        dt: new Date("2023-01-05T03:00:00.000Z"),
+        dt: new Date("2023-01-04T18:00:00.000Z"),
         temp: 14,
         precipitationChance: 81,
         iconClassName: "wi wi-day-rain",
@@ -469,6 +470,8 @@ test("formatWeather", () => {
     ],
     daily: [
       {
+        barEnd: "64.38",
+        barStart: "0.60",
         sunrise: 1672671520,
         sunset: 1672707296,
         fullDate: "Jan 2, 2023",
@@ -479,6 +482,8 @@ test("formatWeather", () => {
         label: "Light rain",
       },
       {
+        barEnd: "59.82",
+        barStart: "1.39",
         sunrise: 1672757929,
         sunset: 1672793742,
         fullDate: "Jan 3, 2023",
@@ -489,6 +494,8 @@ test("formatWeather", () => {
         label: "Light rain",
       },
       {
+        barEnd: "57.74",
+        barStart: "25.20",
         sunrise: 1672844336,
         sunset: 1672880188,
         fullDate: "Jan 4, 2023",
@@ -499,6 +506,8 @@ test("formatWeather", () => {
         label: "Moderate rain",
       },
       {
+        barEnd: "62.90",
+        barStart: "16.17",
         sunrise: 1672930741,
         sunset: 1672966636,
         fullDate: "Jan 5, 2023",
@@ -509,6 +518,8 @@ test("formatWeather", () => {
         label: "Heavy intensity rain",
       },
       {
+        barEnd: "41.07",
+        barStart: "0.00",
         sunrise: 1673017144,
         sunset: 1673053085,
         fullDate: "Jan 6, 2023",
@@ -519,6 +530,8 @@ test("formatWeather", () => {
         label: "Scattered clouds",
       },
       {
+        barEnd: "12.70",
+        barStart: "15.48",
         sunrise: 1673103546,
         sunset: 1673139535,
         fullDate: "Jan 7, 2023",
@@ -529,6 +542,8 @@ test("formatWeather", () => {
         label: "Scattered clouds",
       },
       {
+        barEnd: "13.10",
+        barStart: "32.04",
         sunrise: 1673189946,
         sunset: 1673225986,
         fullDate: "Jan 8, 2023",
@@ -539,6 +554,8 @@ test("formatWeather", () => {
         label: "Overcast clouds",
       },
       {
+        barEnd: "0.00",
+        barStart: "33.23",
         sunrise: 1673276344,
         sunset: 1673312437,
         fullDate: "Jan 9, 2023",
