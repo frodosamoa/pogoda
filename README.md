@@ -28,7 +28,7 @@ Error handling is done with [Sentry](https://sentry.io).
 In order to run the project locally, you'll need the following:
 
 - [`nvm`](https://github.com/nvm-sh/nvm)
-- [`Node.js`](https://nodejs.org/) (16.x)
+- [`Node.js`](https://nodejs.org/) (18.x)
 - [`npm`](https://www.npmjs.com/)
 - [`yarn`](https://classic.yarnpkg.com/) (1.x)
 
@@ -39,16 +39,16 @@ You'll also need the following in order to fetch real time data:
 
 [`nvm`](https://github.com/nvm-sh/nvm) lets us quickly install and use different versions of `node`/`npm` via the command line. Instructions for installing are located [here](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-Once `nvm` is installed, you can install the `16.x` verson of `Node.js`:
+Once `nvm` is installed, you can install the `18.x` verson of `Node.js`:
 
 ```bash
-nvm install 16
+nvm install 18
 ```
 
 And then use the new version:
 
 ```bash
-nvm use 16
+nvm use 18
 ```
 
 This project uses the classic version of [`yarn`](https://classic.yarnpkg.com/) for dependency management, which can be installed like so:
