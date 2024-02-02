@@ -15,6 +15,7 @@ const customJestConfig = {
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testEnvironment: "jest-environment-jsdom",
   collectCoverageFrom: ["./lib/utils/*.ts"],
+  coveragePathIgnorePatterns: ["/lib/utils/weatherIcons.ts"],
   moduleNameMapper: {
     "^@/lib/(.*)$": "<rootDir>/lib/$1",
   },
