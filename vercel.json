@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/randomCities",
-      "schedule": "30 2 * * 3,0"
+      "schedule": "0 0 * * *"
     }
   ]
 }
